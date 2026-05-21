@@ -36,9 +36,9 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
 
   return (
     <div className="relative">
-      {/* Main Dashboard Card */}
+      {/* Main Dashboard Card - Enhanced frosted glass */}
       <motion.div
-        className="bg-white/80 backdrop-blur-md border border-off2 rounded-3xl shadow-2xl overflow-hidden"
+        className="bg-white/90 backdrop-blur-md border border-white/40 rounded-3xl shadow-2xl overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -66,8 +66,8 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="text-xs font-bold text-navy-mid uppercase tracking-widest mb-2">S3 Score</div>
-              <div className="font-serif text-4xl font-800 text-navy">{s3Value.toFixed(2)}</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S3 Score</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{s3Value.toFixed(2)}</div>
               <div className="text-xs font-semibold text-blue mt-1">Stickiness™</div>
             </motion.div>
 
@@ -77,9 +77,9 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.15 }}
             >
-              <div className="text-xs font-bold text-white/70 uppercase tracking-widest mb-2">Walk-to-Shop</div>
+              <div className="text-xs font-bold text-white uppercase tracking-widest mb-2">Walk-to-Shop</div>
               <div className="font-serif text-4xl font-800 text-white">+{walkToShop.toFixed(0)}%</div>
-              <div className="text-xs font-semibold text-white/85 mt-1">Loyalty</div>
+              <div className="text-xs font-semibold text-white mt-1">Loyalty</div>
             </motion.div>
 
             <motion.div
@@ -88,8 +88,8 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="text-xs font-bold text-navy-mid uppercase tracking-widest mb-2">S4 Score</div>
-              <div className="font-serif text-4xl font-800 text-navy">{s4Value.toFixed(2)}</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S4 Score</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{s4Value.toFixed(2)}</div>
               <div className="text-xs font-semibold text-blue mt-1">Critical Threshold</div>
             </motion.div>
 
@@ -99,7 +99,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.25 }}
             >
-              <div className="text-xs font-bold text-navy-mid uppercase tracking-widest mb-2">Oil Penalty</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Oil Penalty</div>
               <div className="font-serif text-4xl font-800 text-danger">{oilPenalty.toFixed(2)}</div>
               <div className="text-xs font-semibold text-danger mt-1">Texture Impact</div>
             </motion.div>
@@ -112,7 +112,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            <div className="text-xs font-bold text-navy-mid uppercase tracking-widest mb-3">Score Distribution</div>
+            <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-3">Score Distribution</div>
             <ResponsiveContainer width="100%" height={120}>
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="0" stroke="var(--off2)" vertical={false} />
@@ -144,7 +144,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
           >
             <div className="flex items-center gap-2 mb-2">
               <div className="w-1.5 h-1.5 bg-blue rounded-full animate-pulse" />
-              <div className="text-xs font-bold text-navy-mid uppercase tracking-widest">Live FMCG News</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest">Live FMCG News</div>
             </div>
             <div className="relative h-12 overflow-hidden">
               {newsItems.map((item, idx) => (
@@ -153,7 +153,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: headlines === idx ? 1 : 0, y: headlines === idx ? 0 : -20 }}
                   transition={{ duration: 0.8 }}
-                  className="absolute text-sm text-navy leading-relaxed"
+                  className="absolute text-sm text-slate-700 leading-relaxed"
                 >
                   {item}
                 </motion.div>
@@ -163,24 +163,24 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
         </div>
       </motion.div>
 
-      {/* Floating Chips */}
+      {/* Floating Chips - Enhanced frosted glass */}
       <motion.div
-        className="absolute -top-4 -right-6 bg-white/80 backdrop-blur-md border border-off2 rounded-2xl p-3.5 shadow-lg"
+        className="absolute -top-4 -right-6 bg-white/90 backdrop-blur-md border border-white/40 rounded-2xl p-3.5 shadow-lg"
         animate={{ y: [0, -7, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <div className="text-xs font-bold text-navy-mid uppercase tracking-widest mb-1">Stickiness Score™</div>
-        <div className="font-serif text-2xl font-800 text-navy">76.56</div>
+        <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-1">Stickiness Score™</div>
+        <div className="font-serif text-2xl font-800 text-slate-900">76.56</div>
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-4 -left-8 bg-white/80 backdrop-blur-md border border-off2 rounded-2xl p-3.5 shadow-lg"
+        className="absolute -bottom-4 -left-8 bg-white/90 backdrop-blur-md border border-white/40 rounded-2xl p-3.5 shadow-lg"
         animate={{ y: [0, -7, 0] }}
         transition={{ duration: 4, delay: 1.5, repeat: Infinity, ease: 'easeInOut' }}
       >
         <div className="flex items-center gap-1.5 mb-1">
           <Zap className="w-3.5 h-3.5 text-danger" />
-          <span className="text-xs font-bold text-navy-mid uppercase tracking-widest">+25% margin test</span>
+          <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">+25% margin test</span>
         </div>
         <div className="text-sm font-semibold text-blue">Holds</div>
       </motion.div>

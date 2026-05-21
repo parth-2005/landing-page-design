@@ -32,20 +32,25 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="min-h-screen pt-30 pb-20 bg-white relative overflow-hidden flex items-center px-12">
-      {/* Background radial glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue/5 rounded-full blur-3xl pointer-events-none -top-32 -right-40" />
+    <section 
+      className="min-h-screen pt-32 pb-20 relative overflow-hidden flex items-center px-12"
+      style={{
+        backgroundImage: 'url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
 
-      {/* Dot grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-30"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(10,25,47,0.06) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-          maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%)',
-        }}
-      />
+      {/* Layer 1: Color Tint */}
+      <div className="absolute inset-0 z-1 bg-blue-900/10 mix-blend-multiply" />
 
+      {/* Layer 2: Gradient Fade (hard-stop left to transparent right) */}
+      <div className="absolute inset-0 z-2 bg-gradient-to-r from-white via-white/95 to-transparent" />
+
+      {/* Layer 3: Accent Glow */}
+      <div className="absolute top-0 right-1/4 w-full h-96 bg-blue-400/20 blur-[120px] z-3 pointer-events-none" />
+
+      {/* Content Container */}
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-16 items-center relative z-10">
         {/* Left Content */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
@@ -64,12 +69,12 @@ export function Hero() {
             </span>
           </motion.div>
 
-          {/* H1 */}
+          {/* H1 - Massive, dominant, high-contrast */}
           <motion.h1
             initial={{ opacity: 0, transform: 'translateY(24px)' }}
             animate={{ opacity: 1, transform: 'translateY(0)' }}
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-            className="font-serif text-5xl lg:text-7xl font-800 leading-tight tracking-tighter text-navy mb-6"
+            className="font-serif text-5xl lg:text-[4.2rem] leading-[1.05] tracking-tighter text-slate-900 mb-6 font-800"
           >
             The product that wins isn&apos;t the one they stayed for.{' '}
             <span className="relative">
@@ -84,12 +89,12 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          {/* Subheading */}
+          {/* Subheading - Easily readable, proper contrast */}
           <motion.p
             initial={{ opacity: 0, transform: 'translateY(24px)' }}
             animate={{ opacity: 1, transform: 'translateY(0)' }}
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-            className="text-lg text-navy-mid leading-relaxed mb-10 max-w-lg"
+            className="text-lg font-medium text-slate-700 leading-relaxed mb-10 max-w-lg"
           >
             Logiq strips away brand equity to reveal what actually drives repeat purchase. Our ForecastHUB™ framework delivers mathematical commercial loyalty scores from double-blind sensory testing.
           </motion.p>
@@ -101,13 +106,13 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
             className="flex items-center gap-3.5 mb-13"
           >
-            <button className="btn-primary">
+            <button className="btn-primary shadow-lg shadow-navy/20">
               Request a Study <ArrowRight className="w-4 h-4" />
             </button>
             <button className="btn-secondary">View pilot report</button>
           </motion.div>
 
-          {/* Stats Strip */}
+          {/* Stats Strip - High contrast */}
           <motion.div
             initial={{ opacity: 0, transform: 'translateY(24px)' }}
             animate={{ opacity: 1, transform: 'translateY(0)' }}
@@ -115,16 +120,16 @@ export function Hero() {
             className="flex items-center gap-8 divide-x divide-off2"
           >
             <div>
-              <div className="font-serif text-3xl font-800 text-navy">44</div>
-              <div className="text-xs text-navy-mid font-medium mt-1">Field nodes</div>
+              <div className="font-serif text-3xl font-800 text-slate-900">44</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">Field nodes</div>
             </div>
             <div className="pl-8">
-              <div className="font-serif text-3xl font-800 text-navy">176</div>
-              <div className="text-xs text-navy-mid font-medium mt-1">Blind evaluations</div>
+              <div className="font-serif text-3xl font-800 text-slate-900">176</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">Blind evaluations</div>
             </div>
             <div className="pl-8">
-              <div className="font-serif text-3xl font-800 text-navy">4</div>
-              <div className="text-xs text-navy-mid font-medium mt-1">SKUs ranked</div>
+              <div className="font-serif text-3xl font-800 text-slate-900">4</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">SKUs ranked</div>
             </div>
           </motion.div>
         </motion.div>
