@@ -21,6 +21,12 @@ const config: Config = {
         danger: '#EF4444',
         'danger-light': '#FEE2E2',
         white: '#FFFFFF',
+        // High-contrast semantic colors for text
+        slate: {
+          600: '#475569',
+          700: '#334155',
+          900: '#0F172A',
+        },
       },
       fontFamily: {
         sans: 'var(--font-inter, system-ui, sans-serif)',
@@ -44,6 +50,11 @@ const config: Config = {
         1.5: '1.5px',
       },
       zIndex: {
+        0: '0',
+        1: '1',
+        2: '2',
+        3: '3',
+        10: '10',
         900: '900',
       },
     },
