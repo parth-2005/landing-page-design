@@ -2,8 +2,16 @@
 
 import { motion } from 'framer-motion'
 import { BarChart3, TrendingUp, Zap, Users, Target, Brain } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 export function BentoGrid() {
+  const chartData = [
+    { iteration: '1', score: 58 },
+    { iteration: '2', score: 64 },
+    { iteration: '3', score: 72 },
+    { iteration: '4', score: 76.56 },
+  ]
+
   const cards = [
     {
       id: 1,
@@ -12,6 +20,7 @@ export function BentoGrid() {
       span: 'col-span-1 md:col-span-2',
       dark: true,
       icon: BarChart3,
+      hasChart: true,
     },
     {
       id: 2,
@@ -20,7 +29,7 @@ export function BentoGrid() {
       span: 'col-span-1',
       dark: true,
       icon: TrendingUp,
-      video: true,
+      hasImage: true,
     },
     {
       id: 3,
@@ -29,6 +38,7 @@ export function BentoGrid() {
       span: 'col-span-1',
       dark: false,
       icon: Zap,
+      hasTimeline: true,
     },
     {
       id: 4,
@@ -83,13 +93,19 @@ export function BentoGrid() {
                   card.dark
                     ? 'bg-navy border-navy-light hover:border-blue'
                     : 'bg-white border-off2 hover:border-blue-light'
-                } relative overflow-hidden group`}
+                } relative overflow-hidden group flex flex-col`}
               >
-                {card.video && (
-                  <div className="absolute inset-0 bg-navy/60 group-hover:bg-navy/50 transition-colors" />
+                {/* Background Image for Channel Strategy */}
+                {card.hasImage && (
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-50 transition-opacity"
+                    style={{
+                      backgroundImage: 'url(https://images.unsplash.com/photo-1531737413211-4e347aae0450?q=80&w=800&auto=format&fit=crop)',
+                    }}
+                  />
                 )}
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col flex-1">
                   <div
                     className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-6 ${
                       card.dark
@@ -106,21 +122,63 @@ export function BentoGrid() {
 
                   <h3
                     className={`font-serif text-2xl font-800 mb-3 ${
-                      card.dark ? 'text-white' : 'text-navy'
+                      card.dark ? 'text-white' : 'text-slate-900'
                     }`}
                   >
                     {card.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed ${
+                    className={`text-sm leading-relaxed mb-6 flex-1 ${
                       card.dark
-                        ? 'text-white/70'
-                        : 'text-navy-mid'
+                        ? 'text-white/75'
+                        : 'text-slate-700'
                     }`}
                   >
                     {card.description}
                   </p>
+
+                  {/* Inline Mini-Chart for R&D Analytics */}
+                  {card.hasChart && (
+                    <div className="mt-auto pt-4">
+                      <p className="text-xs uppercase tracking-widest font-bold text-white/60 mb-3">
+                        Iteration Impact
+                      </p>
+                      <ResponsiveContainer width="100%" height={80}>
+                        <BarChart data={chartData}>
+                          <XAxis dataKey="iteration" stroke="#ffffff30" style={{ fontSize: '0.75rem' }} />
+                          <YAxis hide domain={[0, 100]} />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'rgba(10, 25, 47, 0.9)',
+                              border: 'none',
+                              borderRadius: '8px',
+                              color: '#fff',
+                            }}
+                            formatter={(value) => [`${value}`, 'Score']}
+                          />
+                          <Bar dataKey="score" fill="#38BDF8" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
+
+                  {/* Timeline for Speed to Market */}
+                  {card.hasTimeline && (
+                    <div className="mt-auto pt-4 space-y-2">
+                      {['Day 1', 'Day 2', 'Day 3', 'Verdict'].map((stage, i) => (
+                        <div key={i} className="flex items-center gap-3 text-sm">
+                          <div className="w-2 h-2 rounded-full bg-blue flex-shrink-0" />
+                          <span className="text-slate-700 font-medium">{stage}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Watermark Number */}
+                <div className="absolute top-6 right-6 text-6xl font-800 opacity-5 pointer-events-none">
+                  {String(card.id).padStart(2, '0')}
                 </div>
               </motion.div>
             )

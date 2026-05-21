@@ -2,6 +2,7 @@ import { Navbar } from '@/components/navbar'
 import { Hero } from '@/components/hero'
 import { Ticker } from '@/components/ticker'
 import { FirstPrinciples } from '@/components/first-principles'
+import { Deliverables } from '@/components/deliverables'
 import { Scrollytelling } from '@/components/scrollytelling'
 import { Methodology } from '@/components/methodology'
 import { BentoGrid } from '@/components/bento-grid'
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <Ticker />
       <FirstPrinciples />
+      <Deliverables />
       <Scrollytelling />
       <Methodology />
       <BentoGrid />

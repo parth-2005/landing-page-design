@@ -76,9 +76,9 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             className="font-serif text-5xl lg:text-[4.2rem] leading-[1.05] tracking-tighter text-slate-900 mb-6 font-800"
           >
-            The product that wins isn&apos;t the one they stayed for.{' '}
+            The product that wins isn&apos;t the one they{' '}
             <span className="relative">
-              stayed
+              stay for
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
@@ -117,7 +117,7 @@ export function Hero() {
             initial={{ opacity: 0, transform: 'translateY(24px)' }}
             animate={{ opacity: 1, transform: 'translateY(0)' }}
             transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
-            className="flex items-center gap-8 divide-x divide-off2"
+            className="flex items-center gap-8 divide-x divide-off2 mb-12"
           >
             <div>
               <div className="font-serif text-3xl font-800 text-slate-900">44</div>
@@ -130,6 +130,23 @@ export function Hero() {
             <div className="pl-8">
               <div className="font-serif text-3xl font-800 text-slate-900">4</div>
               <div className="text-xs text-slate-600 font-medium mt-1">SKUs ranked</div>
+            </div>
+          </motion.div>
+
+          {/* Social Proof - Trusted by */}
+          <motion.div
+            initial={{ opacity: 0, transform: 'translateY(24px)' }}
+            animate={{ opacity: 1, transform: 'translateY(0)' }}
+            transition={{ duration: 0.7, delay: 0.5, ease: 'easeOut' }}
+            className="border-t border-off2 pt-8"
+          >
+            <p className="text-xs uppercase tracking-widest font-semibold text-slate-600 mb-3">Trusted by teams at</p>
+            <div className="flex items-center gap-6">
+              {['Nestlé', 'Unilever', 'PepsiCo', 'Kraft Heinz', 'Danone'].map((brand, idx) => (
+                <div key={idx} className="text-sm font-semibold text-slate-400 opacity-75 hover:opacity-100 transition-opacity">
+                  {brand}
+                </div>
+              ))}
             </div>
           </motion.div>
         </motion.div>
