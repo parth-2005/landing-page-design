@@ -50,7 +50,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             <div className="w-2.5 h-2.5 bg-blue rounded-full" />
             <div className="w-2.5 h-2.5 bg-off2 rounded-full" />
           </div>
-          <div className="flex-1 bg-white border border-off2 rounded px-3 py-1 text-xs font-medium text-navy-mid flex items-center gap-1.5 ml-2.5">
+          <div className="flex-1 bg-white border border-off2 rounded px-3 py-1 text-xs font-medium text-slate-700 flex items-center gap-1.5 ml-2.5">
             <span className="w-1.5 h-1.5 bg-blue rounded-full" />
             logiq-dashboard
           </div>
@@ -68,7 +68,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             >
               <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S3 Score</div>
               <div className="font-serif text-4xl font-800 text-slate-900">{s3Value.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-blue mt-1">Stickiness™</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Stickiness™</div>
             </motion.div>
 
             <motion.div
@@ -77,9 +77,9 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.15 }}
             >
-              <div className="text-xs font-bold text-white uppercase tracking-widest mb-2">Walk-to-Shop</div>
-              <div className="font-serif text-4xl font-800 text-white">+{walkToShop.toFixed(0)}%</div>
-              <div className="text-xs font-semibold text-white mt-1">Loyalty</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Walk-to-Shop</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">+{walkToShop.toFixed(0)}%</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Loyalty</div>
             </motion.div>
 
             <motion.div
@@ -90,7 +90,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             >
               <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S4 Score</div>
               <div className="font-serif text-4xl font-800 text-slate-900">{s4Value.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-blue mt-1">Critical Threshold</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Critical Threshold</div>
             </motion.div>
 
             <motion.div
@@ -100,8 +100,8 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               transition={{ duration: 0.4, delay: 0.25 }}
             >
               <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Oil Penalty</div>
-              <div className="font-serif text-4xl font-800 text-danger">{oilPenalty.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-danger mt-1">Texture Impact</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{oilPenalty.toFixed(2)}</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Texture Impact</div>
             </motion.div>
           </div>
 
@@ -116,15 +116,15 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             <ResponsiveContainer width="100%" height={120}>
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="0" stroke="var(--off2)" vertical={false} />
-                <XAxis dataKey="name" stroke="rgba(34, 53, 84, 0.4)" style={{ fontSize: '11px' }} />
-                <YAxis stroke="rgba(34, 53, 84, 0.4)" style={{ fontSize: '11px' }} />
+                <XAxis dataKey="name" stroke="rgba(71, 85, 105, 0.4)" style={{ fontSize: '11px' }} />
+                <YAxis stroke="rgba(71, 85, 105, 0.4)" style={{ fontSize: '11px' }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: 'var(--navy)',
                     border: '1px solid var(--navy-mid)',
                     borderRadius: '8px',
                   }}
-                  labelStyle={{ color: 'var(--white)' }}
+                  labelStyle={{ color: '#e2e8f0' }}
                 />
                 <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {chartData.map((entry, index) => (
@@ -179,10 +179,10 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
         transition={{ duration: 4, delay: 1.5, repeat: Infinity, ease: 'easeInOut' }}
       >
         <div className="flex items-center gap-1.5 mb-1">
-          <Zap className="w-3.5 h-3.5 text-danger" />
+          <Zap className="w-3.5 h-3.5 text-slate-700" />
           <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">+25% margin test</span>
         </div>
-        <div className="text-sm font-semibold text-blue">Holds</div>
+        <div className="text-sm font-semibold text-slate-600">Holds</div>
       </motion.div>
     </div>
   )

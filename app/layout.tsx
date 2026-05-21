@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-white text-navy overflow-x-hidden">
+      <body className="font-sans antialiased bg-white text-slate-900 overflow-x-clip">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

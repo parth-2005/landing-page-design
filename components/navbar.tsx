@@ -30,23 +30,23 @@ export function Navbar() {
           <div className="w-7.5 h-7.5 bg-navy rounded flex items-center justify-center relative overflow-hidden">
             <div className="w-3 h-3 bg-accent rotate-45" />
           </div>
-          <span className="font-serif font-800 text-xl text-navy tracking-tighter">
+          <span className="font-serif font-800 text-xl text-slate-900 tracking-tighter">
             Logiq
           </span>
         </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-9">
-          <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue transition-colors">
+          <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             ForecastHUB
           </Link>
-          <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue transition-colors">
+          <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Dashboard
           </Link>
-          <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue transition-colors">
+          <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Methodology
           </Link>
-          <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue transition-colors">
+          <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors">
             Enterprise
           </Link>
         </div>
@@ -64,9 +64,9 @@ export function Navbar() {
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            <X className="w-6 h-6 text-navy" />
+            <X className="w-6 h-6 text-slate-900" />
           ) : (
-            <Menu className="w-6 h-6 text-navy" />
+            <Menu className="w-6 h-6 text-slate-900" />
           )}
         </button>
       </div>
@@ -75,16 +75,16 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-off2 shadow-lg">
           <div className="flex flex-col gap-4 p-4">
-            <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue">
+            <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900">
               ForecastHUB
             </Link>
-            <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue">
+            <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900">
               Dashboard
             </Link>
-            <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue">
+            <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900">
               Methodology
             </Link>
-            <Link href="#" className="text-sm font-medium text-navy-mid hover:text-blue">
+            <Link href="#" className="text-sm font-medium text-slate-700 hover:text-slate-900">
               Enterprise
             </Link>
             <button className="btn-ghost w-full text-left">Log in</button>

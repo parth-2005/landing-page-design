@@ -61,10 +61,10 @@ export function Hero() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="inline-flex items-center gap-2 bg-blue-light border border-blue/20 rounded-full px-3.5 py-1.5 mb-7"
           >
-            <div className="w-5.5 h-5.5 bg-blue rounded-full flex items-center justify-center text-white text-xs">
+            <div className="w-5.5 h-5.5 bg-blue rounded-full flex items-center justify-center text-slate-50 text-xs">
               <span className="animate-pulse">✦</span>
             </div>
-            <span className="text-xs font-semibold text-blue-mid tracking-wide">
+            <span className="text-xs font-semibold text-slate-700 tracking-wide">
               ForecastHUB Engine v2 · Pilot live
             </span>
           </motion.div>
@@ -143,7 +143,7 @@ export function Hero() {
             <p className="text-xs uppercase tracking-widest font-semibold text-slate-600 mb-3">Trusted by teams at</p>
             <div className="flex items-center gap-6">
               {['Nestlé', 'Unilever', 'PepsiCo', 'Kraft Heinz', 'Danone'].map((brand, idx) => (
-                <div key={idx} className="text-sm font-semibold text-slate-400 opacity-75 hover:opacity-100 transition-opacity">
+                <div key={idx} className="text-sm font-semibold text-slate-500 opacity-75 hover:opacity-100 transition-opacity">
                   {brand}
                 </div>
               ))}

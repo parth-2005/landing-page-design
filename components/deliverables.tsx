@@ -48,8 +48,8 @@ export function Deliverables() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <p className="text-xs uppercase tracking-widest font-bold text-blue mb-3 flex items-center gap-2">
-            <span className="w-5 h-0.5 bg-blue rounded-sm" />
+          <p className="text-xs uppercase tracking-widest font-bold text-slate-700 mb-3 flex items-center gap-2">
+            <span className="w-5 h-0.5 bg-slate-700 rounded-sm" />
             What You Get
           </p>
           <h2 className="font-serif text-4xl lg:text-5xl font-800 text-slate-900 mb-4 max-w-2xl">
@@ -74,7 +74,7 @@ export function Deliverables() {
               {/* Mock PDF/Report Card */}
               <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-off2">
                 {/* Report Header */}
-                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-white">
+                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-800">
                   <p className="text-xs uppercase tracking-widest font-bold opacity-70 mb-2">
                     ForecastHUB™ Report
                   </p>
@@ -82,11 +82,11 @@ export function Deliverables() {
                   <p className="text-sm opacity-90 mt-1">Premium Ice Cream SKU</p>
                 </div>
 
-                {/* Report Content */}
+                {/* Report Content */}  
                 <div className="p-6 space-y-6">
                   {/* Score Display */}
                   <div className="flex items-end gap-4">
-                    <div className="text-5xl font-800 text-blue">76.56</div>
+                    <div className="text-5xl font-800 text-slate-900">76.56</div>
                     <div>
                       <p className="text-xs uppercase tracking-widest font-bold text-slate-600">Loyalty Score</p>
                       <p className="text-sm text-slate-500">Commercial repeat intent</p>
@@ -101,7 +101,7 @@ export function Deliverables() {
                     </div>
                     <div className="bg-off rounded-lg p-3">
                       <p className="text-xs text-slate-600 font-semibold uppercase">vs. Competitor</p>
-                      <p className="text-xl font-800 text-blue">+2.1</p>
+                      <p className="text-xl font-800 text-slate-900">+2.1</p>
                     </div>
                   </div>
 
@@ -116,7 +116,7 @@ export function Deliverables() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-6 -right-6 bg-blue text-white rounded-full p-4 shadow-lg"
+                className="absolute -bottom-6 -right-6 bg-blue text-slate-50 rounded-full p-4 shadow-lg"
               >
                 <CheckCircle2 className="w-6 h-6" />
               </motion.div>
@@ -143,8 +143,8 @@ export function Deliverables() {
                   className="flex gap-4 p-4 rounded-xl hover:bg-off transition-colors group cursor-pointer"
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 rounded-lg bg-blue-light flex items-center justify-center group-hover:bg-blue group-hover:text-white transition-all">
-                      <Icon className="w-5 h-5 text-blue group-hover:text-white" />
+                    <div className="w-10 h-10 rounded-lg bg-blue-light flex items-center justify-center group-hover:bg-blue group-hover:text-slate-700 transition-all">
+                      <Icon className="w-5 h-5 text-slate-700 group-hover:text-slate-700" />
                     </div>
                   </div>
                   <div className="flex-1">

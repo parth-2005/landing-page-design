@@ -45,16 +45,16 @@ export function CaseStudy() {
               }}
             >
               <div className="h-1 w-15 bg-blue rounded mb-6" />
-              <div className="text-xs font-bold tracking-widest text-blue uppercase mb-3">
+              <div className="text-xs font-bold tracking-widest text-slate-700 uppercase mb-3">
                 Recent Study
               </div>
-              <h3 className="font-serif text-3xl font-800 text-navy mb-4 leading-tight">
+              <h3 className="font-serif text-3xl font-800 text-slate-900 mb-4 leading-tight">
                 Ice Cream Category
               </h3>
-              <p className="text-sm text-navy-mid mb-8">
+              <p className="text-sm text-slate-700 mb-8">
                 Multi-SKU flavor test across premium segment. Identified +58% loyalty driver and critical texture failure mode.
               </p>
-              <div className="text-xs text-navy-mid font-medium">
+              <div className="text-xs text-slate-600 font-medium">
                 Published: May 2026
               </div>
             </div>
@@ -68,10 +68,10 @@ export function CaseStudy() {
             viewport={{ once: true }}
           >
             <div className="mb-8">
-              <h2 className="font-serif text-4xl font-800 text-navy mb-6 leading-tight">
+              <h2 className="font-serif text-4xl font-800 text-slate-900 mb-6 leading-tight">
                 Get the sample report
               </h2>
-              <p className="text-lg text-navy-mid leading-relaxed mb-8">
+              <p className="text-lg text-slate-700 leading-relaxed mb-8">
                 See exactly what a ForecastHUB™ study looks like. This sample includes real-world methodology and findings.
               </p>
             </div>
@@ -88,9 +88,9 @@ export function CaseStudy() {
                   className="flex items-center gap-3"
                 >
                   <div className="w-5 h-5 bg-blue-light rounded flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3 h-3 text-blue" />
+                    <Check className="w-3 h-3 text-slate-700" />
                   </div>
-                  <span className="text-sm text-navy-mid font-medium">{benefit}</span>
+                  <span className="text-sm text-slate-700 font-medium">{benefit}</span>
                 </motion.div>
               ))}
             </div>
@@ -103,7 +103,7 @@ export function CaseStudy() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="flex-1 px-4.5 py-3.5 border-1.5 border-off2 rounded-lg bg-off text-navy placeholder-navy-mid text-sm font-medium outline-none transition-all focus:border-blue focus:bg-white focus:ring-4 focus:ring-blue-light"
+                className="flex-1 px-4.5 py-3.5 border-1.5 border-off2 rounded-lg bg-off text-slate-900 placeholder-slate-600 text-sm font-medium outline-none transition-all focus:border-blue focus:bg-white focus:ring-4 focus:ring-blue-light"
               />
               <button
                 type="submit"

@@ -70,11 +70,11 @@ export function BentoGrid() {
         >
           <div>
             <div className="kicker mb-4">What we deliver</div>
-            <h2 className="font-serif text-4xl lg:text-5xl font-800 text-navy leading-tight">
+            <h2 className="font-serif text-4xl lg:text-5xl font-800 text-slate-900 leading-tight">
               Platform Capabilities
             </h2>
           </div>
-          <p className="text-lg text-navy-mid leading-relaxed max-w-sm">
+          <p className="text-lg text-slate-700 leading-relaxed max-w-sm">
             End-to-end product intelligence from conception to shelf.
           </p>
         </motion.div>
@@ -114,26 +114,18 @@ export function BentoGrid() {
                     }`}
                   >
                     <Icon
-                      className={`w-5.5 h-5.5 ${
-                        card.dark ? 'text-accent' : 'text-blue'
-                      }`}
+                      className={`w-5.5 h-5.5 text-slate-700`}
                     />
                   </div>
 
                   <h3
-                    className={`font-serif text-2xl font-800 mb-3 ${
-                      card.dark ? 'text-white' : 'text-slate-900'
-                    }`}
+                    className={`font-serif text-2xl font-800 mb-3 text-slate-900`}
                   >
                     {card.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed mb-6 flex-1 ${
-                      card.dark
-                        ? 'text-white/75'
-                        : 'text-slate-700'
-                    }`}
+                    className={`text-sm leading-relaxed mb-6 flex-1 text-slate-700`}
                   >
                     {card.description}
                   </p>
@@ -141,12 +133,12 @@ export function BentoGrid() {
                   {/* Inline Mini-Chart for R&D Analytics */}
                   {card.hasChart && (
                     <div className="mt-auto pt-4">
-                      <p className="text-xs uppercase tracking-widest font-bold text-white/60 mb-3">
+                      <p className="text-xs uppercase tracking-widest font-bold text-slate-300 mb-3">
                         Iteration Impact
                       </p>
                       <ResponsiveContainer width="100%" height={80}>
                         <BarChart data={chartData}>
-                          <XAxis dataKey="iteration" stroke="#ffffff30" style={{ fontSize: '0.75rem' }} />
+                          <XAxis dataKey="iteration" stroke="rgb(13, 94, 207)" style={{ fontSize: '0.75rem' }} />
                           <YAxis hide domain={[0, 100]} />
                           <Tooltip
                             contentStyle={{
@@ -155,6 +147,7 @@ export function BentoGrid() {
                               borderRadius: '8px',
                               color: '#fff',
                             }}
+                            labelStyle={{ color: '#e2e8f0' }}
                             formatter={(value) => [`${value}`, 'Score']}
                           />
                           <Bar dataKey="score" fill="#38BDF8" radius={[4, 4, 0, 0]} />
@@ -177,7 +170,7 @@ export function BentoGrid() {
                 </div>
 
                 {/* Watermark Number */}
-                <div className="absolute top-6 right-6 text-6xl font-800 opacity-5 pointer-events-none">
+                <div className="absolute top-6 right-6 text-6xl font-800 text-slate-700 pointer-events-none">
                   {String(card.id).padStart(2, '0')}
                 </div>
               </motion.div>

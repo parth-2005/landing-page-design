@@ -12,7 +12,7 @@ import { Footer } from '@/components/footer'
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
+    <main className="overflow-x-clip">
       <Navbar />
       <Hero />
       <Ticker />

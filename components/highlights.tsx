@@ -15,16 +15,16 @@ export function Highlights() {
             viewport={{ once: true }}
             className="bg-white rounded-3xl p-8 border border-off2"
           >
-            <div className="text-xs font-bold tracking-widest text-navy-mid uppercase mb-4">
+            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
               Stickiness Score™
             </div>
-            <div className="font-serif text-5xl font-800 text-navy mb-6">
+            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
               76.56
             </div>
             <div className="space-y-2 mb-6">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-xs text-navy-mid font-medium">Score</span>
-                <span className="text-xs text-navy-mid font-medium">76.5%</span>
+                <span className="text-xs text-slate-600 font-medium">Score</span>
+                <span className="text-xs text-slate-600 font-medium">76.5%</span>
               </div>
               <motion.div
                 className="w-full h-2 bg-off rounded-full overflow-hidden"
@@ -38,7 +38,7 @@ export function Highlights() {
                 />
               </motion.div>
             </div>
-            <p className="text-sm text-navy-mid leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Indicates high repeat purchase probability in retail environment.
             </p>
           </motion.div>
@@ -51,13 +51,13 @@ export function Highlights() {
             viewport={{ once: true }}
             className="bg-white rounded-3xl p-8 border border-off2"
           >
-            <div className="text-xs font-bold tracking-widest text-navy-mid uppercase mb-4">
+            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
               Oil Penalty
             </div>
-            <div className="font-serif text-5xl font-800 text-danger mb-6">
+            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
               -1.33
             </div>
-            <p className="text-sm text-navy-mid leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Texture attribute reducing walk-to-shop behavior by identified margin.
             </p>
           </motion.div>
@@ -70,13 +70,13 @@ export function Highlights() {
             viewport={{ once: true }}
             className="bg-white rounded-3xl p-8 border border-off2"
           >
-            <div className="text-xs font-bold tracking-widest text-navy-mid uppercase mb-4">
+            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
               Margin Uplift
             </div>
-            <div className="font-serif text-5xl font-800 text-blue mb-6">
+            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
               +38.4%
             </div>
-            <p className="text-sm text-navy-mid leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Expected retail margin improvement through formulation optimization.
             </p>
           </motion.div>

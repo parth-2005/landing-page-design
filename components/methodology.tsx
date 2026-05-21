@@ -41,11 +41,11 @@ export function Methodology() {
         >
           <div>
             <div className="kicker mb-4">The science of loyalty</div>
-            <h2 className="font-serif text-4xl lg:text-5xl font-800 text-navy leading-tight">
+            <h2 className="font-serif text-4xl lg:text-5xl font-800 text-slate-900 leading-tight">
               ForecastHUB™ Methodology
             </h2>
           </div>
-          <p className="text-lg text-navy-mid leading-relaxed">
+          <p className="text-lg text-slate-700 leading-relaxed">
             Our three-phase framework combines rigorous sensory science with behavioral economics to predict which products will become repeat purchases—not just one-time buys.
           </p>
         </motion.div>
@@ -84,14 +84,14 @@ export function Methodology() {
 
                   <div className="bg-white border border-off2 rounded-3xl p-9 hover:shadow-lg hover:border-blue-light transition-all duration-350 relative z-10">
                     <div className="w-11 h-11 bg-blue-light rounded-2xl flex items-center justify-center mb-6">
-                      <Icon className="w-5.5 h-5.5 text-blue" />
+                      <Icon className="w-5.5 h-5.5 text-slate-700" />
                     </div>
 
-                    <h3 className="font-serif text-2xl font-800 text-navy mb-3">
+                    <h3 className="font-serif text-2xl font-800 text-slate-900 mb-3">
                       {method.title}
                     </h3>
 
-                    <p className="text-sm text-navy-mid leading-relaxed">
+                    <p className="text-sm text-slate-600 leading-relaxed">
                       {method.description}
                     </p>
                   </div>
@@ -110,10 +110,10 @@ export function Methodology() {
           className="mt-16 bg-off border border-off2 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div>
-            <h3 className="font-serif text-2xl font-800 text-navy mb-2">
+            <h3 className="font-serif text-2xl font-800 text-slate-900 mb-2">
               Download the full methodology
             </h3>
-            <p className="text-sm text-navy-mid">
+            <p className="text-sm text-slate-600">
               Technical whitepaper on the ForecastHUB™ framework and statistical validation.
             </p>
           </div>

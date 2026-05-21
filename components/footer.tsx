@@ -10,36 +10,36 @@ export function Footer() {
               <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
                 <div className="w-2 h-2 bg-accent rotate-45" />
               </div>
-              <span className="font-serif font-800 text-white text-lg">Logiq</span>
+              <span className="font-serif font-800 text-slate-50 text-lg">Logiq</span>
             </div>
-            <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+            <p className="text-sm text-slate-300 leading-relaxed max-w-xs">
               Sensory intelligence platform for FMCG product teams.
             </p>
           </div>
 
           {/* Platform */}
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-white/40 uppercase mb-5.5">
+            <h4 className="text-xs font-bold tracking-widest text-slate-400 uppercase mb-5.5">
               Platform
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   ForecastHUB
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Dashboard
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   API
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Integrations
                 </a>
               </li>
@@ -48,27 +48,27 @@ export function Footer() {
 
           {/* Capabilities */}
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-white/40 uppercase mb-5.5">
+            <h4 className="text-xs font-bold tracking-widest text-slate-400 uppercase mb-5.5">
               Capabilities
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   R&D Analytics
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Channel Strategy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Market Research
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Enterprise
                 </a>
               </li>
@@ -77,27 +77,27 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-white/40 uppercase mb-5.5">
+            <h4 className="text-xs font-bold tracking-widest text-slate-400 uppercase mb-5.5">
               Company
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   About
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-sm text-slate-300 hover:text-slate-50 transition-colors">
                   Contact
                 </a>
               </li>
@@ -107,15 +107,15 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs text-white/40">© 2026 Logiq. All rights reserved.</p>
+          <p className="text-xs text-slate-400">© 2026 Logiq. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-white/40 hover:text-white/60 transition-colors">
+            <a href="#" className="text-xs text-slate-400 hover:text-slate-200 transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-white/40 hover:text-white/60 transition-colors">
+            <a href="#" className="text-xs text-slate-400 hover:text-slate-200 transition-colors">
               Data Integrity
             </a>
-            <a href="#" className="text-xs text-white/40 hover:text-white/60 transition-colors">
+            <a href="#" className="text-xs text-slate-400 hover:text-slate-200 transition-colors">
               Terms of Service
             </a>
           </div>
