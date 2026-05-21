@@ -109,7 +109,7 @@ export function Scrollytelling() {
                         <p
                           className={`text-xs ${
                             activeStep === idx
-                              ? 'text-white/70'
+                              ? 'text-white/85'
                               : 'text-navy-mid'
                           }`}
                         >
