@@ -150,15 +150,18 @@ export function Scrollytelling() {
           {/* CRITICAL FIX: Removed sticky classes from here. 
             Added space-y-48 and pb-[50vh] to create enough scrollable distance.
           */}
-          <div className="space-y-24 lg:space-y-48 pb-[50vh]">
+          <div className="space-y-24 lg:space-y-[60vh] pb-[60vh]">
             
             {/* Card 1 - Physical Isolation */}
             <motion.div
               data-scroll-card
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, margin: '-100px' }}
+              initial={{ opacity: 0.2, y: 24, scale: 0.97 }}
+              animate={{
+                opacity: activeStep === 0 ? 1 : 0.18,
+                y: activeStep === 0 ? 0 : 20,
+                scale: activeStep === 0 ? 1 : 0.97,
+              }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
               className="bg-white rounded-3xl p-8 border border-off2 shadow-lg"
             >
               <h3 className="font-serif text-2xl font-800 text-slate-900 mb-6">
@@ -179,10 +182,13 @@ export function Scrollytelling() {
             {/* Card 2 - Sensory Scoring */}
             <motion.div
               data-scroll-card
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.08 }}
-              viewport={{ once: true, margin: '-100px' }}
+              initial={{ opacity: 0.2, y: 24, scale: 0.97 }}
+              animate={{
+                opacity: activeStep === 1 ? 1 : 0.18,
+                y: activeStep === 1 ? 0 : 20,
+                scale: activeStep === 1 ? 1 : 0.97,
+              }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
               className="bg-white rounded-3xl p-8 border border-off2 shadow-lg"
             >
               <h3 className="font-serif text-2xl font-800 text-slate-900 mb-6">
@@ -212,10 +218,13 @@ export function Scrollytelling() {
             {/* Card 3 - Behavioral Mapping */}
             <motion.div
               data-scroll-card
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.16 }}
-              viewport={{ once: true, margin: '-100px' }}
+              initial={{ opacity: 0.2, y: 24, scale: 0.97 }}
+              animate={{
+                opacity: activeStep === 2 ? 1 : 0.18,
+                y: activeStep === 2 ? 0 : 20,
+                scale: activeStep === 2 ? 1 : 0.97,
+              }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
               className="bg-white rounded-3xl p-8 border border-off2 shadow-lg"
             >
               <h3 className="font-serif text-2xl font-800 text-slate-900 mb-6">
@@ -234,10 +243,13 @@ export function Scrollytelling() {
             {/* Card 4 - Commercial Verdict */}
             <motion.div
               data-scroll-card
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.24 }}
-              viewport={{ once: true, margin: '-100px' }}
+              initial={{ opacity: 0.2, y: 24, scale: 0.97 }}
+              animate={{
+                opacity: activeStep === 3 ? 1 : 0.18,
+                y: activeStep === 3 ? 0 : 20,
+                scale: activeStep === 3 ? 1 : 0.97,
+              }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
               className="bg-white rounded-3xl p-8 border border-off2 shadow-lg"
             >
               <h3 className="font-serif text-2xl font-800 text-slate-900 mb-6">
