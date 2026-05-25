@@ -12,30 +12,52 @@ export function FirstPrinciples() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-12 max-w-3xl"
         >
-          <p className="text-xs uppercase tracking-widest font-bold text-blue flex items-center justify-center gap-2 mb-3">
-            <span className="w-5 h-0.5 bg-blue rounded-sm" />
-            The only question that matters
-            <span className="w-5 h-0.5 bg-blue rounded-sm" />
-          </p>
-          <h2 className="font-serif text-5xl lg:text-6xl font-800 leading-tight tracking-tighter text-slate-900 mb-6">
-            It&apos;s not whether they liked it. It&apos;s whether they{' '}
-            <span className="text-blue italic">came back for it.</span>
+          <p className="kicker mb-4">The problem with traditional research</p>
+          <h2 className="font-serif text-5xl lg:text-6xl font-800 leading-tight tracking-tighter text-slate-900">
+            Most product research measures opinions. ForecastHUB measures the verdict.
           </h2>
         </motion.div>
 
-        {/* Bottom Summary */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
-          <p className="text-lg text-slate-700 leading-relaxed">
-            Traditional product research measures what consumers <em>say</em> in the moment. Logiq measures the only thing that predicts commercial success: whether they actually <em>return</em>. Our ForecastHUB™ framework strips away brand equity bias to reveal the pure physical product traits that drive repeat purchase behavior at scale.
-          </p>
+          <div className="rounded-3xl border border-off2 bg-off/60 p-8 lg:p-10">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-6">What traditional research gives you</p>
+            <div className="space-y-4">
+              {[
+                'Survey percentages that reflect stated preference, not purchase behavior.',
+                'Focus group opinions shaped by brand cues and social dynamics.',
+                'Concept scores that collapse once the product hits shelf reality.',
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-3">
+                  <div className="mt-1.5 h-2.5 w-2.5 rounded-full bg-danger flex-shrink-0" />
+                  <p className="text-slate-700 leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-navy/10 bg-navy p-8 lg:p-10 text-slate-50 shadow-2xl shadow-navy/10">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-6">What ForecastHUB gives you</p>
+            <div className="space-y-4">
+              {[
+                'Repeat behavior signals that survive branding and presentation changes.',
+                'Commercial verdicts tied to price loyalty, walk-to-shop, and attribute scores.',
+                'A clear rank order of which formulation wins, loses, or needs another iteration.',
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-3">
+                  <div className="mt-1.5 h-2.5 w-2.5 rounded-full bg-accent flex-shrink-0" />
+                  <p className="leading-relaxed text-slate-100">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

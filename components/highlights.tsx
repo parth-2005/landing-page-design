@@ -2,83 +2,81 @@
 
 import { motion } from 'framer-motion'
 
-export function Highlights() {
+export function PilotStudyResults() {
   return (
-    <section className="bg-off py-24 px-12">
+    <section className="bg-navy py-24 px-12 text-slate-50">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 - Stickiness Score with animated bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="mb-10 max-w-3xl"
+        >
+          <p className="text-xs uppercase tracking-widest font-bold text-slate-300 mb-3">Pilot Study #001 · May 2026 · n=44</p>
+          <h2 className="font-serif text-4xl lg:text-6xl font-800 leading-tight tracking-tighter">
+            The wafer pilot did not just validate a concept. It produced a commercial verdict.
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-stretch">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 border border-off2"
+            className="rounded-3xl p-8 border border-white/10 bg-white/6 backdrop-blur-md"
           >
-            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
-              Stickiness Score™
-            </div>
-            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
-              76.56
-            </div>
-            <div className="space-y-2 mb-6">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-xs text-slate-600 font-medium">Score</span>
-                <span className="text-xs text-slate-600 font-medium">76.5%</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-3xl border border-white/10 bg-white/8 p-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-3">Winner</p>
+                <div className="font-serif text-5xl font-800 text-slate-50">+6.09</div>
+                <p className="text-sm text-slate-300 mt-3 leading-relaxed">Sample 2 led the blind test and became the strongest commercial candidate.</p>
               </div>
-              <motion.div
-                className="w-full h-2 bg-off rounded-full overflow-hidden"
-              >
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-                  className="h-full bg-gradient-to-r from-blue to-accent rounded-full"
-                  style={{ transformOrigin: 'left' }}
-                />
-              </motion.div>
+              <div className="rounded-3xl border border-white/10 bg-white/8 p-5">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-3">Failure</p>
+                <div className="font-serif text-5xl font-800 text-slate-50">-1.41</div>
+                <p className="text-sm text-slate-300 mt-3 leading-relaxed">Sample 4 missed the texture target and fell behind on repeat intent.</p>
+              </div>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Indicates high repeat purchase probability in retail environment.
-            </p>
+
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                <p className="text-xs uppercase tracking-widest text-slate-300 mb-2">Oil penalty</p>
+                <div className="font-serif text-3xl font-800 text-slate-50">-1.33</div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                <p className="text-xs uppercase tracking-widest text-slate-300 mb-2">Price loyalty</p>
+                <div className="font-serif text-3xl font-800 text-slate-50">68%</div>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Card 2 */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 border border-off2"
+            className="rounded-3xl p-8 border border-white/10 bg-gradient-to-br from-blue/20 to-accent/10"
           >
-            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
-              Oil Penalty
+            <div className="text-xs font-bold tracking-widest text-slate-300 uppercase mb-4">
+              Why it matters
             </div>
-            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
-              -1.33
+            <div className="space-y-4">
+              {[
+                ['39%', 'walk-to-shop behavior'],
+                ['68%', 'price loyalty'],
+                ['n=44', 'panel size'],
+              ].map(([value, label], idx) => (
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/8 px-4 py-4 flex items-end justify-between gap-6">
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-slate-300 mb-1">{label}</p>
+                    <div className="font-serif text-3xl font-800 text-slate-50">{value}</div>
+                  </div>
+                  <div className="h-10 w-24 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.32),rgba(255,255,255,0.05))]" />
+                </div>
+              ))}
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Texture attribute reducing walk-to-shop behavior by identified margin.
-            </p>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 border border-off2"
-          >
-            <div className="text-xs font-bold tracking-widest text-slate-600 uppercase mb-4">
-              Margin Uplift
-            </div>
-            <div className="font-serif text-5xl font-800 text-slate-900 mb-6">
-              +38.4%
-            </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Expected retail margin improvement through formulation optimization.
-            </p>
           </motion.div>
         </div>
       </div>

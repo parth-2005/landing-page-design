@@ -6,9 +6,10 @@ import { HeroRight } from './hero-right'
 import { ArrowRight } from 'lucide-react'
 
 export function Hero() {
-  const [s3Value, setS3Value] = useState(0)
+  const [stickinessScore, setStickinessScore] = useState(0)
+  const [priceLoyalty, setPriceLoyalty] = useState(0)
   const [walkToShop, setWalkToShop] = useState(0)
-  const [s4Value, setS4Value] = useState(0)
+  const [sampleFour, setSampleFour] = useState(0)
   const [oilPenalty, setOilPenalty] = useState(0)
 
   useEffect(() => {
@@ -24,10 +25,11 @@ export function Hero() {
     }
 
     setTimeout(() => {
-      animateValue(0, 76.56, setS3Value, 1500)
-      animateValue(0, 58, setWalkToShop, 1500)
-      animateValue(0, 42.19, setS4Value, 1500)
+      animateValue(0, 76.56, setStickinessScore, 1500)
+      animateValue(0, 68, setPriceLoyalty, 1500)
+      animateValue(0, 39, setWalkToShop, 1500)
       animateValue(0, -1.33, setOilPenalty, 1500)
+      animateValue(0, -1.41, setSampleFour, 1500)
     }, 400)
   }, [])
 
@@ -35,7 +37,7 @@ export function Hero() {
     <section 
       className="min-h-screen pt-32 pb-20 relative overflow-hidden flex items-center px-12"
       style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop)',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2070&auto=format&fit=crop)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -65,7 +67,7 @@ export function Hero() {
               <span className="animate-pulse">✦</span>
             </div>
             <span className="text-xs font-semibold text-slate-700 tracking-wide">
-              ForecastHUB Engine v2 · Pilot live
+              Pilot Study #001 · Cream & Onion Wafers · May 2026
             </span>
           </motion.div>
 
@@ -76,9 +78,9 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             className="font-serif text-5xl lg:text-[4.2rem] leading-[1.05] tracking-tighter text-slate-900 mb-6 font-800"
           >
-            The product that wins isn&apos;t the one they{' '}
+            The product that wins isn&apos;t the one they say they like. It&apos;s the one they{' '}
             <span className="relative">
-              stay for
+              buy again
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
@@ -96,7 +98,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             className="text-lg font-medium text-slate-700 leading-relaxed mb-10 max-w-lg"
           >
-            Logiq strips away brand equity to reveal what actually drives repeat purchase. Our ForecastHUB™ framework delivers mathematical commercial loyalty scores from double-blind sensory testing.
+            ForecastHUB strips away brand equity to reveal what actually drives repeat purchase in cream & onion wafers. The pilot below shows the product story in the numbers: price loyalty, walk-to-shop behavior, and attribute penalties that predict commercial verdicts.
           </motion.p>
 
           {/* CTAs */}
@@ -121,30 +123,30 @@ export function Hero() {
           >
             <div>
               <div className="font-serif text-3xl font-800 text-slate-900">44</div>
-              <div className="text-xs text-slate-600 font-medium mt-1">Field nodes</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">Panelists</div>
             </div>
             <div className="pl-8">
-              <div className="font-serif text-3xl font-800 text-slate-900">176</div>
-              <div className="text-xs text-slate-600 font-medium mt-1">Blind evaluations</div>
+              <div className="font-serif text-3xl font-800 text-slate-900">68%</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">Price loyalty</div>
             </div>
             <div className="pl-8">
-              <div className="font-serif text-3xl font-800 text-slate-900">4</div>
-              <div className="text-xs text-slate-600 font-medium mt-1">SKUs ranked</div>
+              <div className="font-serif text-3xl font-800 text-slate-900">39%</div>
+              <div className="text-xs text-slate-600 font-medium mt-1">Walk-to-shop</div>
             </div>
           </motion.div>
 
-          {/* Social Proof - Trusted by */}
+          {/* Methodology credibility bar */}
           <motion.div
             initial={{ opacity: 0, transform: 'translateY(24px)' }}
             animate={{ opacity: 1, transform: 'translateY(0)' }}
             transition={{ duration: 0.7, delay: 0.5, ease: 'easeOut' }}
             className="border-t border-off2 pt-8"
           >
-            <p className="text-xs uppercase tracking-widest font-semibold text-slate-600 mb-3">Trusted by teams at</p>
-            <div className="flex items-center gap-6">
-              {['Nestlé', 'Unilever', 'PepsiCo', 'Kraft Heinz', 'Danone'].map((brand, idx) => (
-                <div key={idx} className="text-sm font-semibold text-slate-500 opacity-75 hover:opacity-100 transition-opacity">
-                  {brand}
+            <p className="text-xs uppercase tracking-widest font-semibold text-slate-600 mb-3">Methodology credibility</p>
+            <div className="flex flex-wrap items-center gap-3">
+              {['ISO 11136', 'n=44 panelists', 'Double-blind', '95% confidence intervals', '4 SKUs tested'].map((label, idx) => (
+                <div key={idx} className="rounded-full border border-off2 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700">
+                  {label}
                 </div>
               ))}
             </div>
@@ -158,7 +160,7 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.3, ease: 'easeOut' }}
           className="hidden lg:block"
         >
-          <HeroRight s3Value={s3Value} s4Value={s4Value} walkToShop={walkToShop} oilPenalty={oilPenalty} />
+          <HeroRight stickinessScore={stickinessScore} priceLoyalty={priceLoyalty} walkToShop={walkToShop} sampleFour={sampleFour} oilPenalty={oilPenalty} />
         </motion.div>
       </div>
     </section>

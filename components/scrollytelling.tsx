@@ -171,9 +171,16 @@ export function Scrollytelling() {
                 {[1, 2, 3, 4].map(i => (
                   <div
                     key={i}
-                    className="h-24 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center text-slate-600 font-semibold text-sm"
+                    className={`h-24 rounded-xl flex items-center justify-center font-semibold text-sm border overflow-hidden ${
+                      i % 2 === 0
+                        ? 'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),rgba(226,232,240,0.8))] border-white/60 text-slate-700 shadow-inner'
+                        : 'bg-[linear-gradient(135deg,rgba(10,25,47,0.92),rgba(17,34,64,0.9))] border-navy-light text-slate-50'
+                    }`}
                   >
-                    SKU {i}
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-xs uppercase tracking-widest opacity-70">SKU</span>
+                      <span className="font-serif text-2xl font-800">{i}</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -258,15 +265,15 @@ export function Scrollytelling() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gradient-to-br from-slate-50 to-slate-200 rounded-xl p-4 text-center">
                   <div className="font-serif text-4xl font-800 text-slate-900">
-                    76.56
+                    +6.09
                   </div>
-                  <p className="text-xs text-slate-600 mt-2">S3 Score</p>
+                  <p className="text-xs text-slate-600 mt-2">Sample 2 winner</p>
                 </div>
                 <div className="bg-red-50 rounded-xl p-4 text-center">
                   <div className="font-serif text-4xl font-800 text-slate-900">
-                    42.19
+                    -1.41
                   </div>
-                  <p className="text-xs text-slate-600 mt-2">S4 Critical</p>
+                  <p className="text-xs text-slate-600 mt-2">Sample 4 failure</p>
                 </div>
               </div>
             </motion.div>

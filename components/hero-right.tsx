@@ -6,18 +6,19 @@ import { useEffect, useState } from 'react'
 import { Zap } from 'lucide-react'
 
 interface HeroRightProps {
-  s3Value: number
-  s4Value: number
+  stickinessScore: number
+  priceLoyalty: number
   walkToShop: number
+  sampleFour: number
   oilPenalty: number
 }
 
-export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRightProps) {
+export function HeroRight({ stickinessScore, priceLoyalty, walkToShop, sampleFour, oilPenalty }: HeroRightProps) {
   const [headlines, setHeadlines] = useState(0)
   const newsItems = [
-    'New formulation boosts retail velocity by 23%',
-    'Consumer loyalty metrics show 45% improvement',
-    'Q2 shelf test results exceed expectations',
+    'Sample 2 leads the blind test with +6.09 lift',
+    'Sample 4 misses texture target at -1.41',
+    'Pilot verdict locked: 68% price loyalty, 39% walk-to-shop',
   ]
 
   useEffect(() => {
@@ -28,10 +29,10 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
   }, [])
 
   const chartData = [
-    { name: 'S1', value: 34 },
-    { name: 'S2', value: 56 },
-    { name: 'S3', value: 76 },
-    { name: 'S4', value: 42 },
+    { name: 'S1', value: 1.2 },
+    { name: 'S2', value: 6.09 },
+    { name: 'S3', value: 2.1 },
+    { name: 'S4', value: -1.41 },
   ]
 
   return (
@@ -66,31 +67,31 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S3 Score</div>
-              <div className="font-serif text-4xl font-800 text-slate-900">{s3Value.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-slate-600 mt-1">Stickiness™</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Stickiness Score</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{stickinessScore.toFixed(2)}</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Composite verdict</div>
             </motion.div>
 
             <motion.div
-              className="bg-blue border border-blue-mid rounded-3xl p-4"
+              className="bg-white border border-off2 rounded-3xl p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.15 }}
             >
-              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Walk-to-Shop</div>
-              <div className="font-serif text-4xl font-800 text-slate-900">+{walkToShop.toFixed(0)}%</div>
-              <div className="text-xs font-semibold text-slate-600 mt-1">Loyalty</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Price Loyalty</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{priceLoyalty.toFixed(0)}%</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Repeat intent</div>
             </motion.div>
 
             <motion.div
-              className="bg-off border border-off2 rounded-3xl p-4"
+              className="bg-white border border-off2 rounded-3xl p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">S4 Score</div>
-              <div className="font-serif text-4xl font-800 text-slate-900">{s4Value.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-slate-600 mt-1">Critical Threshold</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Walk-to-Shop</div>
+              <div className="font-serif text-4xl font-800 text-slate-900">{walkToShop.toFixed(0)}%</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Shelf pull</div>
             </motion.div>
 
             <motion.div
@@ -101,7 +102,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             >
               <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-2">Oil Penalty</div>
               <div className="font-serif text-4xl font-800 text-slate-900">{oilPenalty.toFixed(2)}</div>
-              <div className="text-xs font-semibold text-slate-600 mt-1">Texture Impact</div>
+              <div className="text-xs font-semibold text-slate-600 mt-1">Texture impact</div>
             </motion.div>
           </div>
 
@@ -112,12 +113,12 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
-            <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-3">Score Distribution</div>
+            <div className="text-xs font-bold text-slate-700 uppercase tracking-widest mb-3">Pilot sample lift</div>
             <ResponsiveContainer width="100%" height={120}>
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="0" stroke="var(--off2)" vertical={false} />
                 <XAxis dataKey="name" stroke="rgba(71, 85, 105, 0.4)" style={{ fontSize: '11px' }} />
-                <YAxis stroke="rgba(71, 85, 105, 0.4)" style={{ fontSize: '11px' }} />
+                <YAxis stroke="rgba(71, 85, 105, 0.4)" style={{ fontSize: '11px' }} domain={[-2, 7]} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: 'var(--navy)',
@@ -128,7 +129,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
                 />
                 <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                   {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.name === 'S3' ? 'var(--navy)' : entry.name === 'S4' ? 'var(--danger)' : 'var(--off2)'} />
+                    <Cell key={`cell-${index}`} fill={entry.name === 'S2' ? 'var(--blue)' : entry.name === 'S4' ? 'var(--danger)' : 'var(--off2)'} />
                   ))}
                 </Bar>
               </BarChart>
@@ -144,7 +145,7 @@ export function HeroRight({ s3Value, s4Value, walkToShop, oilPenalty }: HeroRigh
           >
             <div className="flex items-center gap-2 mb-2">
               <div className="w-1.5 h-1.5 bg-blue rounded-full animate-pulse" />
-              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest">Live FMCG News</div>
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-widest">Pilot notes</div>
             </div>
             <div className="relative h-12 overflow-hidden">
               {newsItems.map((item, idx) => (

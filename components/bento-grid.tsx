@@ -30,6 +30,7 @@ export function BentoGrid() {
       dark: true,
       icon: TrendingUp,
       hasImage: true,
+      imageBadge: 'Shelf-ready context',
     },
     {
       id: 3,
@@ -47,6 +48,9 @@ export function BentoGrid() {
       span: 'col-span-1',
       dark: false,
       icon: Brain,
+      stat: '44',
+      statLabel: 'panelists',
+      statNote: 'behavior signals captured without brand cues',
     },
     {
       id: 5,
@@ -55,6 +59,9 @@ export function BentoGrid() {
       span: 'col-span-1',
       dark: false,
       icon: Target,
+      stat: '3',
+      statLabel: 'pillars mapped',
+      statNote: 'taste, texture, and price drive the verdict',
     },
   ]
 
@@ -82,6 +89,7 @@ export function BentoGrid() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-max">
           {cards.map((card, idx) => {
             const Icon = card.icon
+            const isDark = card.dark
             return (
               <motion.div
                 key={card.id}
@@ -90,45 +98,70 @@ export function BentoGrid() {
                 transition={{ duration: 0.6, delay: idx * 0.08 }}
                 viewport={{ once: true }}
                 className={`${card.span} rounded-3xl border p-9 transition-all duration-350 hover:shadow-lg hover:-translate-y-1 ${
-                  card.dark
+                  isDark
                     ? 'bg-navy border-navy-light hover:border-blue'
                     : 'bg-white border-off2 hover:border-blue-light'
                 } relative overflow-hidden group flex flex-col`}
               >
                 {/* Background Image for Channel Strategy */}
                 {card.hasImage && (
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-50 transition-opacity"
-                    style={{
-                      backgroundImage: 'url(https://images.unsplash.com/photo-1531737413211-4e347aae0450?q=80&w=800&auto=format&fit=crop)',
-                    }}
-                  />
+                  <>
+                    <div
+                      className="absolute inset-0 bg-cover bg-center opacity-45 group-hover:opacity-55 transition-opacity"
+                      style={{
+                        backgroundImage: 'url(https://images.unsplash.com/photo-1531737413211-4e347aae0450?q=80&w=800&auto=format&fit=crop)',
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/25 to-transparent" />
+                  </>
                 )}
 
                 <div className="relative z-10 flex flex-col flex-1">
                   <div
                     className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-6 ${
-                      card.dark
+                      isDark
                         ? 'bg-white/10'
                         : 'bg-blue-light'
                     }`}
                   >
                     <Icon
-                      className={`w-5.5 h-5.5 text-slate-700`}
+                      className={`w-5.5 h-5.5 ${isDark ? 'text-slate-50' : 'text-slate-700'}`}
                     />
                   </div>
 
                   <h3
-                    className={`font-serif text-2xl font-800 mb-3 text-slate-900`}
+                    className={`font-serif text-2xl font-800 mb-3 ${isDark ? 'text-slate-50' : 'text-slate-900'}`}
                   >
                     {card.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed mb-6 flex-1 text-slate-700`}
+                    className={`text-sm leading-relaxed mb-5 flex-1 ${isDark ? 'text-slate-200' : 'text-slate-700'}`}
                   >
                     {card.description}
                   </p>
+
+                  {card.stat && (
+                    <div className="mb-6">
+                      <div className={`font-serif text-4xl font-800 ${isDark ? 'text-slate-50' : 'text-slate-900'}`}>
+                        {card.stat}
+                      </div>
+                      <p className={`text-xs font-bold uppercase tracking-widest mt-2 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                        {card.statLabel}
+                      </p>
+                      <p className={`text-sm mt-2 leading-relaxed ${isDark ? 'text-slate-200/85' : 'text-slate-600'}`}>
+                        {card.statNote}
+                      </p>
+                    </div>
+                  )}
+
+                  {card.hasImage && (
+                    <div className="mt-auto pt-8">
+                      <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-slate-50">
+                        {card.imageBadge}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Inline Mini-Chart for R&D Analytics */}
                   {card.hasChart && (
@@ -170,7 +203,7 @@ export function BentoGrid() {
                 </div>
 
                 {/* Watermark Number */}
-                <div className="absolute top-6 right-6 text-6xl font-800 text-slate-700 pointer-events-none">
+                <div className={`absolute top-6 right-6 text-6xl font-800 pointer-events-none ${isDark ? 'text-white/10' : 'text-slate-900/10'}`}>
                   {String(card.id).padStart(2, '0')}
                 </div>
               </motion.div>

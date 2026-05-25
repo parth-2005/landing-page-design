@@ -16,7 +16,7 @@ export function Ticker() {
           {items.map((item, idx) => (
             <div key={`orig-${idx}`} className="flex items-center gap-3.5">
               <span className="text-sm text-slate-300 font-medium">{item}</span>
-              {idx < items.length - 1 && <span className="text-lg text-slate-500">•</span>}
+              {idx < items.length - 1 && <span className="text-lg text-slate-400">•</span>}
             </div>
           ))}
         </div>
@@ -25,7 +25,7 @@ export function Ticker() {
           {items.map((item, idx) => (
             <div key={`dup-${idx}`} className="flex items-center gap-3.5">
               <span className="text-sm text-slate-300 font-medium">{item}</span>
-              {idx < items.length - 1 && <span className="text-lg text-slate-500">•</span>}
+              {idx < items.length - 1 && <span className="text-lg text-slate-400">•</span>}
             </div>
           ))}
         </div>

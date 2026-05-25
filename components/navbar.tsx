@@ -27,9 +27,10 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between h-17">
         {/* Brand */}
         <Link href="#" className="flex items-center gap-2">
-          <div className="w-7.5 h-7.5 bg-navy rounded flex items-center justify-center relative overflow-hidden">
-            <div className="w-3 h-3 bg-accent rotate-45" />
-          </div>
+          <svg className="w-7.5 h-7.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2.5 20.5 11 12 21.5 3.5 11 12 2.5Z" className="fill-navy" />
+            <path d="M12 6.2 16.6 11 12 15.8 7.4 11 12 6.2Z" className="fill-accent" />
+          </svg>
           <span className="font-serif font-800 text-xl text-slate-900 tracking-tighter">
             Logiq
           </span>

@@ -74,12 +74,12 @@ export function Deliverables() {
               {/* Mock PDF/Report Card */}
               <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-off2">
                 {/* Report Header */}
-                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-800">
+                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-50">
                   <p className="text-xs uppercase tracking-widest font-bold opacity-70 mb-2">
                     ForecastHUB™ Report
                   </p>
                   <h3 className="text-2xl font-800">Stickiness Score</h3>
-                  <p className="text-sm opacity-90 mt-1">Premium Ice Cream SKU</p>
+                  <p className="text-sm opacity-90 mt-1">Cream & Onion Wafer SKU</p>
                 </div>
 
                 {/* Report Content */}  
@@ -96,12 +96,12 @@ export function Deliverables() {
                   {/* Metrics Grid */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-off rounded-lg p-3">
-                      <p className="text-xs text-slate-600 font-semibold uppercase">Walk-to-Shop</p>
-                      <p className="text-xl font-800 text-slate-900">+58%</p>
+                      <p className="text-xs text-slate-600 font-semibold uppercase">Price Loyalty</p>
+                      <p className="text-xl font-800 text-slate-900">68%</p>
                     </div>
                     <div className="bg-off rounded-lg p-3">
-                      <p className="text-xs text-slate-600 font-semibold uppercase">vs. Competitor</p>
-                      <p className="text-xl font-800 text-slate-900">+2.1</p>
+                      <p className="text-xs text-slate-600 font-semibold uppercase">Walk-to-Shop</p>
+                      <p className="text-xl font-800 text-slate-900">39%</p>
                     </div>
                   </div>
 
