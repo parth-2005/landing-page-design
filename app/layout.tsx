@@ -16,8 +16,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Logiq — Sensory Intelligence Platform',
-  description: 'The only product testing platform that strips away brand equity to reveal what actually drives repeat purchase behavior.',
+  title: 'ForecastHUB — Consumer Market Intelligence for FMCG',
+  description: 'A formal enterprise landing page for FMCG market intelligence, sensory validation, and predictive launch scoring.',
   generator: 'v0.app',
 }
 
