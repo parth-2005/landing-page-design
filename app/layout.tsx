@@ -16,8 +16,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'ForecastHUB — Consumer Market Intelligence for FMCG',
-  description: 'A formal enterprise landing page for FMCG market intelligence, sensory validation, and predictive launch scoring.',
+  title: 'ForecastHUB | Blind Sensory Testing & Stickiness Scoring for FMCG',
+  description: 'ForecastHUB runs double-blind sensory panels on FMCG products and delivers scored insights, an AI assistant over your panel data, and strategy recommendations — so brand and R&D teams launch with evidence.',
+  keywords: ['FMCG market research', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel India', 'RAG research assistant'],
+  openGraph: {
+    title: 'ForecastHUB | Know which product wins before launch',
+    description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data.',
+    type: 'website',
+  },
   generator: 'v0.app',
 }
 

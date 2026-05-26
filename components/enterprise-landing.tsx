@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Activity,
   ArrowRight,
@@ -31,6 +31,7 @@ import {
   YAxis,
 } from 'recharts'
 
+import { AnimatedStat } from './animated-stat'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Scrollytelling } from '@/components/scrollytelling'
 import { Deliverables } from '@/components/deliverables'
@@ -114,7 +115,7 @@ function HeroFormulaCard() {
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Final sample score</p>
-            <p className="mt-1 text-sm text-slate-600">Pilot study · n=44 · light-table dashboard</p>
+            <p className="mt-1 text-sm text-slate-600">Pilot Study #001 · Cream & Onion Wafers · n=44 panelists</p>
           </div>
           <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
             Sample 2
@@ -146,7 +147,7 @@ function HeroFormulaCard() {
 
         <div className="grid grid-cols-2 gap-3">
           <StatTile label="Verdict" value="Launch" />
-          <StatTile label="Stickiness" value="76.56" />
+          <AnimatedStat value={76.56} decimals={2} label="Stickiness" />
         </div>
       </div>
     </div>
@@ -439,87 +440,6 @@ function Ticker() {
   )
 }
 
-function ParallelArchitecture() {
-  return (
-    <section className="bg-white py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-3xl"
-        >
-          <SectionEyebrow label="Parallel architecture" />
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
-            Two tracks. One verdict. Offline validation feeds the production engine without dilution.
-          </h2>
-        </motion.div>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm"
-          >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Untampered offline validation</p>
-                <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">The fuel</h3>
-              </div>
-              <Microscope className="h-5 w-5 text-slate-500" />
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                'Double-blind sensory capture',
-                'No brand cue contamination',
-                'Response integrity screening',
-                'Confidence-adjusted scoring',
-              ].map((item) => (
-                <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-700">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.06 }}
-            className="rounded-[28px] border border-slate-200 bg-slate-50 p-6 shadow-sm"
-          >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Production engine</p>
-                <h3 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">The brain</h3>
-              </div>
-              <Workflow className="h-5 w-5 text-slate-500" />
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                'Operational scoring logic',
-                'Custom weights by category',
-                'Board-readable decision output',
-                'Launch / reformulate / stop',
-              ].map((item) => (
-                <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-700">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function EngineShowroom() {
   return (
     <section id="engine" className="bg-slate-50 py-20 lg:py-24">
@@ -538,7 +458,7 @@ function EngineShowroom() {
         </motion.div>
 
         <Tabs defaultValue="sensory" className="gap-6">
-          <TabsList className="grid h-auto w-full max-w-3xl grid-cols-3 rounded-full border border-slate-200 bg-white p-1">
+          <TabsList className="grid h-auto w-full max-w-3xl grid-cols-3 rounded-full border border-slate-200 bg-white p-1 overflow-x-auto">
             <TabsTrigger value="sensory" className="rounded-full px-4 py-2 text-sm data-[state=active]:bg-slate-900 data-[state=active]:text-white">
               Sensory mapping
             </TabsTrigger>
@@ -580,7 +500,7 @@ function ValueGrid() {
         >
           <SectionEyebrow label="Value proposition" />
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
-            Architectural bento grid for executive clarity.
+            Built for the teams who make the launch call.
           </h2>
         </motion.div>
 
@@ -680,11 +600,35 @@ function Footer() {
 }
 
 function TrustStrip() {
+  const stats = [
+    { value: 44, label: 'Verified panelists', prefix: 'n=' },
+    { value: 3, label: 'Academic institutions' },
+    { value: 'Double-blind', label: 'Protocol' },
+    { value: '4 SKUs', label: 'Tested simultaneously' },
+  ]
+
   return (
-    <section className="bg-slate-50 py-6">
+    <section className="border-y border-slate-200 bg-white py-6">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm text-slate-700">
-          Pilot study conducted across 3 academic institutions · n=44 verified respondents · Double-blind protocol · 4 SKUs tested simultaneously
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {stats.map((stat) => (
+            typeof stat.value === 'number' ? (
+              <AnimatedStat
+                key={stat.label}
+                value={stat.value}
+                prefix={stat.prefix}
+                label={stat.label}
+                className="bg-slate-50 text-center shadow-none"
+                labelClassName="text-[11px] text-slate-500"
+                valueClassName="text-lg"
+              />
+            ) : (
+              <div key={stat.label} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">{stat.label}</p>
+                <p className="mt-2 text-lg font-semibold tracking-tight text-slate-900">{stat.value}</p>
+              </div>
+            )
+          ))}
         </div>
       </div>
     </section>
@@ -693,25 +637,48 @@ function TrustStrip() {
 
 function HowItWorks() {
   const steps = [
-    { title: 'Submit samples', desc: 'Send your blind SKU samples and study brief.' },
-    { title: 'Panel runs', desc: 'Double-blind sensory panel with integrity screening.' },
-    { title: 'You get the output', desc: 'Board-ready verdict, Ask the Data chatbot, and recommendations.' },
+    {
+      num: '01',
+      title: 'Submit your samples',
+      desc: 'Send us your blind SKUs and a brief on the category, target segment, and what you want to know. No brand labels. No packaging. Just the product.',
+    },
+    {
+      num: '02',
+      title: 'Panel runs',
+      desc: 'Your samples go through a structured blind sensory panel with response integrity screening built in. Noisy, inflated, or inconsistent responses are filtered before they reach the score.',
+    },
+    {
+      num: '03',
+      title: 'You receive the verdict',
+      desc: 'You get three things: a scored insights report, an AI assistant trained on your panel data that you can query by question, and a set of data-grounded recommendations on what to do next.',
+    },
   ]
 
   return (
-    <section id="how-it-works" className="bg-white py-16 lg:py-20">
+    <section id="how-it-works" className="bg-stone-50 py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mb-8 max-w-3xl">
+        <div className="mb-12 max-w-2xl">
           <SectionEyebrow label="How it works" />
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">Simple process. Defensible verdicts.</h2>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl">Simple process. Defensible verdicts.</h2>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          {steps.map((s, i) => (
-            <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center">
-              <div className="text-lg font-semibold text-slate-900">{s.title}</div>
-              <p className="mt-3 text-sm text-slate-700">{s.desc}</p>
-            </div>
+        <div className="relative grid gap-8 sm:grid-cols-3">
+          <div className="absolute top-8 left-[16%] right-[16%] hidden h-px bg-slate-200 sm:block" />
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.num}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="relative flex flex-col"
+            >
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white text-2xl font-semibold tracking-tight text-slate-900 shadow-sm">
+                {step.num}
+              </div>
+              <h3 className="text-xl font-semibold tracking-tight text-slate-900">{step.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{step.desc}</p>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -720,12 +687,18 @@ function HowItWorks() {
 }
 
 export function EnterpriseLanding() {
+  const { scrollY } = useScroll()
+  const gridY = useTransform(scrollY, [0, 600], [0, -80])
+
   return (
     <main id="top" className="overflow-x-clip bg-white text-slate-900">
       <TopNav />
 
       <section className="relative overflow-hidden bg-white py-16 lg:py-20">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:42px_42px] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_95%)]" />
+        <motion.div
+          style={{ y: gridY }}
+          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:42px_42px] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_95%)]"
+        />
         <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -735,10 +708,10 @@ export function EnterpriseLanding() {
           >
             <SectionEyebrow label="Consumer market intelligence" />
             <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-7xl">
-              Launch FMCG Products with Deterministic Precision.
+              Know which product wins before you print a single label.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 lg:text-xl">
-              The intelligent production engine that transforms raw sensory data into predictive market success. Stop guessing. Start dominating the shelf.
+              ForecastHUB runs blind sensory panels and scores your products against real commercial loyalty signals — so your R&D and brand teams make the launch call with evidence, not instinct.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -765,16 +738,12 @@ export function EnterpriseLanding() {
             </div>
 
             <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
-              {[
-                ['Pilot sample', 'n=44'],
-                ['Final score', '11.2'],
-                  ['Delivery window', 'Within agreed timeline'],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">{label}</p>
-                  <p className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{value}</p>
-                </div>
-              ))}
+              <AnimatedStat value={44} label="Pilot sample" />
+              <AnimatedStat value={11.2} decimals={1} label="Final score" />
+              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Delivery window</p>
+                <p className="mt-2 text-base font-semibold tracking-tight text-slate-900">Within agreed timeline</p>
+              </div>
             </div>
           </motion.div>
 
@@ -793,11 +762,11 @@ export function EnterpriseLanding() {
       <HowItWorks />
       <Deliverables />
       <Ticker />
-      <ParallelArchitecture />
+      <Scrollytelling />
       <FirstPrinciples />
       <PilotStudyResults />
       <CaseStudy />
-      <Scrollytelling />
+      <EngineShowroom />
       <ValueGrid />
       <Footer />
     </main>

@@ -41,10 +41,10 @@ export function Deliverables() {
             What You Get
           </p>
           <h2 className="font-serif text-4xl lg:text-5xl font-800 text-slate-900 mb-4 max-w-2xl">
-            Your Complete Verdict
+            Three things you walk away with.
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl">
-            No endless reports. No fluff. Just the data that matters for better formulation decisions and margin-positive launches.
+            Every study produces the same three outputs. Scored insights on your panel, an AI assistant over your data, and clear recommendations — structured for the people who make the decision.
           </p>
         </motion.div>
 
@@ -87,7 +87,7 @@ export function Deliverables() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-6 -right-6 bg-blue text-slate-500 rounded-full p-4 shadow-lg"
+                className="absolute -bottom-6 -right-6 bg-blue text-white rounded-full p-4 shadow-lg"
               >
                 <CheckCircle2 className="w-6 h-6" />
               </motion.div>
@@ -100,7 +100,7 @@ export function Deliverables() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 gap-4"
+            className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-1 md:overflow-visible md:pb-0"
           >
             {items.map((item, idx) => {
               const Icon = item.icon
@@ -111,7 +111,7 @@ export function Deliverables() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
                   viewport={{ once: true }}
-                  className="flex gap-4 p-4 rounded-xl hover:bg-off transition-colors group cursor-pointer"
+                  className="snap-start min-w-[80vw] md:min-w-0 flex gap-4 p-4 rounded-xl hover:bg-off transition-colors group cursor-pointer"
                 >
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 rounded-lg bg-blue-light flex items-center justify-center group-hover:bg-blue group-hover:text-slate-700 transition-all">

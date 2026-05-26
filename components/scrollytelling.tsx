@@ -80,8 +80,8 @@ function FuelDashboard({ progress }: { progress: any }) {
       <motion.div style={{ y: rawY }} className="h-full rounded-[24px] border border-slate-200 bg-slate-50 p-4">
         <div className="mb-4 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Track 1</p>
-            <h4 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Untampered Offline Validation</h4>
+            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">The Panel</p>
+            <h4 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Untampered input</h4>
           </div>
           <ShieldCheck className="h-5 w-5 text-slate-500" />
         </div>
@@ -223,8 +223,8 @@ function BrainDashboard({ progress }: { progress: any }) {
       <div className="h-full rounded-[24px] border border-slate-200 bg-slate-50 p-4">
         <div className="mb-4 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Track 2</p>
-            <h4 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">The Production Engine</h4>
+            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">The Score</p>
+            <h4 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Stickiness quantified</h4>
           </div>
           <TrendingUp className="h-5 w-5 text-slate-500" />
         </div>
@@ -296,7 +296,7 @@ export function Scrollytelling() {
           <div className="space-y-[26vh] pb-[20vh] lg:pt-10">
             <motion.div style={{ opacity: fuelTextOpacity }} className="max-w-md">
               <StageTitle
-                title="Track 1: Untampered Offline Validation."
+                title="The Panel: Untampered input."
                 summary="The blind panel enters the system as raw sensory evidence. No branding. No theater. Just controlled, clinical inputs from the 44-participant study."
               />
             </motion.div>
@@ -310,7 +310,7 @@ export function Scrollytelling() {
 
             <motion.div style={{ opacity: brainTextOpacity }} className="max-w-md">
               <StageTitle
-                title="Track 2: The Production Engine."
+                title="The Score: Stickiness quantified."
                 summary="The cleaned signal becomes a customer stickiness tracker that ranks channel substitution, price sensitivity, and repeat intent for launch decisions."
               />
             </motion.div>

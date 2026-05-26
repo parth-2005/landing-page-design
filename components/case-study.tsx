@@ -38,24 +38,28 @@ export function CaseStudy() {
             viewport={{ once: true }}
           >
             <div
-              className="bg-white border border-off2 rounded-3xl p-8 shadow-lg"
+              className="relative overflow-hidden bg-white/80 border border-off2 rounded-3xl p-8 shadow-lg"
               style={{
                 boxShadow:
                   '8px 8px 0 rgba(230, 240, 253, 1), 16px 16px 0 rgba(0, 112, 243, 0.05)',
               }}
             >
-              <div className="h-1 w-15 bg-blue rounded mb-6" />
-              <div className="text-xs font-bold tracking-widest text-slate-700 uppercase mb-3">
-                Recent Study
-              </div>
-              <h3 className="font-serif text-3xl font-800 text-slate-900 mb-4 leading-tight">
-                Cream & Onion Wafers
-              </h3>
-              <p className="text-sm text-slate-700 mb-8">
-                Multi-SKU pilot across the premium savory segment. Identified the winner, the texture failure mode, and the price loyalty ceiling.
-              </p>
-              <div className="text-xs text-slate-600 font-medium">
-                Published: May 2026
+              <div className="absolute inset-0 bg-cover bg-center opacity-65" style={{ backgroundImage: 'url(/images/wafer-study.png)' }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-transparent" />
+              <div className="relative z-10">
+                <div className="h-1 w-15 bg-blue rounded mb-6" />
+                <div className="text-xs font-bold tracking-widest text-slate-700 uppercase mb-3">
+                  Recent Study
+                </div>
+                <h3 className="font-serif text-3xl font-800 text-slate-900 mb-4 leading-tight">
+                  Cream & Onion Wafers
+                </h3>
+                <p className="text-sm text-slate-700 mb-8">
+                  Multi-SKU pilot across the premium savory segment. Identified the winner, the texture failure mode, and the price loyalty ceiling.
+                </p>
+                <div className="text-xs text-slate-600 font-medium">
+                  Published: May 2026
+                </div>
               </div>
             </div>
           </motion.div>
