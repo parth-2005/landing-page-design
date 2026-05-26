@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export function PilotStudyResults() {
   return (
-    <section className="bg-navy py-24 px-12 text-slate-50">
+    <section className="bg-navy py-24 px-12 text-slate-50" style={{ backgroundColor: '#001f3f' }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 28 }}

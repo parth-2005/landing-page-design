@@ -43,7 +43,7 @@ export function FirstPrinciples() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-navy/10 bg-navy p-8 lg:p-10 text-slate-50 shadow-2xl shadow-navy/10">
+          <div className="rounded-3xl border border-navy/10 bg-navy p-8 lg:p-10 text-slate-50 shadow-2xl shadow-navy/10" style={{ backgroundColor: '#001f3f' }}>
             <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-6">What ForecastHUB gives you</p>
             <div className="space-y-4">
               {[

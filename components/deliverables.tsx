@@ -62,7 +62,7 @@ export function Deliverables() {
               {/* Mock PDF/Report Card */}
               <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-off2">
                 {/* Ask the Data Header */}
-                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-50">
+                <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-800">
                   <p className="text-xs uppercase tracking-widest font-bold opacity-70 mb-2">Ask the Data</p>
                   <h3 className="text-2xl font-800">Query your study</h3>
                   <p className="text-sm opacity-90 mt-1">Private RAG assistant over your panel responses</p>
@@ -87,7 +87,7 @@ export function Deliverables() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -bottom-6 -right-6 bg-blue text-slate-50 rounded-full p-4 shadow-lg"
+                className="absolute -bottom-6 -right-6 bg-blue text-slate-500 rounded-full p-4 shadow-lg"
               >
                 <CheckCircle2 className="w-6 h-6" />
               </motion.div>
