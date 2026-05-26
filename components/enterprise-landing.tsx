@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import {
   ArrowRight,
   BadgeCheck,
@@ -368,36 +369,64 @@ function StickinessCard() {
 }
 
 function TopNav() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
+    <header
+      className={`top-0 right-0 left-0 z-50 transition-all duration-300 ease-in-out ${
+        scrolled
+          ? 'fixed border-b border-slate-200 bg-white/90 backdrop-blur-xl'
+          : 'absolute border-b border-transparent bg-transparent'
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-10">
         <Link href="#top" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-900 text-white shadow-sm">
+          <div
+            className={`flex h-10 w-10 items-center justify-center rounded-2xl border shadow-sm transition-colors ${
+              scrolled ? 'border-slate-200 bg-slate-900 text-white' : 'border-white/30 bg-white/10 text-white backdrop-blur-sm'
+            }`}
+          >
             <Building2 className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-sm font-semibold tracking-tight text-slate-900">ForecastHUB</p>
-            <p className="text-xs text-slate-500">Consumer market intelligence</p>
+            <p className={`text-sm font-semibold tracking-tight transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>ForecastHUB</p>
+            <p className={`text-xs transition-colors ${scrolled ? 'text-slate-500' : 'text-slate-300'}`}>Consumer market intelligence</p>
           </div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          <Link href="#engine" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Engine</Link>
-          <Link href="#methodology" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Validation</Link>
-          <Link href="#how-it-works" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Methodology</Link>
-          <Link href="#contact" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Contact</Link>
+          <Link href="#engine" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Engine</Link>
+          <Link href="#methodology" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Validation</Link>
+          <Link href="#how-it-works" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Methodology</Link>
+          <Link href="#contact" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Contact</Link>
         </nav>
 
         <div className="flex items-center gap-3">
           <Link
             href="#engine"
-            className="hidden rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 sm:inline-flex"
+            className={`hidden rounded-full border px-4 py-2 text-sm font-semibold transition-colors sm:inline-flex ${
+              scrolled
+                ? 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                : 'border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
+            }`}
           >
             Explore the Engine
           </Link>
           <Link
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
+            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              scrolled ? 'bg-slate-900 text-white hover:bg-slate-800' : 'bg-white text-slate-900 hover:bg-slate-100'
+            }`}
           >
             Book an Appointment
             <ArrowRight className="h-4 w-4" />
@@ -660,7 +689,7 @@ export function EnterpriseLanding() {
     <main id="top" className="overflow-x-clip bg-white text-slate-900">
       <TopNav />
 
-      <section className="relative overflow-hidden bg-slate-950 py-16 lg:py-20">
+      <section className="relative overflow-hidden bg-slate-950 pt-28 pb-16 lg:pt-32 lg:pb-20">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: 'url(/images/hero-space.jpg)' }}
