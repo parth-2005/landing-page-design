@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
-  Activity,
   ArrowRight,
   BadgeCheck,
   Building2,
@@ -12,14 +11,10 @@ import {
   CircleGauge,
   Factory,
   Filter,
-  LineChart,
   Lock,
-  Microscope,
   Network,
-  ShieldCheck,
   SlidersHorizontal,
   Target,
-  Workflow,
 } from 'lucide-react'
 import {
   Bar,
@@ -38,13 +33,8 @@ import { Deliverables } from '@/components/deliverables'
 import { CaseStudy } from '@/components/case-study'
 import { FirstPrinciples } from '@/components/first-principles'
 import { PilotStudyResults } from '@/components/highlights'
-
-const tickerItems = [
-  { label: 'Real-Time Production Analytics', icon: Activity },
-  { label: 'Response Integrity Algorithm Active', icon: ShieldCheck },
-  { label: 'Predictive Customer Stickiness Scoring', icon: LineChart },
-  { label: 'Untampered Offline Validation', icon: Microscope },
-]
+import { Ticker } from '@/components/ticker'
+import { FAQ } from '@/components/faq'
 
 const sensoryPoints = [
   { id: 'S1', x: 11.2, y: 10.6, label: 'Conservative base' },
@@ -65,7 +55,7 @@ const valueCards = [
     icon: Factory,
     title: 'Agile R&D speed',
     description: 'Compress iteration cycles from concept to verdict so product teams can move with board-level clarity.',
-    stat: 'Fast cycles',
+    stat: 'Fewer iterations',
   },
   {
     icon: Filter,
@@ -89,7 +79,7 @@ const valueCards = [
     icon: Network,
     title: 'Parallel validation',
     description: 'Offline research and software analytics run in tandem so the verdict is both empirical and operational.',
-    stat: '2 tracks',
+    stat: 'Empirical',
   },
   {
     icon: BadgeCheck,
@@ -99,10 +89,10 @@ const valueCards = [
   },
 ]
 
-function SectionEyebrow({ label }: { label: string }) {
+function SectionEyebrow({ label, dark = false }: { label: string; dark?: boolean }) {
   return (
-    <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-      <span className="h-px w-8 bg-slate-300" />
+    <div className={`flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
+      <span className={`h-px w-8 ${dark ? 'bg-slate-600' : 'bg-slate-300'}`} />
       <span>{label}</span>
     </div>
   )
@@ -418,28 +408,6 @@ function TopNav() {
   )
 }
 
-function Ticker() {
-  return (
-    <section className="overflow-hidden border-y border-slate-200 bg-gray-100">
-      <div className="flex w-[200%] animate-[tkr_28s_linear_infinite] items-center">
-        {[0, 1].map((repeat) => (
-          <div key={repeat} className="flex w-1/2 items-center gap-8 px-6 py-4 lg:px-10">
-            {tickerItems.map((item) => {
-              const Icon = item.icon
-              return (
-                <div key={`${repeat}-${item.label}`} className="flex items-center gap-3 whitespace-nowrap text-slate-700">
-                  <Icon className="h-4 w-4 text-slate-500" />
-                  <span className="text-sm font-medium tracking-tight">{item.label}</span>
-                </div>
-              )
-            })}
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 function EngineShowroom() {
   return (
     <section id="engine" className="bg-slate-50 py-20 lg:py-24">
@@ -560,7 +528,8 @@ function Footer() {
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Platform</p>
             <ul className="mt-4 space-y-3 text-sm text-slate-600">
               <li><Link href="#engine" className="transition-colors hover:text-slate-900">The Engine</Link></li>
-              <li><Link href="#top" className="transition-colors hover:text-slate-900">Hero</Link></li>
+              <li><Link href="#how-it-works" className="transition-colors hover:text-slate-900">How It Works</Link></li>
+              <li><Link href="#methodology" className="transition-colors hover:text-slate-900">Why It Works</Link></li>
               <li><Link href="#contact" className="transition-colors hover:text-slate-900">Contact</Link></li>
             </ul>
           </div>
@@ -687,39 +656,39 @@ function HowItWorks() {
 }
 
 export function EnterpriseLanding() {
-  const { scrollY } = useScroll()
-  const gridY = useTransform(scrollY, [0, 600], [0, -80])
-
   return (
     <main id="top" className="overflow-x-clip bg-white text-slate-900">
       <TopNav />
 
-      <section className="relative overflow-hidden bg-white py-16 lg:py-20">
-        <motion.div
-          style={{ y: gridY }}
-          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:42px_42px] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_95%)]"
+      <section className="relative overflow-hidden bg-slate-950 py-16 lg:py-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(/images/hero-space.jpg)' }}
         />
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-slate-950/10" />
+        {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" /> */}
+
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="relative z-10 max-w-3xl"
           >
-            <SectionEyebrow label="Consumer market intelligence" />
-            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-7xl">
+            <SectionEyebrow label="Consumer market intelligence" dark />
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-7xl">
               Know which product wins before you print a single label.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 lg:text-xl">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 lg:text-xl">
               ForecastHUB runs blind sensory panels and scores your products against real commercial loyalty signals — so your R&D and brand teams make the launch call with evidence, not instinct.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="#contact" className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
+              <Link href="#contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100">
                  Book an Appointment
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="#engine" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">
+              <Link href="#engine" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20 backdrop-blur-sm">
                 Explore the Engine
               </Link>
             </div>
@@ -731,18 +700,18 @@ export function EnterpriseLanding() {
                 ['Category Management', '#category'],
                 ['C-Suite / Commercial', '#c-suite'],
               ].map(([label, href]) => (
-                <Link key={String(label)} href={String(href)} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                <Link key={String(label)} href={String(href)} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-white/20 backdrop-blur-sm">
                   {label}
                 </Link>
               ))}
             </div>
 
             <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
-              <AnimatedStat value={44} label="Pilot sample" />
-              <AnimatedStat value={11.2} decimals={1} label="Final score" />
-              <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Delivery window</p>
-                <p className="mt-2 text-base font-semibold tracking-tight text-slate-900">Within agreed timeline</p>
+              <AnimatedStat value={44} label="Pilot sample" className="bg-white/10 border-white/10 backdrop-blur-sm" labelClassName="text-slate-400" valueClassName="text-white text-2xl" />
+              <AnimatedStat value={11.2} decimals={1} label="Final score" className="bg-white/10 border-white/10 backdrop-blur-sm" labelClassName="text-slate-400" valueClassName="text-white text-2xl" />
+              <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-4 backdrop-blur-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">Delivery window</p>
+                <p className="mt-2 text-base font-semibold tracking-tight text-white">Within agreed timeline</p>
               </div>
             </div>
           </motion.div>
@@ -768,6 +737,7 @@ export function EnterpriseLanding() {
       <CaseStudy />
       <EngineShowroom />
       <ValueGrid />
+      <FAQ />
       <Footer />
     </main>
   )

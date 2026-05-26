@@ -40,23 +40,19 @@ export function FirstPrinciples() {
           viewport={{ once: true }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
-          <div className="relative overflow-hidden rounded-3xl border border-off2 bg-off/60 p-8 lg:p-10">
-            <div className="absolute inset-0 bg-cover bg-center opacity-[0.1]" style={{ backgroundImage: 'url(/images/research-texture.png)' }} />
-            <div className="absolute inset-0 bg-white/70" />
-            <div className="relative z-10">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-6">What traditional research gives you</p>
-              <div className="space-y-4">
-                {[
-                  'Survey percentages that reflect stated preference, not purchase behavior.',
-                  'Focus group opinions shaped by brand cues and social dynamics.',
-                  'Concept scores that collapse once the product hits shelf reality.',
-                ].map((item, idx) => (
-                  <div key={idx} className="flex gap-3">
-                    <div className="mt-1.5 h-2.5 w-2.5 rounded-full bg-danger flex-shrink-0" />
-                    <p className="text-slate-700 leading-relaxed">{item}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="rounded-3xl border border-off2 bg-off/60 p-8 lg:p-10">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-6">What traditional research gives you</p>
+            <div className="space-y-4">
+              {[
+                'Survey percentages that reflect stated preference, not purchase behavior.',
+                'Focus group opinions shaped by brand cues and social dynamics.',
+                'Concept scores that collapse once the product hits shelf reality.',
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-3">
+                  <div className="mt-1.5 h-2.5 w-2.5 rounded-full bg-danger flex-shrink-0" />
+                  <p className="text-slate-700 leading-relaxed">{item}</p>
+                </div>
+              ))}
             </div>
           </div>
 

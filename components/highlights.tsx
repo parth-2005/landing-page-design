@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { AnimatedStat } from './animated-stat'
 
 export function PilotStudyResults() {
   return (
@@ -30,11 +29,13 @@ export function PilotStudyResults() {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-3xl border border-white/10 bg-white/8 p-5">
-                <AnimatedStat value={6.09} prefix="+" decimals={2} label="Winner" />
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-3">Winner</p>
+                <p className="font-serif text-5xl font-800 text-slate-50">+6.09</p>
                 <p className="text-sm text-slate-300 mt-3 leading-relaxed">Sample 2 led the blind test and became the strongest commercial candidate.</p>
               </div>
               <div className="rounded-3xl border border-white/10 bg-white/8 p-5">
-                <AnimatedStat value={1.41} prefix="-" decimals={2} label="Failure" />
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-300 mb-3">Failure</p>
+                <p className="font-serif text-5xl font-800 text-slate-50">−1.41</p>
                 <p className="text-sm text-slate-300 mt-3 leading-relaxed">Sample 4 missed the texture target and fell behind on repeat intent.</p>
               </div>
             </div>
@@ -63,19 +64,13 @@ export function PilotStudyResults() {
             </div>
             <div className="space-y-4">
               {[
-                [39, 'walk-to-shop behavior'],
-                [68, 'price loyalty'],
-                ['n=44', 'panel size'],
-              ].map(([value, label], idx) => (
-                <div key={idx} className="rounded-2xl border border-white/10 bg-white/8 px-4 py-4 flex items-end justify-between gap-6">
-                  <div>
-                    {typeof value === 'number' ? (
-                      <AnimatedStat value={value} suffix="%" label={String(label)} />
-                    ) : (
-                      <div className="font-serif text-3xl font-800 text-slate-50">{value}</div>
-                    )}
-                  </div>
-                  <div className="h-10 w-24 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.32),rgba(255,255,255,0.05))]" />
+                { value: '39%', label: 'Walk-to-shop behavior' },
+                { value: '68%', label: 'Price loyalty' },
+                { value: 'n=44', label: 'Panel size' },
+              ].map(({ value, label }) => (
+                <div key={label} className="rounded-2xl border border-white/10 bg-white/8 px-5 py-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">{label}</p>
+                  <p className="text-3xl font-semibold tracking-tight text-slate-50">{value}</p>
                 </div>
               ))}
             </div>

@@ -9,12 +9,12 @@ export function CaseStudy() {
   const [submitted, setSubmitted] = useState(false)
 
   const benefits = [
-    'Formulation optimization roadmap',
-    '+45% margin improvement strategy',
-    'Competitive positioning analysis',
-    'Timely, defensible delivery methodology',
-    'Statistical confidence intervals',
-    'Executive summary',
+    'Scored verdict on every sample tested',
+    'Confidence-adjusted stickiness ranking',
+    'Ask the Data — AI assistant over your panel responses',
+    'Attribute-level penalty and lift analysis',
+    'Data-grounded formulation next steps',
+    'Board-ready summary',
   ]
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -38,15 +38,13 @@ export function CaseStudy() {
             viewport={{ once: true }}
           >
             <div
-              className="relative overflow-hidden bg-white/80 border border-off2 rounded-3xl p-8 shadow-lg"
+              className="bg-white border border-off2 rounded-3xl p-8 shadow-lg"
               style={{
                 boxShadow:
                   '8px 8px 0 rgba(230, 240, 253, 1), 16px 16px 0 rgba(0, 112, 243, 0.05)',
               }}
             >
-              <div className="absolute inset-0 bg-cover bg-center opacity-65" style={{ backgroundImage: 'url(/images/wafer-study.png)' }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-transparent" />
-              <div className="relative z-10">
+              <div>
                 <div className="h-1 w-15 bg-blue rounded mb-6" />
                 <div className="text-xs font-bold tracking-widest text-slate-700 uppercase mb-3">
                   Recent Study
