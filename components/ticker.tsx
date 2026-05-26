@@ -1,11 +1,10 @@
 export function Ticker() {
   const items = [
-    '176 double-blind evaluations',
-    'ForecastHUB™ sensory engine',
-    'Formulation decisions in 72h',
-    'Mathematical commercial loyalty',
-    'Physical product testing',
-    'Zero brand equity bias',
+    'Pilot #001 · Sample 2 wins · +6.09 sensory lift over baseline',
+    '44 panelists · 3 academic institutions · double-blind protocol',
+    'Stickiness Score™ 76.56 · highest binge intent ≠ highest loyalty',
+    'Confidence multiplier applied · noisy responses excluded from verdict',
+    'Ask the Data — your panel, queryable by AI',
   ]
 
   return (

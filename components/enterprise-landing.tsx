@@ -33,6 +33,10 @@ import {
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Scrollytelling } from '@/components/scrollytelling'
+import { Deliverables } from '@/components/deliverables'
+import { CaseStudy } from '@/components/case-study'
+import { FirstPrinciples } from '@/components/first-principles'
+import { PilotStudyResults } from '@/components/highlights'
 
 const tickerItems = [
   { label: 'Real-Time Production Analytics', icon: Activity },
@@ -60,7 +64,7 @@ const valueCards = [
     icon: Factory,
     title: 'Agile R&D speed',
     description: 'Compress iteration cycles from concept to verdict so product teams can move with board-level clarity.',
-    stat: '72h',
+    stat: 'Fast cycles',
   },
   {
     icon: Filter,
@@ -140,10 +144,9 @@ function HeroFormulaCard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <StatTile label="Verdict" value="Launch" />
           <StatTile label="Stickiness" value="76.56" />
-          <StatTile label="Turnaround" value="72h" />
         </div>
       </div>
     </div>
@@ -388,11 +391,10 @@ function TopNav() {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {['Engine', 'Validation', 'Methodology', 'Contact'].map((item) => (
-            <Link key={item} href="#engine" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">
-              {item}
-            </Link>
-          ))}
+          <Link href="#engine" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Engine</Link>
+          <Link href="#methodology" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Validation</Link>
+          <Link href="#how-it-works" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Methodology</Link>
+          <Link href="#contact" className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900">Contact</Link>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -406,7 +408,7 @@ function TopNav() {
             href="#contact"
             className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
           >
-            Book a Demo
+            Book an Appointment
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -655,10 +657,10 @@ function Footer() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Enterprise</p>
             <p className="mt-4 text-sm leading-7 text-slate-600">
-              Book a demo to review the framework, the scoring model, and a live pilot readout for your category.
+              Book an appointment to review the framework, the scoring model, and a live pilot readout for your category.
             </p>
             <Link href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-              Book a Demo
+                Book an Appointment
               <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
@@ -674,6 +676,46 @@ function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+function TrustStrip() {
+  return (
+    <section className="bg-slate-50 py-6">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm text-slate-700">
+          Pilot study conducted across 3 academic institutions · n=44 verified respondents · Double-blind protocol · 4 SKUs tested simultaneously
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function HowItWorks() {
+  const steps = [
+    { title: 'Submit samples', desc: 'Send your blind SKU samples and study brief.' },
+    { title: 'Panel runs', desc: 'Double-blind sensory panel with integrity screening.' },
+    { title: 'You get the output', desc: 'Board-ready verdict, Ask the Data chatbot, and recommendations.' },
+  ]
+
+  return (
+    <section id="how-it-works" className="bg-white py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="mb-8 max-w-3xl">
+          <SectionEyebrow label="How it works" />
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">Simple process. Defensible verdicts.</h2>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-3">
+          {steps.map((s, i) => (
+            <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center">
+              <div className="text-lg font-semibold text-slate-900">{s.title}</div>
+              <p className="mt-3 text-sm text-slate-700">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -701,7 +743,7 @@ export function EnterpriseLanding() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="#contact" className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-                Book a Demo
+                 Book an Appointment
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="#engine" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">
@@ -709,11 +751,24 @@ export function EnterpriseLanding() {
               </Link>
             </div>
 
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {[
+                ['R&D & Formulation', '#rd'],
+                ['Brand & Marketing', '#brand'],
+                ['Category Management', '#category'],
+                ['C-Suite / Commercial', '#c-suite'],
+              ].map(([label, href]) => (
+                <Link key={String(label)} href={String(href)} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                  {label}
+                </Link>
+              ))}
+            </div>
+
             <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
               {[
                 ['Pilot sample', 'n=44'],
                 ['Final score', '11.2'],
-                ['Delivery window', '72 hours'],
+                  ['Delivery window', 'Within agreed timeline'],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">{label}</p>
@@ -734,8 +789,14 @@ export function EnterpriseLanding() {
         </div>
       </section>
 
+      <TrustStrip />
+      <HowItWorks />
+      <Deliverables />
       <Ticker />
       <ParallelArchitecture />
+      <FirstPrinciples />
+      <PilotStudyResults />
+      <CaseStudy />
       <Scrollytelling />
       <ValueGrid />
       <Footer />

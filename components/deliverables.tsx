@@ -1,39 +1,27 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CheckCircle2, FileText, TrendingUp, Lightbulb, Clock } from 'lucide-react'
+import { CheckCircle2, FileText, MessageSquare, Target } from 'lucide-react'
 
 export function Deliverables() {
   const items = [
     {
       icon: FileText,
-      title: 'Stickiness Score™ Report',
-      description: 'Mathematical loyalty prediction for your SKU with competitive benchmarking',
+      title: 'Study Insights',
+      description:
+        'A scored readout of every sample tested — sensory attributes, confidence-adjusted rankings, stickiness signals, and a clear verdict on commercial readiness.',
     },
     {
-      icon: Lightbulb,
-      title: 'Attribute Breakdown',
-      description: 'Which sensory traits drove (+) or hurt (-) the score — formulation insights',
+      icon: MessageSquare,
+      title: 'Ask the Data',
+      description:
+        "Your study data loaded into a private RAG assistant — query sample-level responses, attribute drivers, and segment differences with evidence-backed answers.",
     },
     {
-      icon: TrendingUp,
-      title: 'Competitive Ranking',
-      description: 'How your product stacks against category leaders in blind testing',
-    },
-    {
-      icon: Clock,
-      title: 'Formulation Roadmap',
-      description: 'Prioritized ingredient/texture changes recommended to lift loyalty 5–15%',
-    },
-    {
-      icon: CheckCircle2,
-      title: 'Margin Impact Model',
-      description: 'What happens to repeat purchase if you reduce cost by 5%, 10%, 20%',
-    },
-    {
-      icon: FileText,
-      title: 'Executive Summary',
-      description: 'One-page leadership brief with verdict, key findings, and next steps',
+      icon: Target,
+      title: 'Launch Strategy',
+      description:
+        'Data-grounded next steps: which formulation to prioritise, attributes to fix, and how to position the winning SKU for the right channel.',
     },
   ]
 
@@ -53,7 +41,7 @@ export function Deliverables() {
             What You Get
           </p>
           <h2 className="font-serif text-4xl lg:text-5xl font-800 text-slate-900 mb-4 max-w-2xl">
-            Your Complete Verdict in 72 Hours
+            Your Complete Verdict
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl">
             No endless reports. No fluff. Just the data that matters for better formulation decisions and margin-positive launches.
@@ -73,41 +61,24 @@ export function Deliverables() {
             <div className="relative w-full max-w-sm">
               {/* Mock PDF/Report Card */}
               <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-off2">
-                {/* Report Header */}
+                {/* Ask the Data Header */}
                 <div className="bg-gradient-to-r from-navy to-blue-mid p-6 text-slate-50">
-                  <p className="text-xs uppercase tracking-widest font-bold opacity-70 mb-2">
-                    ForecastHUB™ Report
-                  </p>
-                  <h3 className="text-2xl font-800">Stickiness Score</h3>
-                  <p className="text-sm opacity-90 mt-1">Cream & Onion Wafer SKU</p>
+                  <p className="text-xs uppercase tracking-widest font-bold opacity-70 mb-2">Ask the Data</p>
+                  <h3 className="text-2xl font-800">Query your study</h3>
+                  <p className="text-sm opacity-90 mt-1">Private RAG assistant over your panel responses</p>
                 </div>
 
-                {/* Report Content */}  
-                <div className="p-6 space-y-6">
-                  {/* Score Display */}
-                  <div className="flex items-end gap-4">
-                    <div className="text-5xl font-800 text-slate-900">76.56</div>
-                    <div>
-                      <p className="text-xs uppercase tracking-widest font-bold text-slate-600">Loyalty Score</p>
-                      <p className="text-sm text-slate-500">Commercial repeat intent</p>
-                    </div>
-                  </div>
-
-                  {/* Metrics Grid */}
+                <div className="p-6 space-y-4">
+                  <p className="text-sm text-slate-700">Ask granular questions about attributes, segments, or verbatim responses and get answers grounded in your actual study data.</p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-off rounded-lg p-3">
-                      <p className="text-xs text-slate-600 font-semibold uppercase">Price Loyalty</p>
-                      <p className="text-xl font-800 text-slate-900">68%</p>
+                      <p className="text-xs text-slate-600 font-semibold uppercase">Samples</p>
+                      <p className="text-xl font-800 text-slate-900">4 SKUs</p>
                     </div>
                     <div className="bg-off rounded-lg p-3">
-                      <p className="text-xs text-slate-600 font-semibold uppercase">Walk-to-Shop</p>
-                      <p className="text-xl font-800 text-slate-900">39%</p>
+                      <p className="text-xs text-slate-600 font-semibold uppercase">Panelists</p>
+                      <p className="text-xl font-800 text-slate-900">44</p>
                     </div>
-                  </div>
-
-                  {/* Timestamp */}
-                  <div className="border-t border-off2 pt-4 text-center">
-                    <p className="text-xs text-slate-500 font-medium">🚀 Delivered in 72 hours</p>
                   </div>
                 </div>
               </div>

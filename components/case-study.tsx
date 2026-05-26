@@ -12,7 +12,7 @@ export function CaseStudy() {
     'Formulation optimization roadmap',
     '+45% margin improvement strategy',
     'Competitive positioning analysis',
-    '72-hour delivery methodology',
+    'Timely, defensible delivery methodology',
     'Statistical confidence intervals',
     'Executive summary',
   ]
@@ -109,7 +109,7 @@ export function CaseStudy() {
                 type="submit"
                 className="btn-primary px-7"
               >
-                {submitted ? '✓ Sent' : 'Get Report'}
+                {submitted ? '✓ Sent' : 'Book an Appointment'}
               </button>
             </form>
           </motion.div>

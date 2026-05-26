@@ -35,7 +35,7 @@ export function BentoGrid() {
     {
       id: 3,
       title: 'Speed to Market',
-      description: '72-hour verdict delivery',
+      description: 'Verdict: Launch-ready',
       span: 'col-span-1',
       dark: false,
       icon: Zap,
