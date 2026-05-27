@@ -1,681 +1,376 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { motion, useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
-  BadgeCheck,
-  Building2,
-  CheckCircle2,
+  BarChart3,
+  Bot,
   ChevronRight,
-  CircleGauge,
-  Factory,
-  Filter,
-  Lock,
-  Network,
-  SlidersHorizontal,
-  Target,
+  Code2,
+  FileText,
+  Linkedin,
+  Menu,
+  MessageCircle,
+  Search,
+  Send,
+  Sparkles,
+  TrendingUp,
+  Twitter,
+  X,
+  Zap,
 } from 'lucide-react'
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
 
-import { AnimatedStat } from './animated-stat'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Scrollytelling } from '@/components/scrollytelling'
-import { Deliverables } from '@/components/deliverables'
-import { CaseStudy } from '@/components/case-study'
-import { FirstPrinciples } from '@/components/first-principles'
-import { PilotStudyResults } from '@/components/highlights'
-import { Ticker } from '@/components/ticker'
-import { FAQ } from '@/components/faq'
-
-const sensoryPoints = [
-  { id: 'S1', x: 11.2, y: 10.6, label: 'Conservative base' },
-  { id: 'S2', x: 15.2, y: 14.1, label: 'Winning variant' },
-  { id: 'S3', x: 13.4, y: 13.1, label: 'Stable mid-tier' },
-  { id: 'S4', x: 10.6, y: 9.8, label: 'Texture drag' },
-]
-
-const stickinessData = [
-  { name: 'Channel substitution', value: 68 },
-  { name: 'Price sensitivity', value: 39 },
-  { name: 'Repeat intent', value: 74 },
-  { name: 'Final stickiness', value: 76.56 },
-]
-
-const valueCards = [
-  {
-    icon: Factory,
-    title: 'Agile R&D speed',
-    description: 'Compress iteration cycles from concept to verdict so product teams can move with board-level clarity.',
-    stat: 'Fewer iterations',
-  },
-  {
-    icon: Filter,
-    title: 'Bias elimination',
-    description: 'Remove brand cues, social pressure, and superficial enthusiasm before the model reaches leadership.',
-    stat: '0 bias',
-  },
-  {
-    icon: SlidersHorizontal,
-    title: 'Customizable logic',
-    description: 'Adjust the scoring weights for category, region, and commercial priorities without changing the architecture.',
-    stat: 'Modular',
-  },
-  {
-    icon: Target,
-    title: 'Commercial precision',
-    description: 'Translate sensory inputs into a defensible launch score that is easy for executive teams to act on.',
-    stat: '11.2',
-  },
-  {
-    icon: Network,
-    title: 'Parallel validation',
-    description: 'Offline research and software analytics run in tandem so the verdict is both empirical and operational.',
-    stat: 'Empirical',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'Decision readiness',
-    description: 'Every output is structured for procurement, product, and commercial stakeholders in the same readout.',
-    stat: 'Enterprise',
-  },
-]
-
-function SectionEyebrow({ label, dark = false }: { label: string; dark?: boolean }) {
-  return (
-    <div className={`flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] ${dark ? 'text-slate-400' : 'text-slate-500'}`}>
-      <span className={`h-px w-8 ${dark ? 'bg-slate-600' : 'bg-slate-300'}`} />
-      <span>{label}</span>
-    </div>
-  )
-}
-
-function HeroFormulaCard() {
-  return (
-    <div className="rounded-[28px] border border-slate-200 bg-white shadow-md">
-      <div className="border-b border-slate-200 px-6 py-4">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Final sample score</p>
-            <p className="mt-1 text-sm text-slate-600">Pilot Study #001 · Cream & Onion Wafers · n=44 panelists</p>
-          </div>
-          <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
-            Sample 2
-          </div>
-        </div>
-      </div>
-      <div className="space-y-5 px-6 py-6">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <MetricPill label="Base sensory" value="14" tone="slate" />
-          <MetricPill label="Confidence" value="0.8" tone="blue" />
-          <MetricPill label="Honesty check" value="1.0" tone="emerald" />
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-5">
-          <div className="flex flex-wrap items-center gap-3 text-slate-700">
-            <span className="font-semibold text-slate-900">Base Sensory (14)</span>
-            <span className="text-slate-400">×</span>
-            <span className="font-semibold text-slate-900">Confidence (0.8)</span>
-            <span className="text-slate-400">×</span>
-            <span className="font-semibold text-slate-900">Honesty Check (1.0)</span>
-            <span className="text-slate-400">=</span>
-            <span className="font-semibold text-slate-900">11.2</span>
-          </div>
-          <div className="mt-4 flex items-center justify-between gap-4 border-t border-slate-200 pt-4 text-sm text-slate-600">
-            <span>Clinical multiplier pipeline</span>
-            <span className="font-semibold text-slate-900">Winning variant score</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <StatTile label="Verdict" value="Launch" />
-          <AnimatedStat value={76.56} decimals={2} label="Stickiness" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MetricPill({ label, value, tone }: { label: string; value: string; tone: 'slate' | 'blue' | 'emerald' }) {
-  const toneClasses = {
-    slate: 'border-slate-200 bg-white text-slate-900',
-    blue: 'border-slate-200 bg-blue-50 text-slate-900',
-    emerald: 'border-slate-200 bg-emerald-50 text-slate-900',
-  }
-
-  return (
-    <div className={`rounded-2xl border px-4 py-3 ${toneClasses[tone]}`}>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">{label}</p>
-      <p className="mt-2 text-2xl font-semibold tracking-tight">{value}</p>
-    </div>
-  )
-}
-
-function StatTile({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-center">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">{label}</p>
-      <p className="mt-2 text-lg font-semibold tracking-tight text-slate-900">{value}</p>
-    </div>
-  )
-}
-
-function SensoryMapCard() {
-  return (
-    <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-      <div className="rounded-[24px] border border-gray-200 bg-white p-5">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Sensory mapping</p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Texture / Bite versus Mouthfeel</h3>
-          </div>
-          <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
-            Clinical view
-          </div>
-        </div>
-
-        <div className="relative h-[340px] rounded-2xl border border-slate-200 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] bg-[size:34px_34px] p-4">
-          <div className="absolute left-4 top-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Mouthfeel</div>
-          <div className="absolute bottom-4 right-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Texture / Bite</div>
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-slate-300/70" />
-          <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2 bg-slate-300/70" />
-
-          {sensoryPoints.map((point) => {
-            const left = ((point.x - 8) / 10) * 100
-            const bottom = ((point.y - 8) / 10) * 100
-            const isWinner = point.id === 'S2'
-
-            return (
-              <div
-                key={point.id}
-                className="absolute flex -translate-x-1/2 translate-y-1/2 flex-col items-center"
-                style={{ left: `${left}%`, bottom: `${bottom}%` }}
-              >
-                <div
-                  className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${isWinner ? 'border-slate-900 bg-slate-900' : 'border-slate-400 bg-white'}`}
-                >
-                  <div className={`h-1.5 w-1.5 rounded-full ${isWinner ? 'bg-white' : 'bg-slate-500'}`} />
-                </div>
-                <div className="mt-2 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow-sm">
-                  {point.id}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      <div className="space-y-4 rounded-[24px] border border-gray-200 bg-slate-50 p-5">
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Reading</p>
-          <p className="mt-2 text-base leading-7 text-slate-700">
-            Sample 2 sits in the upper-right quadrant, where the texture profile and mouthfeel both clear the commercial threshold.
-          </p>
-        </div>
-
-        <div className="grid gap-3">
-          {sensoryPoints.map((point) => (
-            <div key={point.id} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3">
-              <div>
-                <p className="text-sm font-semibold text-slate-900">{point.id}</p>
-                <p className="text-xs text-slate-500">{point.label}</p>
-              </div>
-              <div className="text-right text-sm text-slate-600">
-                <p>Texture {point.x.toFixed(1)}</p>
-                <p>Mouthfeel {point.y.toFixed(1)}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MultiplierCard() {
-  const steps = [
-    { label: 'Base sensory', value: '14.0', note: 'Raw panel score', width: '100%' },
-    { label: 'Confidence', value: '0.8', note: 'Integrity multiplier', width: '80%' },
-    { label: 'Honesty check', value: '1.0', note: 'No-response inflation', width: '72%' },
-    { label: 'Final sample score', value: '11.2', note: 'Decision-grade output', width: '58%' },
-  ]
-
-  return (
-    <div className="grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
-      <div className="rounded-[24px] border border-gray-200 bg-white p-5">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">The multiplier effect</p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Clinical funnel</h3>
-          </div>
-          <Lock className="h-4 w-4 text-slate-500" />
-        </div>
-
-        <div className="space-y-3">
-          {steps.map((step, index) => (
-            <div key={step.label} className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
-              <div className="absolute inset-y-0 left-0 bg-slate-900/5" style={{ width: step.width }} />
-              <div className="relative flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{step.label}</p>
-                  <p className="text-xs text-slate-500">{step.note}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-lg font-semibold tracking-tight text-slate-900">{step.value}</p>
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-500">Stage {index + 1}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-[24px] border border-gray-200 bg-slate-50 p-5">
-        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Formula readout</p>
-            <div className="mt-4 flex flex-wrap items-center gap-3 text-slate-700">
-              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 font-semibold text-slate-900">14</span>
-              <span>×</span>
-              <span className="rounded-full border border-slate-200 bg-blue-50 px-3 py-1 font-semibold text-slate-900">0.8</span>
-              <span>×</span>
-              <span className="rounded-full border border-slate-200 bg-emerald-50 px-3 py-1 font-semibold text-slate-900">1.0</span>
-              <span>=</span>
-              <span className="rounded-full border border-slate-900 bg-slate-900 px-3 py-1 font-semibold text-white">11.2</span>
-            </div>
-            <div className="mt-4 flex items-center gap-2 text-sm text-slate-600">
-              <CheckCircle2 className="h-4 w-4 text-slate-700" />
-              <span>Only clean, confidence-adjusted responses survive the pipeline.</span>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-center lg:w-40">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Output</p>
-            <div className="mt-3 text-4xl font-semibold tracking-tight text-slate-900">11.2</div>
-            <p className="mt-2 text-sm text-slate-600">Decision score</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function StickinessCard() {
-  return (
-    <div className="grid gap-5 lg:grid-cols-[1fr_0.72fr]">
-      <div className="rounded-[24px] border border-gray-200 bg-white p-5">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Stickiness index</p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Customer stickiness score</h3>
-          </div>
-          <CircleGauge className="h-4 w-4 text-slate-500" />
-        </div>
-
-        <div className="h-[320px] rounded-2xl border border-slate-200 bg-slate-50 p-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={stickinessData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="rgba(148,163,184,0.22)" vertical={false} />
-              <XAxis dataKey="name" tickLine={false} axisLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
-              <YAxis tickLine={false} axisLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid rgb(226,232,240)',
-                  borderRadius: '14px',
-                  boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-                }}
-                labelStyle={{ color: '#0f172a', fontWeight: 600 }}
-              />
-              <Bar dataKey="value" radius={[10, 10, 0, 0]} fill="#0f172a" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      <div className="space-y-4 rounded-[24px] border border-gray-200 bg-slate-50 p-5">
-        <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Commercial formula</p>
-          <p className="mt-2 text-base leading-7 text-slate-700">
-            Customer stickiness is read as the interaction between channel substitution and price sensitivity, then surfaced in a single board-ready number.
-          </p>
-        </div>
-
-        <div className="grid gap-3">
-          {stickinessData.map((item) => (
-            <div key={item.name} className="rounded-2xl border border-slate-200 bg-white px-4 py-3">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{item.name}</p>
-                  <p className="text-xs text-slate-500">Enterprise readout</p>
-                </div>
-                <p className="text-lg font-semibold text-slate-900">{item.value}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function TopNav() {
-  const [scrolled, setScrolled] = useState(false)
+/* ─────────────────── ANIMATED COUNTER ─────────────────── */
+function AnimatedCounter({
+  target,
+  suffix = '',
+  prefix = '',
+  decimals = 0,
+  duration = 2000,
+}: {
+  target: number
+  suffix?: string
+  prefix?: string
+  decimals?: number
+  duration?: number
+}) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-40px' })
+  const [value, setValue] = useState(0)
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24)
+    if (!isInView) return
+    let start = 0
+    const startTime = performance.now()
+    const step = (now: number) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      start = eased * target
+      setValue(start)
+      if (progress < 1) requestAnimationFrame(step)
     }
+    requestAnimationFrame(step)
+  }, [isInView, target, duration])
 
+  return (
+    <span ref={ref}>
+      {prefix}
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
+  )
+}
+
+/* ─────────────────── TOP NAV ─────────────────── */
+function TopNav() {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const linkStyle = scrolled
+    ? 'text-[#001081]/70 hover:text-[#001081]'
+    : 'text-white/80 hover:text-white'
+
   return (
     <header
-      className={`top-0 right-0 left-0 z-50 transition-all duration-300 ease-in-out ${
+      id="top-nav"
+      className={`top-0 right-0 left-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'fixed border-b border-slate-200 bg-white/90 backdrop-blur-xl'
-          : 'absolute border-b border-transparent bg-transparent'
+          ? 'fixed border-b border-[#001081]/8 bg-[#FFFEFF]/92 backdrop-blur-xl'
+          : 'absolute bg-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-10">
+      <div className="section-container flex items-center justify-between gap-6 py-4">
+        {/* Logo */}
         <Link href="#top" className="flex items-center gap-3">
           <div
-            className={`flex h-10 w-10 items-center justify-center rounded-2xl border shadow-sm transition-colors ${
-              scrolled ? 'border-slate-200 bg-slate-900 text-white' : 'border-white/30 bg-white/10 text-white backdrop-blur-sm'
+            className={`flex h-10 w-10 items-center justify-center rounded-xl font-bold text-sm transition-colors ${
+              scrolled ? 'bg-[#001081] text-white' : 'bg-white/15 text-white backdrop-blur-sm'
             }`}
           >
-            <Building2 className="h-5 w-5" />
+            D
           </div>
           <div>
-            <p className={`text-sm font-semibold tracking-tight transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>ForecastHUB</p>
-            <p className={`text-xs transition-colors ${scrolled ? 'text-slate-500' : 'text-slate-300'}`}>Consumer market intelligence</p>
+            <p className={`text-sm font-bold tracking-tight transition-colors ${scrolled ? 'text-[#001081]' : 'text-white'}`}>
+              Discover
+            </p>
+            <p className={`text-[11px] transition-colors ${scrolled ? 'text-[#001081]/50' : 'text-white/60'}`}>
+              by ForecastHUB
+            </p>
           </div>
         </Link>
 
+        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 lg:flex">
-          <Link href="#engine" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Engine</Link>
-          <Link href="#methodology" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Validation</Link>
-          <Link href="#how-it-works" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Methodology</Link>
-          <Link href="#contact" className={`text-sm font-medium transition-colors ${scrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'}`}>Contact</Link>
+          {['Insights', 'Solutions', 'Research', 'About'].map((item) => (
+            <Link
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className={`text-sm font-medium transition-colors ${linkStyle}`}
+            >
+              {item}
+            </Link>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        {/* CTA Buttons */}
+        <div className="hidden items-center gap-3 sm:flex">
           <Link
-            href="#engine"
-            className={`hidden rounded-full border px-4 py-2 text-sm font-semibold transition-colors sm:inline-flex ${
+            href="#join"
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               scrolled
-                ? 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                : 'border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
+                ? 'border border-[#001081]/12 text-[#001081] hover:bg-[#F2F3F3]'
+                : 'border border-white/25 text-white hover:bg-white/10'
             }`}
           >
-            Explore the Engine
+            Sign Up
           </Link>
           <Link
             href="#contact"
-            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-              scrolled ? 'bg-slate-900 text-white hover:bg-slate-800' : 'bg-white text-slate-900 hover:bg-slate-100'
+            className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
+              scrolled
+                ? 'bg-[#2C6DF6] text-white hover:bg-[#1A5AE0] shadow-md'
+                : 'bg-white text-[#001081] hover:bg-[#F2F3F3]'
             }`}
           >
-            Book an Appointment
-            <ArrowRight className="h-4 w-4" />
+            Book a Demo
           </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className={`lg:hidden p-2 rounded-lg transition-colors ${
+            scrolled ? 'text-[#001081]' : 'text-white'
+          }`}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="lg:hidden bg-[#FFFEFF] border-t border-[#001081]/8 px-6 py-6 space-y-4"
+        >
+          {['Insights', 'Solutions', 'Research', 'About'].map((item) => (
+            <Link
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setMobileOpen(false)}
+              className="block text-[#001081] font-medium py-2"
+            >
+              {item}
+            </Link>
+          ))}
+          <Link href="#contact" className="btn-primary w-full justify-center mt-4">
+            Book a Demo
+          </Link>
+        </motion.div>
+      )}
     </header>
   )
 }
 
-function EngineShowroom() {
+/* ─────────────────── SECTION 1: HERO ─────────────────── */
+function HeroSection() {
   return (
-    <section id="engine" className="bg-slate-50 py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-3xl"
-        >
-          <SectionEyebrow label="Inside the engine" />
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
-            A product tour that reads like a financial terminal, not a consumer gimmick.
-          </h2>
-        </motion.div>
+    <section
+      id="top"
+      className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
+      style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)' }}
+    >
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,254,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,254,255,0.4) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
 
-        <Tabs defaultValue="sensory" className="gap-6">
-          <TabsList className="grid h-auto w-full max-w-3xl grid-cols-3 rounded-full border border-slate-200 bg-white p-1 overflow-x-auto">
-            <TabsTrigger value="sensory" className="rounded-full px-4 py-2 text-sm data-[state=active]:bg-slate-900 data-[state=active]:text-white">
-              Sensory mapping
-            </TabsTrigger>
-            <TabsTrigger value="multiplier" className="rounded-full px-4 py-2 text-sm data-[state=active]:bg-slate-900 data-[state=active]:text-white">
-              Multiplier effect
-            </TabsTrigger>
-            <TabsTrigger value="stickiness" className="rounded-full px-4 py-2 text-sm data-[state=active]:bg-slate-900 data-[state=active]:text-white">
-              Stickiness index
-            </TabsTrigger>
-          </TabsList>
+      {/* Glow blob */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#2C6DF6]/15 blur-[120px] pointer-events-none" />
 
-          <TabsContent value="sensory" className="mt-6">
-            <SensoryMapCard />
-          </TabsContent>
+      <div className="section-container relative z-10">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-8 items-center">
+          {/* Left: Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold text-white/80 mb-6 border border-white/10">
+              <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
+              Consumer Intelligence Platform
+            </div>
 
-          <TabsContent value="multiplier" className="mt-6">
-            <MultiplierCard />
-          </TabsContent>
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-extrabold leading-[1.1] tracking-tight text-white"
+              style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}
+            >
+              Do you{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6B9FFF] to-[#2C6DF6]">
+                really know
+              </span>{' '}
+              what your consumer will stick to?
+            </h1>
 
-          <TabsContent value="stickiness" className="mt-6">
-            <StickinessCard />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </section>
-  )
-}
+            <p className="mt-6 max-w-lg text-lg text-white/65 leading-relaxed">
+              Discover turns blind sensory panels into scored, queryable intelligence — so you launch what people love, not what you assume.
+            </p>
 
-function ValueGrid() {
-  return (
-    <section className="bg-white py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 max-w-3xl"
-        >
-          <SectionEyebrow label="Value proposition" />
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 lg:text-5xl">
-            Built for the teams who make the launch call.
-          </h2>
-        </motion.div>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link href="#contact" className="btn-primary">
+                Get Started
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="#solutions" className="btn-outline-white">
+                Explore Solutions
+              </Link>
+            </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {valueCards.map((card, index) => {
-            const Icon = card.icon
-            return (
-              <motion.article
-                key={card.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: index * 0.05 }}
-                className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-900">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
-                    {card.stat}
-                  </div>
-                </div>
-
-                <h3 className="mt-6 text-xl font-semibold tracking-tight text-slate-900">{card.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
-              </motion.article>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer id="contact" className="border-t border-slate-200 bg-slate-50">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
-          <div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-900 text-white">
-                <Building2 className="h-5 w-5" />
-              </div>
+            {/* Trust numbers */}
+            <div className="mt-10 flex items-center gap-8 text-white/50 text-sm">
               <div>
-                <p className="text-sm font-semibold text-slate-900">ForecastHUB</p>
-                <p className="text-xs text-slate-500">Enterprise consumer intelligence</p>
+                <span className="block text-2xl font-bold text-white">
+                  <AnimatedCounter target={44} />
+                </span>
+                Panelists Verified
+              </div>
+              <div className="h-8 w-px bg-white/15" />
+              <div>
+                <span className="block text-2xl font-bold text-white">
+                  <AnimatedCounter target={76.56} decimals={1} suffix="%" />
+                </span>
+                Stickiness Score
+              </div>
+              <div className="hidden sm:block h-8 w-px bg-white/15" />
+              <div className="hidden sm:block">
+                <span className="block text-2xl font-bold text-white">4</span>
+                SKUs Tested
               </div>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">
-              A formal, data-pure operating layer for FMCG teams that need faster formulation decisions and more defensible launches.
-            </p>
-          </div>
+          </motion.div>
 
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Platform</p>
-            <ul className="mt-4 space-y-3 text-sm text-slate-600">
-              <li><Link href="#engine" className="transition-colors hover:text-slate-900">The Engine</Link></li>
-              <li><Link href="#how-it-works" className="transition-colors hover:text-slate-900">How It Works</Link></li>
-              <li><Link href="#methodology" className="transition-colors hover:text-slate-900">Why It Works</Link></li>
-              <li><Link href="#contact" className="transition-colors hover:text-slate-900">Contact</Link></li>
-            </ul>
-          </div>
+          {/* Right: Mascot */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="relative flex justify-center"
+          >
+            {/* Floating glow behind mascot */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#2C6DF6]/20 blur-[80px] pointer-events-none" />
 
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Capabilities</p>
-            <ul className="mt-4 space-y-3 text-sm text-slate-600">
-              <li>Offline validation</li>
-              <li>Production analytics</li>
-              <li>Custom scoring logic</li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-500">Enterprise</p>
-            <p className="mt-4 text-sm leading-7 text-slate-600">
-              Book an appointment to review the framework, the scoring model, and a live pilot readout for your category.
-            </p>
-            <Link href="#contact" className="mt-5 inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800">
-                Book an Appointment
-              <ChevronRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-14 flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 lg:flex-row lg:items-center lg:justify-between">
-          <p>© 2026 ForecastHUB. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-5">
-            <Link href="#" className="transition-colors hover:text-slate-900">Privacy</Link>
-            <Link href="#" className="transition-colors hover:text-slate-900">Security</Link>
-            <Link href="#" className="transition-colors hover:text-slate-900">Terms</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-function TrustStrip() {
-  const stats = [
-    { value: 44, label: 'Verified panelists', prefix: 'n=' },
-    { value: 3, label: 'Academic institutions' },
-    { value: 'Double-blind', label: 'Protocol' },
-    { value: '4 SKUs', label: 'Tested simultaneously' },
-  ]
-
-  return (
-    <section className="border-y border-slate-200 bg-white py-6">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {stats.map((stat) => (
-            typeof stat.value === 'number' ? (
-              <AnimatedStat
-                key={stat.label}
-                value={stat.value}
-                prefix={stat.prefix}
-                label={stat.label}
-                className="bg-slate-50 text-center shadow-none"
-                labelClassName="text-[11px] text-slate-500"
-                valueClassName="text-lg"
+            <div className="relative" style={{ animation: 'float 4s ease-in-out infinite' }}>
+              <Image
+                src="/images/mascot-removebg-preview.png"
+                alt="Discover AI Mascot"
+                width={420}
+                height={420}
+                className="relative z-10 drop-shadow-2xl"
+                priority
               />
-            ) : (
-              <div key={stat.label} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-center">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">{stat.label}</p>
-                <p className="mt-2 text-lg font-semibold tracking-tight text-slate-900">{stat.value}</p>
-              </div>
-            )
-          ))}
+
+              {/* Floating badges around mascot */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute top-8 -left-4 lg:top-12 lg:-left-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Verdict</p>
+                <p className="text-lg font-bold text-[#001081]">Launch ✓</p>
+              </motion.div>
+
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                className="absolute bottom-16 -right-4 lg:bottom-20 lg:-right-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Score</p>
+                <p className="text-lg font-bold text-[#2C6DF6]">11.2</p>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   )
 }
 
-function HowItWorks() {
-  const steps = [
-    {
-      num: '01',
-      title: 'Submit your samples',
-      desc: 'Send us your blind SKUs and a brief on the category, target segment, and what you want to know. No brand labels. No packaging. Just the product.',
-    },
-    {
-      num: '02',
-      title: 'Panel runs',
-      desc: 'Your samples go through a structured blind sensory panel with response integrity screening built in. Noisy, inflated, or inconsistent responses are filtered before they reach the score.',
-    },
-    {
-      num: '03',
-      title: 'You receive the verdict',
-      desc: 'You get three things: a scored insights report, an AI assistant trained on your panel data that you can query by question, and a set of data-grounded recommendations on what to do next.',
-    },
+/* ─────────────────── SECTION 2: INTELLIGENCE THAT MATTERS ─────────────────── */
+function IntelligenceHighlights() {
+  const stats = [
+    { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
+    { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
+    { value: 76.56, suffix: '', label: 'Stickiness Index', desc: 'Composite score measuring repeat purchase intent', decimals: 2 },
+    { value: 44, suffix: '', label: 'Blind Panelists', desc: 'Double-blind tested without brand bias', prefix: 'n=' },
   ]
 
   return (
-    <section id="how-it-works" className="bg-stone-50 py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mb-12 max-w-2xl">
-          <SectionEyebrow label="How it works" />
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 lg:text-5xl">Simple process. Defensible verdicts.</h2>
-        </div>
+    <section id="insights" className="py-20 lg:py-28 bg-[#FFFEFF]">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-14"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
+            From Our Survey
+          </p>
+          <h2
+            className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
+            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+          >
+            Intelligence That Matters
+          </h2>
+          <p className="mt-4 text-[#001081]/55 text-lg">
+            Key findings from our pilot blind sensory study.
+          </p>
+        </motion.div>
 
-        <div className="relative grid gap-8 sm:grid-cols-3">
-          <div className="absolute top-8 left-[16%] right-[16%] hidden h-px bg-slate-200 sm:block" />
-          {steps.map((step, i) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+          {stats.map((stat, i) => (
             <motion.div
-              key={step.num}
-              initial={{ opacity: 0, y: 24 }}
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="relative flex flex-col"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="group relative rounded-2xl bg-[#F2F3F3] p-6 lg:p-8 text-center hover:bg-[#001081] transition-colors duration-500 cursor-default"
             >
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-white text-2xl font-semibold tracking-tight text-slate-900 shadow-sm">
-                {step.num}
+              <div className="text-4xl lg:text-5xl font-extrabold text-[#001081] group-hover:text-white transition-colors duration-500"
+                style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+              >
+                <AnimatedCounter
+                  target={stat.value}
+                  suffix={stat.suffix}
+                  prefix={stat.prefix || ''}
+                  decimals={stat.decimals || 0}
+                />
               </div>
-              <h3 className="text-xl font-semibold tracking-tight text-slate-900">{step.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{step.desc}</p>
+              <p className="mt-2 text-sm font-bold text-[#001081] group-hover:text-white transition-colors duration-500">
+                {stat.label}
+              </p>
+              <p className="mt-1 text-xs text-[#001081]/45 group-hover:text-white/60 transition-colors duration-500">
+                {stat.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -684,89 +379,613 @@ function HowItWorks() {
   )
 }
 
-export function EnterpriseLanding() {
+/* ─────────────────── SECTION 3: TRENDING INSIGHTS ─────────────────── */
+function TrendingInsights() {
+  const articles = [
+    {
+      image: '/images/blog/consumer-behaviour.png',
+      tag: 'Research',
+      title: 'Consumer Behaviour Patterns in FMCG',
+      excerpt: 'How sensory preferences and purchase habits are shifting across urban Indian markets.',
+      href: '/blogs',
+    },
+    {
+      image: '/images/blog/taste-texture.png',
+      tag: 'Framework',
+      title: 'Taste vs Texture: What Drives Stickiness?',
+      excerpt: 'Breaking down the two biggest drivers of repeat purchase intent from our blind panels.',
+      href: '/blogs',
+    },
+    {
+      image: '/images/blog/pricing-loyalty.png',
+      tag: 'Insights',
+      title: 'Pricing & Loyalty Dynamics',
+      excerpt: '68% of consumers showed price loyalty. But what does that really mean for your margin strategy?',
+      href: '/blogs',
+    },
+    {
+      image: '/images/blog/channel-substitution.png',
+      tag: 'Report',
+      title: 'Channel Substitution in FMCG',
+      excerpt: '39% are willing to switch stores. What this means for distribution and shelf strategy.',
+      href: '/blogs',
+    },
+  ]
+
   return (
-    <main id="top" className="overflow-x-clip bg-white text-slate-900">
-      <TopNav />
-
-      <section className="relative overflow-hidden bg-slate-950 pt-28 pb-16 lg:pt-32 lg:pb-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(/images/hero-space.jpg)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-slate-950/10" />
-        {/* <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" /> */}
-
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="relative z-10 max-w-3xl"
+    <section id="research" className="py-20 lg:py-28 bg-[#F2F3F3]">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12"
+        >
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
+              Trending
+            </p>
+            <h2
+              className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
+              style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+            >
+              Latest Insights
+            </h2>
+          </div>
+          <Link
+            href="/blogs"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#2C6DF6] hover:text-[#001081] transition-colors"
           >
-            <SectionEyebrow label="Consumer market intelligence" dark />
-            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-7xl">
-              Know which product wins before you print a single label.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 lg:text-xl">
-              ForecastHUB runs blind sensory panels and scores your products against real commercial loyalty signals — so your R&D and brand teams make the launch call with evidence, not instinct.
+            View All Articles
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {articles.map((article, i) => (
+            <motion.article
+              key={article.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <Link href={article.href} className="group block">
+                <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-[#001081]/5">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="mt-4">
+                  <span className="inline-block rounded-full bg-[#2C6DF6]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#2C6DF6]">
+                    {article.tag}
+                  </span>
+                  <h3 className="mt-3 text-base font-bold text-[#001081] leading-snug group-hover:text-[#2C6DF6] transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-[#001081]/50 leading-relaxed line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#2C6DF6] opacity-0 group-hover:opacity-100 transition-opacity">
+                    Read More <ChevronRight className="h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────── SECTION 4: JOIN US ─────────────────── */
+function JoinUs() {
+  return (
+    <section
+      id="join"
+      className="relative overflow-hidden py-20 lg:py-24"
+      style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)' }}
+    >
+      {/* Dot pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #FFFEFF 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      />
+
+      <div className="section-container relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto"
+        >
+          <h2
+            className="text-3xl lg:text-5xl font-extrabold tracking-tight text-white"
+            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+          >
+            Join the brands making{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6B9FFF] to-[#A5C4FF]">
+              smarter decisions
+            </span>
+          </h2>
+          <p className="mt-5 text-white/55 text-lg max-w-lg mx-auto">
+            Be part of the intelligence layer that leading FMCG teams are already building on.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your work email"
+              className="w-full sm:flex-1 px-5 py-3 rounded-full bg-white/10 border border-white/15 text-white placeholder-white/35 text-sm focus:outline-none focus:border-[#2C6DF6] focus:ring-1 focus:ring-[#2C6DF6] transition-all backdrop-blur-sm"
+            />
+            <button className="w-full sm:w-auto btn-primary whitespace-nowrap">
+              Get Started
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <p className="mt-4 text-xs text-white/30">
+            Free to join. No credit card required.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────── SECTION 5: FULL VIEW ─────────────────── */
+function FullView() {
+  return (
+    <section className="py-20 lg:py-28 bg-[#FFFEFF]">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: Text */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
+              Comprehensive Coverage
+            </p>
+            <h2
+              className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081] leading-[1.15]"
+              style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+            >
+              Get the Full View of Your Industry
+            </h2>
+            <p className="mt-5 text-[#001081]/55 text-lg leading-relaxed max-w-lg">
+              From consumer taste profiles to pricing dynamics and channel behaviour —
+              Discover provides a 360° intelligence layer that traditional research can't match.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="#contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100">
-                 Book an Appointment
+            <ul className="mt-8 space-y-4">
+              {[
+                'Blind sensory testing eliminates brand bias',
+                'Stickiness scoring predicts commercial loyalty',
+                'AI-queryable panel data at your fingertips',
+                'Category benchmarks and competitive context',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
+                    <div className="h-2 w-2 rounded-full bg-[#2C6DF6]" />
+                  </div>
+                  <span className="text-[#001081]/70 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8">
+              <Link href="#contact" className="btn-primary">
+                Book a Demo
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="#engine" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/20 backdrop-blur-sm">
-                Explore the Engine
-              </Link>
             </div>
+          </motion.div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {[
-                ['R&D & Formulation', '#rd'],
-                ['Brand & Marketing', '#brand'],
-                ['Category Management', '#category'],
-                ['C-Suite / Commercial', '#c-suite'],
-              ].map(([label, href]) => (
-                <Link key={String(label)} href={String(href)} className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-white/20 backdrop-blur-sm">
-                  {label}
-                </Link>
-              ))}
-            </div>
+          {/* Right: Visual */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative"
+          >
+            <div className="relative rounded-3xl bg-gradient-to-br from-[#F2F3F3] to-[#E5E7E8] p-8 lg:p-12">
+              {/* Concentric circles visualization */}
+              <div className="relative mx-auto w-64 h-64 lg:w-80 lg:h-80">
+                {[1, 2, 3, 4].map((ring) => (
+                  <motion.div
+                    key={ring}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: ring * 0.12 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <div
+                      className="rounded-full border-2 border-[#2C6DF6]"
+                      style={{
+                        width: `${ring * 25}%`,
+                        height: `${ring * 25}%`,
+                        opacity: 1 - ring * 0.2,
+                        borderStyle: ring % 2 === 0 ? 'dashed' : 'solid',
+                      }}
+                    />
+                  </motion.div>
+                ))}
+                {/* Center */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#2C6DF6] flex items-center justify-center shadow-lg">
+                    <Search className="h-6 w-6 text-white" />
+                  </div>
+                </div>
 
-            <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
-              <AnimatedStat value={44} label="Pilot sample" className="bg-white/10 border-white/10 backdrop-blur-sm" labelClassName="text-slate-400" valueClassName="text-white text-2xl" />
-              <AnimatedStat value={11.2} decimals={1} label="Final score" className="bg-white/10 border-white/10 backdrop-blur-sm" labelClassName="text-slate-400" valueClassName="text-white text-2xl" />
-              <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400">Delivery window</p>
-                <p className="mt-2 text-base font-semibold tracking-tight text-white">Within agreed timeline</p>
+                {/* Data points on rings */}
+                {[
+                  { top: '8%', left: '55%', label: 'Taste' },
+                  { top: '30%', right: '5%', label: 'Price' },
+                  { bottom: '20%', right: '10%', label: 'Texture' },
+                  { bottom: '8%', left: '35%', label: 'Channel' },
+                  { top: '25%', left: '2%', label: 'Loyalty' },
+                ].map((point, i) => (
+                  <motion.div
+                    key={point.label}
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-[#001081] shadow-md border border-[#001081]/8"
+                    style={{ ...point }}
+                  >
+                    {point.label}
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.08 }}
-            className="relative z-10"
+/* ─────────────────── SECTION 6: BENTO GRID SOLUTIONS ─────────────────── */
+function BentoSolutions() {
+  const solutions = [
+    {
+      icon: FileText,
+      title: 'Insights & Reports',
+      desc: 'Comprehensive scored reports from blind sensory panels — delivered with commercial context, not academic jargon.',
+      span: 'lg:col-span-2',
+      gradient: 'from-[#001081] to-[#0A1A8F]',
+      textColor: 'text-white',
+      descColor: 'text-white/60',
+      iconBg: 'bg-white/15',
+    },
+    {
+      icon: Code2,
+      title: 'API Access',
+      desc: 'Integrate stickiness scores and panel data directly into your product and analytics pipelines.',
+      span: '',
+      gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
+      textColor: 'text-[#001081]',
+      descColor: 'text-[#001081]/50',
+      iconBg: 'bg-[#2C6DF6]/10',
+    },
+    {
+      icon: Bot,
+      title: 'RAG AI Assistant',
+      desc: 'Query your panel data conversationally. Ask questions, get scored answers grounded in your own research.',
+      span: '',
+      gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
+      textColor: 'text-[#001081]',
+      descColor: 'text-[#001081]/50',
+      iconBg: 'bg-[#2C6DF6]/10',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Custom Research',
+      desc: 'Bespoke consumer studies tailored to your category, geography, and business questions. From wafers to beverages to personal care.',
+      span: 'lg:col-span-2',
+      gradient: 'from-[#2C6DF6] to-[#1A5AE0]',
+      textColor: 'text-white',
+      descColor: 'text-white/65',
+      iconBg: 'bg-white/20',
+    },
+  ]
+
+  return (
+    <section id="solutions" className="py-20 lg:py-28 bg-[#FFFEFF]">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-14"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
+            What We Offer
+          </p>
+          <h2
+            className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
+            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
           >
-            <HeroFormulaCard />
+            Our Solutions
+          </h2>
+          <p className="mt-4 text-[#001081]/55 text-lg">
+            Everything you need to make evidence-based product decisions.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
+          {solutions.map((sol, i) => {
+            const Icon = sol.icon
+            return (
+              <motion.div
+                key={sol.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${sol.gradient} p-7 lg:p-8 ${sol.span} transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl cursor-default`}
+              >
+                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl ${sol.iconBg}`}>
+                  <Icon className={`h-5 w-5 ${sol.textColor}`} />
+                </div>
+                <h3 className={`mt-5 text-xl font-bold ${sol.textColor}`}>
+                  {sol.title}
+                </h3>
+                <p className={`mt-2 text-sm leading-relaxed ${sol.descColor}`}>
+                  {sol.desc}
+                </p>
+
+                {/* Hover shine effect */}
+                <div className="absolute top-0 -left-[100%] h-full w-1/2 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent skew-x-[-20deg] group-hover:left-[200%] transition-all duration-700" />
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────── SECTION 7: CHATBOT TEASER ─────────────────── */
+function ChatbotTeaser() {
+  const [showTyping, setShowTyping] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowTyping(true), 2000)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const suggestions = [
+    "What's consumer stickiness?",
+    'Show me pricing data',
+    'Compare taste vs texture',
+  ]
+
+  return (
+    <section className="py-20 lg:py-28 bg-[#F2F3F3]">
+      <div className="section-container">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Text */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
+              AI-Powered
+            </p>
+            <h2
+              className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
+              style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+            >
+              Ask your data anything
+            </h2>
+            <p className="mt-5 text-[#001081]/55 text-lg leading-relaxed max-w-lg">
+              Our RAG-powered AI assistant is trained on your panel data. Get instant,
+              scored answers to any question about your research — in plain English.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {suggestions.map((s) => (
+                <span
+                  key={s}
+                  className="rounded-full bg-[#2C6DF6]/8 border border-[#2C6DF6]/15 px-4 py-2 text-sm text-[#2C6DF6] font-medium"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right: Chat mockup */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="rounded-3xl bg-white shadow-xl border border-[#001081]/8 overflow-hidden max-w-md mx-auto lg:mx-0 lg:ml-auto">
+              {/* Chat header */}
+              <div className="flex items-center gap-3 border-b border-[#001081]/6 px-5 py-4">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#2C6DF6] to-[#001081]">
+                  <MessageCircle className="h-4 w-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-[#001081]">Discover AI</p>
+                  <p className="text-[11px] text-[#001081]/40">Online • Trained on your data</p>
+                </div>
+                <div className="ml-auto flex gap-1">
+                  <div className="h-2 w-2 rounded-full bg-green-400" />
+                </div>
+              </div>
+
+              {/* Chat body */}
+              <div className="px-5 py-5 space-y-4 min-h-[280px]">
+                {/* Bot message */}
+                <div className="flex gap-3">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
+                    <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
+                  </div>
+                  <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 text-sm text-[#001081] max-w-[85%]">
+                    Hello! I&apos;m here to help with any questions you have about Discover! 👋
+                  </div>
+                </div>
+
+                {/* User message */}
+                <div className="flex justify-end">
+                  <div className="rounded-2xl rounded-tr-sm bg-[#2C6DF6] px-4 py-3 text-sm text-white max-w-[85%]">
+                    What&apos;s the stickiness score for Sample 2?
+                  </div>
+                </div>
+
+                {/* Bot response */}
+                <div className="flex gap-3">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
+                    <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
+                  </div>
+                  <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 text-sm text-[#001081] max-w-[85%]">
+                    Sample 2 has a stickiness score of <strong>76.56</strong>, driven by high repeat intent (74%) and strong price loyalty (68%). This makes it the top candidate for commercial launch. 📊
+                  </div>
+                </div>
+
+                {/* Typing indicator */}
+                {showTyping && (
+                  <div className="flex gap-3">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
+                      <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
+                    </div>
+                    <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 flex gap-1.5 items-center">
+                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out infinite' }} />
+                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out 0.2s infinite' }} />
+                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out 0.4s infinite' }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Chat input */}
+              <div className="border-t border-[#001081]/6 px-4 py-3 flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Ask about your data..."
+                  className="flex-1 bg-transparent text-sm text-[#001081] placeholder-[#001081]/30 focus:outline-none"
+                  readOnly
+                />
+                <button className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2C6DF6] text-white hover:bg-[#1A5AE0] transition-colors">
+                  <Send className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
           </motion.div>
         </div>
-      </section>
+      </div>
+    </section>
+  )
+}
 
-      <TrustStrip />
-      <HowItWorks />
-      <Deliverables />
-      <Ticker />
-      <Scrollytelling />
-      <FirstPrinciples />
-      <PilotStudyResults />
-      <CaseStudy />
-      <EngineShowroom />
-      <ValueGrid />
-      <FAQ />
+/* ─────────────────── SECTION 8: FOOTER ─────────────────── */
+function Footer() {
+  const footerLinks = {
+    Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
+    Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
+    Company: ['About Us', 'Careers', 'Blog', 'Contact'],
+  }
+
+  return (
+    <footer
+      id="contact"
+      style={{ background: 'linear-gradient(180deg, #001081 0%, #000C60 100%)' }}
+    >
+      <div className="section-container py-16 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 font-bold text-white text-sm">
+                D
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white">Discover</p>
+                <p className="text-[11px] text-white/40">by ForecastHUB</p>
+              </div>
+            </div>
+            <p className="text-sm text-white/45 leading-relaxed max-w-sm">
+              The intelligence layer for FMCG teams who need faster formulation decisions
+              and defensible product launches backed by real consumer data.
+            </p>
+            {/* Social links */}
+            <div className="flex gap-3 mt-6">
+              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
+                <Twitter className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/35 mb-4">
+                {title}
+              </p>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link}>
+                    <Link href="#" className="text-sm text-white/50 hover:text-white transition-colors">
+                      {link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/8 pt-6">
+          <p className="text-xs text-white/30">
+            © 2026 ForecastHUB. All rights reserved.
+          </p>
+          <div className="flex items-center gap-5 text-xs text-white/30">
+            <Link href="#" className="hover:text-white/60 transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-white/60 transition-colors">Terms</Link>
+            <Link href="#" className="hover:text-white/60 transition-colors">Security</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+/* ─────────────────── MAIN EXPORT ─────────────────── */
+export function EnterpriseLanding() {
+  return (
+    <main className="overflow-x-clip bg-[#FFFEFF] text-[#001081]">
+      <TopNav />
+      <HeroSection />
+      <IntelligenceHighlights />
+      <TrendingInsights />
+      <JoinUs />
+      <FullView />
+      <BentoSolutions />
+      <ChatbotTeaser />
       <Footer />
     </main>
   )

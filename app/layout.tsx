@@ -16,15 +16,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Logiq | Premium Blind Sensory + Predictive Consumer Intelligence',
-  description: 'Logiq helps FMCG brands see which products will win before launch with blind sensory testing, stickiness scoring, and board-ready pilot readouts.',
-  keywords: ['FMCG market research', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel', 'predictive consumer intelligence'],
+  title: 'Discover by ForecastHUB | Consumer Intelligence Platform',
+  description: 'Discover turns blind sensory panels into scored, queryable intelligence — so FMCG teams launch products people love, not products they assume will work.',
+  keywords: ['FMCG market research', 'consumer intelligence', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel India', 'RAG AI assistant'],
   openGraph: {
-    title: 'Logiq | Know which products will win before launch',
-    description: 'Blind sensory panels with quantified stickiness scoring and decision-ready pilot readouts.',
+    title: 'Discover | Do you really know what your consumer will stick to?',
+    description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data for FMCG teams.',
     type: 'website',
   },
-  generator: 'v0.app',
 }
 
 export default function RootLayout({
@@ -34,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-white text-slate-900 overflow-x-clip">
+      <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFEFF', color: '#001081' }}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
