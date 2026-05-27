@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import {
   ArrowRight,
   Bot,
@@ -20,8 +20,9 @@ import {
   Twitter,
   X,
 } from 'lucide-react'
+import { ChatWidget } from '@/components/chat-widget'
 
-const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'About'] as const
+const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'Contact'] as const
 
 const HERO_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)'
 const JOIN_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)'
@@ -75,7 +76,7 @@ const FULL_VIEW_FEATURES = [
   'Blind sensory testing eliminates brand bias',
   'Stickiness scoring predicts commercial loyalty',
   'AI-queryable panel data at your fingertips',
-  'Category benchmarks and competitive context',
+  'Clear verdict: launch, reformulate, or stop',
 ] as const
 
 const FULL_VIEW_POINTS = [
@@ -120,7 +121,7 @@ const SOLUTIONS = [
   {
     icon: TrendingUp,
     title: 'Custom Research',
-    desc: 'Bespoke consumer studies tailored to your category, geography, and business questions. From wafers to beverages to personal care.',
+    desc: 'Bespoke consumer studies tailored to your category, geography, and commercial questions. Scoped to your brief, delivered with a defensible verdict.',
     span: 'lg:col-span-2',
     gradient: 'from-[#2C6DF6] to-[#1A5AE0]',
     textColor: 'text-white',
@@ -136,9 +137,24 @@ const CHAT_SUGGESTIONS = [
 ] as const
 
 const FOOTER_LINKS = {
-  Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
-  Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
-  Company: ['About Us', 'Careers', 'Blog', 'Contact'],
+  Platform: [
+    { label: 'Insights Dashboard', href: '#insights' },
+    { label: 'API Access', href: '#solutions' },
+    { label: 'RAG Assistant', href: '#solutions' },
+    { label: 'Data Explorer', href: '#solutions' },
+  ],
+  Solutions: [
+    { label: 'Sensory Testing', href: '#solutions' },
+    { label: 'Stickiness Scoring', href: '#solutions' },
+    { label: 'Custom Research', href: '#solutions' },
+    { label: 'Industry Reports', href: '#research' },
+  ],
+  Company: [
+    { label: 'About', href: '#contact' },
+    { label: 'Careers', href: 'mailto:careers@forecasthub.in' },
+    { label: 'Blog', href: '/blogs' },
+    { label: 'Contact', href: '#contact' },
+  ],
 } as const
 
 /* ─────────────────── ANIMATED COUNTER ─────────────────── */
@@ -233,7 +249,7 @@ function TopNav() {
           {NAV_ITEMS.map((item) => (
             <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === 'Contact' ? '#contact' : `#${item.toLowerCase()}`}
               className={`text-sm font-medium transition-colors ${linkStyle}`}
             >
               {item}
@@ -287,7 +303,7 @@ function TopNav() {
           {NAV_ITEMS.map((item) => (
             <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === 'Contact' ? '#contact' : `#${item.toLowerCase()}`}
               onClick={() => setMobileOpen(false)}
               className="block text-[#001081] font-medium py-2"
             >
@@ -348,7 +364,7 @@ function HeroSection() {
             </h1>
 
             <p className="mt-6 max-w-lg text-lg text-white/65 leading-relaxed">
-              Discover turns blind sensory panels into scored, queryable intelligence — so you launch what people love, not what you assume.
+              Blind sensory panels. Scored results. AI-queryable data — so your team launches what people actually come back for.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -565,6 +581,33 @@ function TrendingInsights() {
 
 /* ─────────────────── SECTION 4: JOIN US ─────────────────── */
 function JoinUs() {
+  const [email, setEmail] = useState('')
+  const [joined, setJoined] = useState(false)
+  const timeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleJoin = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    if (!email || !email.includes('@')) return
+
+    setJoined(true)
+    setEmail('')
+
+    if (timeoutRef.current !== null) {
+      window.clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = window.setTimeout(() => setJoined(false), 4000)
+  }
+
   return (
     <section
       id="join"
@@ -601,17 +644,20 @@ function JoinUs() {
             Be part of the intelligence layer that leading FMCG teams are already building on.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+          <form onSubmit={handleJoin} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
             <input
               type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               placeholder="Enter your work email"
+              required
               className="w-full sm:flex-1 px-5 py-3 rounded-full bg-white/10 border border-white/15 text-white placeholder-white/35 text-sm focus:outline-none focus:border-[#2C6DF6] focus:ring-1 focus:ring-[#2C6DF6] transition-all backdrop-blur-sm"
             />
-            <button className="w-full sm:w-auto btn-primary whitespace-nowrap">
-              Get Started
-              <ArrowRight className="h-4 w-4" />
+            <button type="submit" className="w-full sm:w-auto btn-primary whitespace-nowrap">
+              {joined ? "✓ You're on the list" : 'Get Started'}
+              {!joined && <ArrowRight className="h-4 w-4" />}
             </button>
-          </div>
+          </form>
 
           <p className="mt-4 text-xs text-white/30">
             Free to join. No credit card required.
@@ -756,6 +802,16 @@ function BentoSolutions() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           {SOLUTIONS.map((sol, i) => {
             const Icon = sol.icon
+            const ctaLabel =
+              sol.title === 'Insights & Reports'
+                ? 'Book a study'
+                : sol.title === 'Custom Research'
+                  ? 'Discuss your category'
+                  : 'Get in touch'
+            const ctaClassName =
+              sol.title === 'Insights & Reports' || sol.title === 'Custom Research'
+                ? 'mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white/60 hover:text-white transition-colors'
+                : 'mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#2C6DF6] transition-colors'
             return (
               <motion.div
                 key={sol.title}
@@ -774,6 +830,11 @@ function BentoSolutions() {
                 <p className={`mt-2 text-sm leading-relaxed ${sol.descColor}`}>
                   {sol.desc}
                 </p>
+
+                <Link href="#contact" className={ctaClassName}>
+                  {ctaLabel}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
 
                 {/* Hover shine effect */}
                 <div className="absolute top-0 -left-[100%] h-full w-1/2 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent skew-x-[-20deg] group-hover:left-[200%] transition-all duration-700" />
@@ -911,6 +972,9 @@ function ChatbotTeaser() {
                 </button>
               </div>
             </div>
+            <p className="mt-4 text-center text-xs text-[#001081]/30">
+              Activated after your first study is complete.
+            </p>
           </motion.div>
         </div>
       </div>
@@ -944,10 +1008,10 @@ function Footer() {
             </p>
             {/* Social links */}
             <div className="flex gap-3 mt-6">
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
+              <a href="#" aria-label="ForecastHUB on LinkedIn" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
                 <Linkedin className="h-4 w-4" />
               </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
+              <a href="#" aria-label="ForecastHUB on X" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 hover:text-white hover:bg-white/15 transition-colors">
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
@@ -961,10 +1025,16 @@ function Footer() {
               </p>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <Link href="#" className="text-sm text-white/50 hover:text-white transition-colors">
-                      {link}
-                    </Link>
+                  <li key={link.label}>
+                    {link.href.startsWith('mailto:') ? (
+                      <a href={link.href} className="text-sm text-white/50 hover:text-white transition-colors">
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link href={link.href} className="text-sm text-white/50 hover:text-white transition-colors">
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -978,9 +1048,9 @@ function Footer() {
             © 2026 ForecastHUB. All rights reserved.
           </p>
           <div className="flex items-center gap-5 text-xs text-white/30">
-            <Link href="#" className="hover:text-white/60 transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-white/60 transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-white/60 transition-colors">Security</Link>
+            <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-white/60 transition-colors">Terms</Link>
+            <Link href="/security" className="hover:text-white/60 transition-colors">Security</Link>
           </div>
         </div>
       </div>
@@ -1001,6 +1071,7 @@ export function EnterpriseLanding() {
       <BentoSolutions />
       <ChatbotTeaser />
       <Footer />
+      <ChatWidget />
     </main>
   )
 }
