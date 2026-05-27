@@ -190,7 +190,7 @@ function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
+      className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32"
       style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)' }}
     >
       {/* Subtle grid pattern */}
@@ -276,7 +276,7 @@ function HeroSection() {
             {/* Floating glow behind mascot */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-[#2C6DF6]/20 blur-[80px] pointer-events-none" />
 
-            <div className="relative" style={{ animation: 'float 4s ease-in-out infinite' }}>
+            <div className="relative px-4 sm:px-6 lg:px-0" style={{ animation: 'float 4s ease-in-out infinite' }}>
               <Image
                 src="/images/mascot-removebg-preview.png"
                 alt="Discover AI Mascot"
@@ -290,7 +290,7 @@ function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-8 -left-4 lg:top-12 lg:-left-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+                className="absolute top-8 left-2 sm:left-0 lg:top-12 lg:-left-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
               >
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Verdict</p>
                 <p className="text-lg font-bold text-[#001081]">Launch ✓</p>
@@ -299,7 +299,7 @@ function HeroSection() {
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute bottom-16 -right-4 lg:bottom-20 lg:-right-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+                className="absolute bottom-16 right-2 sm:right-0 lg:bottom-20 lg:-right-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
               >
                 <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Score</p>
                 <p className="text-lg font-bold text-[#2C6DF6]">11.2</p>
@@ -318,11 +318,10 @@ function IntelligenceHighlights() {
     { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
     { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
     { value: 76.56, suffix: '', label: 'Stickiness Index', desc: 'Composite score measuring repeat purchase intent', decimals: 2 },
-    { value: 44, suffix: '', label: 'Blind Panelists', desc: 'Double-blind tested without brand bias', prefix: 'n=' },
   ]
 
   return (
-    <section id="insights" className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section id="insights" className="py-24 sm:py-28 lg:py-32 bg-[#FFFEFF]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -345,7 +344,7 @@ function IntelligenceHighlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -413,7 +412,7 @@ function TrendingInsights() {
   ]
 
   return (
-    <section id="research" className="py-20 lg:py-28 bg-[#F2F3F3]">
+    <section id="research" className="py-24 sm:py-28 lg:py-32 bg-[#F2F3F3]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -488,7 +487,7 @@ function JoinUs() {
   return (
     <section
       id="join"
-      className="relative overflow-hidden py-20 lg:py-24"
+      className="relative overflow-hidden py-24 sm:py-28 lg:py-32"
       style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)' }}
     >
       {/* Dot pattern */}
@@ -545,7 +544,7 @@ function JoinUs() {
 /* ─────────────────── SECTION 5: FULL VIEW ─────────────────── */
 function FullView() {
   return (
-    <section className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section className="py-24 sm:py-28 lg:py-32 bg-[#FFFEFF]">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
@@ -633,11 +632,11 @@ function FullView() {
 
                 {/* Data points on rings */}
                 {[
-                  { top: '8%', left: '55%', label: 'Taste' },
-                  { top: '30%', right: '5%', label: 'Price' },
-                  { bottom: '20%', right: '10%', label: 'Texture' },
-                  { bottom: '8%', left: '35%', label: 'Channel' },
-                  { top: '25%', left: '2%', label: 'Loyalty' },
+                  { top: '8%', left: '52%', label: 'Taste' },
+                  { top: '30%', right: '8%', label: 'Price' },
+                  { bottom: '20%', right: '12%', label: 'Texture' },
+                  { bottom: '8%', left: '38%', label: 'Channel' },
+                  { top: '25%', left: '8%', label: 'Loyalty' },
                 ].map((point, i) => (
                   <motion.div
                     key={point.label}
@@ -704,7 +703,7 @@ function BentoSolutions() {
   ]
 
   return (
-    <section id="solutions" className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section id="solutions" className="py-24 sm:py-28 lg:py-32 bg-[#FFFEFF]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -776,7 +775,7 @@ function ChatbotTeaser() {
   ]
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F2F3F3]">
+    <section className="py-24 sm:py-28 lg:py-32 bg-[#F2F3F3]">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Text */}
@@ -911,7 +910,7 @@ function Footer() {
       id="contact"
       style={{ background: 'linear-gradient(180deg, #001081 0%, #000C60 100%)' }}
     >
-      <div className="section-container py-16 lg:py-20">
+      <div className="section-container py-20 sm:py-24 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
           {/* Brand */}
           <div>
@@ -977,7 +976,7 @@ function Footer() {
 /* ─────────────────── MAIN EXPORT ─────────────────── */
 export function EnterpriseLanding() {
   return (
-    <main className="overflow-x-clip bg-[#FFFEFF] text-[#001081]">
+    <main className="bg-[#FFFEFF] text-[#001081]">
       <TopNav />
       <HeroSection />
       <IntelligenceHighlights />

@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFEFF', color: '#001081' }}>
+      <body className="font-sans antialiased overflow-x-hidden" style={{ background: '#FFFEFF', color: '#001081' }}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
