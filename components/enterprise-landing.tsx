@@ -24,22 +24,24 @@ import { ChatWidget } from '@/components/chat-widget'
 
 const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'Contact'] as const
 
+type InsightStat = {
+  value: number
+  suffix?: string
+  label: string
+  desc: string
+  prefix?: string
+  decimals?: number
+}
+
 const HERO_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)'
 const JOIN_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)'
 const FOOTER_BACKGROUND = 'linear-gradient(180deg, #001081 0%, #000C60 100%)'
 
-const INSIGHT_STATS = [
+const INSIGHT_STATS: InsightStat[] = [
   { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
   { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
-  {
-    value: 76.56,
-    suffix: '',
-    label: 'Stickiness Index',
-    desc: 'Composite score measuring repeat purchase intent',
-    decimals: 2,
-  },
-  { value: 44, suffix: '', label: 'Blind Panelists', desc: 'Double-blind tested without brand bias', prefix: 'n=' },
-] as const
+  { value: 39, suffix: '%', label: 'Walk-to-Brand', desc: 'Will switch stores for their product of choice' },
+]
 
 const TRENDING_ARTICLES = [
   {
@@ -324,7 +326,7 @@ function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
+      className="relative min-h-screen overflow-hidden flex items-center py-24 lg:py-28"
       style={{ background: HERO_BACKGROUND }}
     >
       {/* Subtle grid pattern */}
@@ -340,7 +342,7 @@ function HeroSection() {
       {/* Glow blob */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#2C6DF6]/15 blur-[120px] pointer-events-none" />
 
-      <div className="section-container relative z-10">
+      <div className="section-container relative z-10 w-full">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-8 items-center">
           {/* Left: Text */}
           <motion.div
@@ -348,10 +350,10 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold text-white/80 mb-6 border border-white/10">
+            {/* <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold text-white/80 mb-6 border border-white/10">
               <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
               Consumer Intelligence Platform
-            </div>
+            </div> */}
 
             <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-extrabold leading-[1.1] tracking-tight text-white"
               style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}
@@ -449,7 +451,7 @@ function HeroSection() {
 /* ─────────────────── SECTION 2: INTELLIGENCE THAT MATTERS ─────────────────── */
 function IntelligenceHighlights() {
   return (
-    <section id="insights" className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section id="insights" className= "py-20 lg:py-28 bg-[#FFFEFF]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -458,9 +460,6 @@ function IntelligenceHighlights() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-2xl mx-auto mb-14"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
-            From Our Survey
-          </p>
           <h2
             className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
             style={{ fontFamily: 'var(--font-plus-jakarta)' }}
@@ -472,7 +471,7 @@ function IntelligenceHighlights() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="flex flex-wrap justify-around gap-5">
           {INSIGHT_STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -480,7 +479,7 @@ function IntelligenceHighlights() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative rounded-2xl bg-[#F2F3F3] p-6 lg:p-8 text-center hover:bg-[#001081] transition-colors duration-500 cursor-default"
+              className="group relative w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 lg:basis-0 rounded-2xl bg-[#F2F3F3] p-6 lg:p-8 text-center hover:bg-[#001081] transition-colors duration-500 cursor-default"
             >
               <div className="text-4xl lg:text-5xl font-extrabold text-[#001081] group-hover:text-white transition-colors duration-500"
                 style={{ fontFamily: 'var(--font-plus-jakarta)' }}
@@ -488,8 +487,8 @@ function IntelligenceHighlights() {
                 <AnimatedCounter
                   target={stat.value}
                   suffix={stat.suffix}
-                  prefix={'prefix' in stat ? stat.prefix : ''}
-                  decimals={'decimals' in stat ? stat.decimals : 0}
+                  prefix={stat.prefix ?? ''}
+                  decimals={stat.decimals ?? 0}
                 />
               </div>
               <p className="mt-2 text-sm font-bold text-[#001081] group-hover:text-white transition-colors duration-500">
@@ -509,7 +508,7 @@ function IntelligenceHighlights() {
 /* ─────────────────── SECTION 3: TRENDING INSIGHTS ─────────────────── */
 function TrendingInsights() {
   return (
-    <section id="research" className="py-20 lg:py-28 bg-[#F2F3F3]">
+    <section id="research" className= "py-20 lg:py-28 bg-[#F2F3F3]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -553,6 +552,7 @@ function TrendingInsights() {
                     src={article.image}
                     alt={article.title}
                     fill
+                    loading={i === 0 ? 'eager' : 'lazy'}
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
@@ -671,7 +671,7 @@ function JoinUs() {
 /* ─────────────────── SECTION 5: FULL VIEW ─────────────────── */
 function FullView() {
   return (
-    <section className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section className= "py-20 lg:py-28 bg-[#FFFEFF]">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text */}
@@ -776,7 +776,7 @@ function FullView() {
 /* ─────────────────── SECTION 6: BENTO GRID SOLUTIONS ─────────────────── */
 function BentoSolutions() {
   return (
-    <section id="solutions" className="py-20 lg:py-28 bg-[#FFFEFF]">
+    <section id="solutions" className= "py-20 lg:py-28 bg-[#FFFEFF]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -857,7 +857,7 @@ function ChatbotTeaser() {
   }, [])
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F2F3F3]">
+    <section className= "py-20 lg:py-28 bg-[#F2F3F3]">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Text */}
