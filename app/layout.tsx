@@ -16,15 +16,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'ForecastHUB | Blind Sensory Testing & Stickiness Scoring for FMCG',
-  description: 'ForecastHUB runs double-blind sensory panels on FMCG products and delivers scored insights, an AI assistant over your panel data, and strategy recommendations — so brand and R&D teams launch with evidence.',
-  keywords: ['FMCG market research', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel India', 'RAG research assistant'],
+  title: 'Discover by ForecastHUB | Consumer Intelligence Platform',
+  description: 'Discover turns blind sensory panels into scored, queryable intelligence — so FMCG teams launch products people love, not products they assume will work.',
+  keywords: ['FMCG market research', 'consumer intelligence', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel India', 'RAG AI assistant'],
   openGraph: {
-    title: 'ForecastHUB | Know which product wins before launch',
-    description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data.',
+    title: 'Discover | Do you really know what your consumer will stick to?',
+    description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data for FMCG teams.',
     type: 'website',
   },
-  generator: 'v0.app',
 }
 
 export default function RootLayout({
@@ -34,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-white text-slate-900 overflow-x-clip">
+      <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFEFF', color: '#001081' }}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
