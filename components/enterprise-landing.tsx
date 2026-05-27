@@ -6,7 +6,6 @@ import { motion, useInView } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
-  BarChart3,
   Bot,
   ChevronRight,
   Code2,
@@ -20,8 +19,127 @@ import {
   TrendingUp,
   Twitter,
   X,
-  Zap,
 } from 'lucide-react'
+
+const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'About'] as const
+
+const HERO_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)'
+const JOIN_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)'
+const FOOTER_BACKGROUND = 'linear-gradient(180deg, #001081 0%, #000C60 100%)'
+
+const INSIGHT_STATS = [
+  { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
+  { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
+  {
+    value: 76.56,
+    suffix: '',
+    label: 'Stickiness Index',
+    desc: 'Composite score measuring repeat purchase intent',
+    decimals: 2,
+  },
+  { value: 44, suffix: '', label: 'Blind Panelists', desc: 'Double-blind tested without brand bias', prefix: 'n=' },
+] as const
+
+const TRENDING_ARTICLES = [
+  {
+    image: '/images/blog/consumer-behaviour.png',
+    tag: 'Research',
+    title: 'Consumer Behaviour Patterns in FMCG',
+    excerpt: 'How sensory preferences and purchase habits are shifting across urban Indian markets.',
+    href: '/blogs',
+  },
+  {
+    image: '/images/blog/taste-texture.png',
+    tag: 'Framework',
+    title: 'Taste vs Texture: What Drives Stickiness?',
+    excerpt: 'Breaking down the two biggest drivers of repeat purchase intent from our blind panels.',
+    href: '/blogs',
+  },
+  {
+    image: '/images/blog/pricing-loyalty.png',
+    tag: 'Insights',
+    title: 'Pricing & Loyalty Dynamics',
+    excerpt: '68% of consumers showed price loyalty. But what does that really mean for your margin strategy?',
+    href: '/blogs',
+  },
+  {
+    image: '/images/blog/channel-substitution.png',
+    tag: 'Report',
+    title: 'Channel Substitution in FMCG',
+    excerpt: '39% are willing to switch stores. What this means for distribution and shelf strategy.',
+    href: '/blogs',
+  },
+] as const
+
+const FULL_VIEW_FEATURES = [
+  'Blind sensory testing eliminates brand bias',
+  'Stickiness scoring predicts commercial loyalty',
+  'AI-queryable panel data at your fingertips',
+  'Category benchmarks and competitive context',
+] as const
+
+const FULL_VIEW_POINTS = [
+  { top: '8%', left: '55%', label: 'Taste' },
+  { top: '30%', right: '5%', label: 'Price' },
+  { bottom: '20%', right: '10%', label: 'Texture' },
+  { bottom: '8%', left: '35%', label: 'Channel' },
+  { top: '25%', left: '2%', label: 'Loyalty' },
+] as const
+
+const SOLUTIONS = [
+  {
+    icon: FileText,
+    title: 'Insights & Reports',
+    desc: 'Comprehensive scored reports from blind sensory panels — delivered with commercial context, not academic jargon.',
+    span: 'lg:col-span-2',
+    gradient: 'from-[#001081] to-[#0A1A8F]',
+    textColor: 'text-white',
+    descColor: 'text-white/60',
+    iconBg: 'bg-white/15',
+  },
+  {
+    icon: Code2,
+    title: 'API Access',
+    desc: 'Integrate stickiness scores and panel data directly into your product and analytics pipelines.',
+    span: '',
+    gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
+    textColor: 'text-[#001081]',
+    descColor: 'text-[#001081]/50',
+    iconBg: 'bg-[#2C6DF6]/10',
+  },
+  {
+    icon: Bot,
+    title: 'RAG AI Assistant',
+    desc: 'Query your panel data conversationally. Ask questions, get scored answers grounded in your own research.',
+    span: '',
+    gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
+    textColor: 'text-[#001081]',
+    descColor: 'text-[#001081]/50',
+    iconBg: 'bg-[#2C6DF6]/10',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Custom Research',
+    desc: 'Bespoke consumer studies tailored to your category, geography, and business questions. From wafers to beverages to personal care.',
+    span: 'lg:col-span-2',
+    gradient: 'from-[#2C6DF6] to-[#1A5AE0]',
+    textColor: 'text-white',
+    descColor: 'text-white/65',
+    iconBg: 'bg-white/20',
+  },
+] as const
+
+const CHAT_SUGGESTIONS = [
+  "What's consumer stickiness?",
+  'Show me pricing data',
+  'Compare taste vs texture',
+] as const
+
+const FOOTER_LINKS = {
+  Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
+  Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
+  Company: ['About Us', 'Careers', 'Blog', 'Contact'],
+} as const
 
 /* ─────────────────── ANIMATED COUNTER ─────────────────── */
 function AnimatedCounter({
@@ -112,7 +230,7 @@ function TopNav() {
 
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 lg:flex">
-          {['Insights', 'Solutions', 'Research', 'About'].map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -166,7 +284,7 @@ function TopNav() {
           animate={{ opacity: 1, y: 0 }}
           className="lg:hidden bg-[#FFFEFF] border-t border-[#001081]/8 px-6 py-6 space-y-4"
         >
-          {['Insights', 'Solutions', 'Research', 'About'].map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -191,7 +309,7 @@ function HeroSection() {
     <section
       id="top"
       className="relative overflow-hidden pt-28 pb-20 lg:pt-36 lg:pb-28"
-      style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)' }}
+      style={{ background: HERO_BACKGROUND }}
     >
       {/* Subtle grid pattern */}
       <div
@@ -314,13 +432,6 @@ function HeroSection() {
 
 /* ─────────────────── SECTION 2: INTELLIGENCE THAT MATTERS ─────────────────── */
 function IntelligenceHighlights() {
-  const stats = [
-    { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
-    { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
-    { value: 76.56, suffix: '', label: 'Stickiness Index', desc: 'Composite score measuring repeat purchase intent', decimals: 2 },
-    { value: 44, suffix: '', label: 'Blind Panelists', desc: 'Double-blind tested without brand bias', prefix: 'n=' },
-  ]
-
   return (
     <section id="insights" className="py-20 lg:py-28 bg-[#FFFEFF]">
       <div className="section-container">
@@ -346,7 +457,7 @@ function IntelligenceHighlights() {
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {stats.map((stat, i) => (
+          {INSIGHT_STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
@@ -361,8 +472,8 @@ function IntelligenceHighlights() {
                 <AnimatedCounter
                   target={stat.value}
                   suffix={stat.suffix}
-                  prefix={stat.prefix || ''}
-                  decimals={stat.decimals || 0}
+                  prefix={'prefix' in stat ? stat.prefix : ''}
+                  decimals={'decimals' in stat ? stat.decimals : 0}
                 />
               </div>
               <p className="mt-2 text-sm font-bold text-[#001081] group-hover:text-white transition-colors duration-500">
@@ -381,37 +492,6 @@ function IntelligenceHighlights() {
 
 /* ─────────────────── SECTION 3: TRENDING INSIGHTS ─────────────────── */
 function TrendingInsights() {
-  const articles = [
-    {
-      image: '/images/blog/consumer-behaviour.png',
-      tag: 'Research',
-      title: 'Consumer Behaviour Patterns in FMCG',
-      excerpt: 'How sensory preferences and purchase habits are shifting across urban Indian markets.',
-      href: '/blogs',
-    },
-    {
-      image: '/images/blog/taste-texture.png',
-      tag: 'Framework',
-      title: 'Taste vs Texture: What Drives Stickiness?',
-      excerpt: 'Breaking down the two biggest drivers of repeat purchase intent from our blind panels.',
-      href: '/blogs',
-    },
-    {
-      image: '/images/blog/pricing-loyalty.png',
-      tag: 'Insights',
-      title: 'Pricing & Loyalty Dynamics',
-      excerpt: '68% of consumers showed price loyalty. But what does that really mean for your margin strategy?',
-      href: '/blogs',
-    },
-    {
-      image: '/images/blog/channel-substitution.png',
-      tag: 'Report',
-      title: 'Channel Substitution in FMCG',
-      excerpt: '39% are willing to switch stores. What this means for distribution and shelf strategy.',
-      href: '/blogs',
-    },
-  ]
-
   return (
     <section id="research" className="py-20 lg:py-28 bg-[#F2F3F3]">
       <div className="section-container">
@@ -443,7 +523,7 @@ function TrendingInsights() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {articles.map((article, i) => (
+          {TRENDING_ARTICLES.map((article, i) => (
             <motion.article
               key={article.title}
               initial={{ opacity: 0, y: 20 }}
@@ -489,7 +569,7 @@ function JoinUs() {
     <section
       id="join"
       className="relative overflow-hidden py-20 lg:py-24"
-      style={{ background: 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)' }}
+      style={{ background: JOIN_BACKGROUND }}
     >
       {/* Dot pattern */}
       <div
@@ -570,12 +650,7 @@ function FullView() {
             </p>
 
             <ul className="mt-8 space-y-4">
-              {[
-                'Blind sensory testing eliminates brand bias',
-                'Stickiness scoring predicts commercial loyalty',
-                'AI-queryable panel data at your fingertips',
-                'Category benchmarks and competitive context',
-              ].map((item) => (
+              {FULL_VIEW_FEATURES.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
                     <div className="h-2 w-2 rounded-full bg-[#2C6DF6]" />
@@ -632,13 +707,7 @@ function FullView() {
                 </div>
 
                 {/* Data points on rings */}
-                {[
-                  { top: '8%', left: '55%', label: 'Taste' },
-                  { top: '30%', right: '5%', label: 'Price' },
-                  { bottom: '20%', right: '10%', label: 'Texture' },
-                  { bottom: '8%', left: '35%', label: 'Channel' },
-                  { top: '25%', left: '2%', label: 'Loyalty' },
-                ].map((point, i) => (
+                {FULL_VIEW_POINTS.map((point, i) => (
                   <motion.div
                     key={point.label}
                     animate={{ y: [0, -4, 0] }}
@@ -660,49 +729,6 @@ function FullView() {
 
 /* ─────────────────── SECTION 6: BENTO GRID SOLUTIONS ─────────────────── */
 function BentoSolutions() {
-  const solutions = [
-    {
-      icon: FileText,
-      title: 'Insights & Reports',
-      desc: 'Comprehensive scored reports from blind sensory panels — delivered with commercial context, not academic jargon.',
-      span: 'lg:col-span-2',
-      gradient: 'from-[#001081] to-[#0A1A8F]',
-      textColor: 'text-white',
-      descColor: 'text-white/60',
-      iconBg: 'bg-white/15',
-    },
-    {
-      icon: Code2,
-      title: 'API Access',
-      desc: 'Integrate stickiness scores and panel data directly into your product and analytics pipelines.',
-      span: '',
-      gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
-      textColor: 'text-[#001081]',
-      descColor: 'text-[#001081]/50',
-      iconBg: 'bg-[#2C6DF6]/10',
-    },
-    {
-      icon: Bot,
-      title: 'RAG AI Assistant',
-      desc: 'Query your panel data conversationally. Ask questions, get scored answers grounded in your own research.',
-      span: '',
-      gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
-      textColor: 'text-[#001081]',
-      descColor: 'text-[#001081]/50',
-      iconBg: 'bg-[#2C6DF6]/10',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Custom Research',
-      desc: 'Bespoke consumer studies tailored to your category, geography, and business questions. From wafers to beverages to personal care.',
-      span: 'lg:col-span-2',
-      gradient: 'from-[#2C6DF6] to-[#1A5AE0]',
-      textColor: 'text-white',
-      descColor: 'text-white/65',
-      iconBg: 'bg-white/20',
-    },
-  ]
-
   return (
     <section id="solutions" className="py-20 lg:py-28 bg-[#FFFEFF]">
       <div className="section-container">
@@ -728,7 +754,7 @@ function BentoSolutions() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-          {solutions.map((sol, i) => {
+          {SOLUTIONS.map((sol, i) => {
             const Icon = sol.icon
             return (
               <motion.div
@@ -769,12 +795,6 @@ function ChatbotTeaser() {
     return () => clearTimeout(timer)
   }, [])
 
-  const suggestions = [
-    "What's consumer stickiness?",
-    'Show me pricing data',
-    'Compare taste vs texture',
-  ]
-
   return (
     <section className="py-20 lg:py-28 bg-[#F2F3F3]">
       <div className="section-container">
@@ -801,7 +821,7 @@ function ChatbotTeaser() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {suggestions.map((s) => (
+              {CHAT_SUGGESTIONS.map((s) => (
                 <span
                   key={s}
                   className="rounded-full bg-[#2C6DF6]/8 border border-[#2C6DF6]/15 px-4 py-2 text-sm text-[#2C6DF6] font-medium"
@@ -900,16 +920,10 @@ function ChatbotTeaser() {
 
 /* ─────────────────── SECTION 8: FOOTER ─────────────────── */
 function Footer() {
-  const footerLinks = {
-    Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
-    Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
-    Company: ['About Us', 'Careers', 'Blog', 'Contact'],
-  }
-
   return (
     <footer
       id="contact"
-      style={{ background: 'linear-gradient(180deg, #001081 0%, #000C60 100%)' }}
+      style={{ background: FOOTER_BACKGROUND }}
     >
       <div className="section-container py-16 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
@@ -940,7 +954,7 @@ function Footer() {
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([title, links]) => (
+          {Object.entries(FOOTER_LINKS).map(([title, links]) => (
             <div key={title}>
               <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/35 mb-4">
                 {title}
