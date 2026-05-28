@@ -24,7 +24,7 @@ export function FullView() {
               Get the Full View of Your Industry
             </h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-[#001081]/55">
-              From consumer taste profiles to pricing dynamics and channel behaviour — Discover provides a 360° intelligence layer that traditional research can't match.
+              From consumer preference profiles to pricing dynamics and channel behaviour — Discover provides a 360° intelligence layer that traditional research can't match.
             </p>
 
             <ul className="mt-8 space-y-4">
