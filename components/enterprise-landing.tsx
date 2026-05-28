@@ -272,14 +272,16 @@ function TopNav() {
             Sign Up
           </Link>
           <Link
-            href="#contact"
+            href="https://calendly.com/pjpanot260305/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${
               scrolled
                 ? 'bg-[#2C6DF6] text-white hover:bg-[#1A5AE0] shadow-md'
                 : 'bg-white text-[#001081] hover:bg-[#F2F3F3]'
             }`}
           >
-            Book a Demo
+            Book appointment
           </Link>
         </div>
 
@@ -312,8 +314,13 @@ function TopNav() {
               {item}
             </Link>
           ))}
-          <Link href="#contact" className="btn-primary w-full justify-center mt-4">
-            Book a Demo
+          <Link
+            href="https://calendly.com/pjpanot260305/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary w-full justify-center mt-4"
+          >
+            Book appointment
           </Link>
         </motion.div>
       )}
@@ -370,8 +377,13 @@ function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="#contact" className="btn-primary">
-                Get Started
+              <Link 
+              href="https://calendly.com/pjpanot260305/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+              className="btn-primary"
+              >
+                Book appointment
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="#solutions" className="btn-outline-white">
@@ -418,7 +430,7 @@ function HeroSection() {
                 alt="Discover AI Mascot"
                 width={420}
                 height={420}
-                className="relative z-10 drop-shadow-2xl"
+                className="relative drop-shadow-2xl"
                 priority
               />
 
@@ -426,19 +438,19 @@ function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-8 -left-4 lg:top-12 lg:-left-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+                className="absolute top-8 -left-4 lg:top-5 lg:-left-20 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
               >
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Verdict</p>
-                <p className="text-lg font-bold text-[#001081]">Launch ✓</p>
+                {/* <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Verdict</p> */}
+                <p className="text-lg font-bold text-[#001081]">Which flavor drives repeat buys?</p>
               </motion.div>
 
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute bottom-16 -right-4 lg:bottom-20 lg:-right-6 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
+                className="absolute bottom-16 -right-4 lg:bottom-10 lg:-right-20 rounded-2xl bg-white/95 backdrop-blur-sm px-4 py-3 shadow-lg border border-[#001081]/5"
               >
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Score</p>
-                <p className="text-lg font-bold text-[#2C6DF6]">11.2</p>
+                {/* <p className="text-[10px] font-bold uppercase tracking-wider text-[#001081]/50">Score</p> */}
+                <p className="text-lg font-bold text-[#2C6DF6]">Is the onion too strong?</p>
               </motion.div>
             </div>
           </motion.div>
@@ -707,8 +719,13 @@ function FullView() {
             </ul>
 
             <div className="mt-8">
-              <Link href="#contact" className="btn-primary">
-                Book a Demo
+              <Link
+                href="https://calendly.com/pjpanot260305/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                Book appointment
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
