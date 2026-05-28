@@ -21,6 +21,7 @@ import {
   X,
 } from 'lucide-react'
 import { ChatWidget } from '@/components/chat-widget'
+import { FAQ } from '@/components/faq'
 
 const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'Contact'] as const
 
@@ -132,30 +133,25 @@ const SOLUTIONS = [
   },
 ] as const
 
-const CHAT_SUGGESTIONS = [
-  "What's consumer stickiness?",
-  'Show me pricing data',
-  'Compare taste vs texture',
-] as const
-
 const FOOTER_LINKS = {
   Platform: [
-    { label: 'Insights Dashboard', href: '#insights' },
-    { label: 'API Access', href: '#solutions' },
-    { label: 'RAG Assistant', href: '#solutions' },
-    { label: 'Data Explorer', href: '#solutions' },
+    'Insights Dashboard',
+    'API Documentation',
+    'RAG Assistant',
+    'Data Explorer',
   ],
   Solutions: [
-    { label: 'Sensory Testing', href: '#solutions' },
-    { label: 'Stickiness Scoring', href: '#solutions' },
-    { label: 'Custom Research', href: '#solutions' },
-    { label: 'Industry Reports', href: '#research' },
+    'Sensory Testing',
+    'Stickiness Scoring',
+    'Custom Research',
+    'Industry Reports',
   ],
   Company: [
-    { label: 'About', href: '#contact' },
-    { label: 'Careers', href: 'mailto:careers@forecasthub.in' },
-    { label: 'Blog', href: '/blogs' },
-    { label: 'Contact', href: '#contact' },
+    'About Us',
+    'Careers',
+    'Blog',
+    'FAQ',
+    'Contact',
   ],
 } as const
 
@@ -864,140 +860,7 @@ function BentoSolutions() {
   )
 }
 
-/* ─────────────────── SECTION 7: CHATBOT TEASER ─────────────────── */
-function ChatbotTeaser() {
-  const [showTyping, setShowTyping] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowTyping(true), 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return (
-    <section className= "py-20 lg:py-28 bg-[#F2F3F3]">
-      <div className="section-container">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6] mb-3">
-              AI-Powered
-            </p>
-            <h2
-              className="text-3xl lg:text-5xl font-extrabold tracking-tight text-[#001081]"
-              style={{ fontFamily: 'var(--font-plus-jakarta)' }}
-            >
-              Ask your data anything
-            </h2>
-            <p className="mt-5 text-[#001081]/55 text-lg leading-relaxed max-w-lg">
-              Our RAG-powered AI assistant is trained on your panel data. Get instant,
-              scored answers to any question about your research — in plain English.
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-2">
-              {CHAT_SUGGESTIONS.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full bg-[#2C6DF6]/8 border border-[#2C6DF6]/15 px-4 py-2 text-sm text-[#2C6DF6] font-medium"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right: Chat mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="rounded-3xl bg-white shadow-xl border border-[#001081]/8 overflow-hidden max-w-md mx-auto lg:mx-0 lg:ml-auto">
-              {/* Chat header */}
-              <div className="flex items-center gap-3 border-b border-[#001081]/6 px-5 py-4">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#2C6DF6] to-[#001081]">
-                  <MessageCircle className="h-4 w-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-[#001081]">Discover AI</p>
-                  <p className="text-[11px] text-[#001081]/40">Online • Trained on your data</p>
-                </div>
-                <div className="ml-auto flex gap-1">
-                  <div className="h-2 w-2 rounded-full bg-green-400" />
-                </div>
-              </div>
-
-              {/* Chat body */}
-              <div className="px-5 py-5 space-y-4 min-h-[280px]">
-                {/* Bot message */}
-                <div className="flex gap-3">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
-                    <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
-                  </div>
-                  <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 text-sm text-[#001081] max-w-[85%]">
-                    Hello! I&apos;m here to help with any questions you have about Discover! 👋
-                  </div>
-                </div>
-
-                {/* User message */}
-                <div className="flex justify-end">
-                  <div className="rounded-2xl rounded-tr-sm bg-[#2C6DF6] px-4 py-3 text-sm text-white max-w-[85%]">
-                    What&apos;s the stickiness score for Sample 2?
-                  </div>
-                </div>
-
-                {/* Bot response */}
-                <div className="flex gap-3">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
-                    <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
-                  </div>
-                  <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 text-sm text-[#001081] max-w-[85%]">
-                    Sample 2 has a stickiness score of <strong>76.56</strong>, driven by high repeat intent (74%) and strong price loyalty (68%). This makes it the top candidate for commercial launch. 📊
-                  </div>
-                </div>
-
-                {/* Typing indicator */}
-                {showTyping && (
-                  <div className="flex gap-3">
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2C6DF6]/10">
-                      <Sparkles className="h-3.5 w-3.5 text-[#2C6DF6]" />
-                    </div>
-                    <div className="rounded-2xl rounded-tl-sm bg-[#F2F3F3] px-4 py-3 flex gap-1.5 items-center">
-                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out infinite' }} />
-                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out 0.2s infinite' }} />
-                      <span className="h-2 w-2 rounded-full bg-[#001081]/30" style={{ animation: 'typing 1.2s ease-in-out 0.4s infinite' }} />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Chat input */}
-              <div className="border-t border-[#001081]/6 px-4 py-3 flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="Ask about your data..."
-                  className="flex-1 bg-transparent text-sm text-[#001081] placeholder-[#001081]/30 focus:outline-none"
-                  readOnly
-                />
-                <button className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2C6DF6] text-white hover:bg-[#1A5AE0] transition-colors">
-                  <Send className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-            <p className="mt-4 text-center text-xs text-[#001081]/30">
-              Activated after your first study is complete.
-            </p>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
+/* Chatbot teaser removed; FAQ renders in main layout instead. */
 
 /* ─────────────────── SECTION 8: FOOTER ─────────────────── */
 function Footer() {
@@ -1041,19 +904,28 @@ function Footer() {
                 {title}
               </p>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    {link.href.startsWith('mailto:') ? (
-                      <a href={link.href} className="text-sm text-white/50 hover:text-white transition-colors">
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link href={link.href} className="text-sm text-white/50 hover:text-white transition-colors">
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const href =
+                    link === 'FAQ' ? '#faq' :
+                    link === 'Blog' ? '/blogs' :
+                    link === 'Contact' ? '#contact' :
+                    link === 'Careers' ? 'mailto:careers@forecasthub.in' :
+                    '#'
+
+                  return (
+                    <li key={link}>
+                      {href.startsWith('mailto:') ? (
+                        <a href={href} className="text-sm text-white/50 hover:text-white transition-colors">
+                          {link}
+                        </a>
+                      ) : (
+                        <Link href={href} className="text-sm text-white/50 hover:text-white transition-colors">
+                          {link}
+                        </Link>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}
@@ -1086,7 +958,7 @@ export function EnterpriseLanding() {
       <JoinUs />
       <FullView />
       <BentoSolutions />
-      <ChatbotTeaser />
+      <FAQ />
       <Footer />
       <ChatWidget />
     </main>
