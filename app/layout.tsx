@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Inter, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -23,6 +24,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Cobalt Analytix | Consumer Intelligence Platform',
   description: 'Cobalt Analytix turns blind sensory panels into scored, queryable intelligence — so FMCG teams launch products people love, not products they assume will work.',
   keywords: ['FMCG market research', 'consumer intelligence', 'sensory testing', 'product stickiness score', 'blind taste test', 'consumer panel India', 'RAG AI assistant'],
@@ -30,6 +32,13 @@ export const metadata: Metadata = {
     title: 'Cobalt Analytix | Do you really know what your consumer will stick to?',
     description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data for FMCG teams.',
     type: 'website',
+    url: SITE_URL,
+    siteName: 'Cobalt Analytix',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cobalt Analytix | Do you really know what your consumer will stick to?',
+    description: 'Blind sensory panels with quantified loyalty scoring and AI-queryable panel data for FMCG teams.',
   },
 }
 

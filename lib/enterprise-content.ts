@@ -7,7 +7,7 @@ export const NAV_ITEMS = [
   { label: 'FAQ', id: 'faq' },
 ] as const
 
-export const CONTACT_EMAIL = 'contact@cobaltanalytix.com'
+export const CONTACT_EMAIL = 'connect@cobaltanalytix.com'
 export const CALENDLY_URL = 'https://calendly.com/pjpanot260305/30min'
 
 export const HERO_BACKGROUND = '#000C42'
@@ -150,7 +150,7 @@ export const FOOTER_LINKS: Record<string, FooterLink[]> = {
   ],
   Company: [
     { label: 'About Us', href: '/contact' },
-    { label: 'Careers', href: 'mailto:careers@cobaltanalytix.com' },
+    { label: 'Careers', href: `mailto:${CONTACT_EMAIL}` },
     { label: 'Blog', href: '/blogs' },
     { label: 'FAQ', href: '/#faq' },
   ],
