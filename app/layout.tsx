@@ -1,18 +1,25 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
+import { Plus_Jakarta_Sans, Inter, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const plusJakarta = Plus_Jakarta_Sans({ 
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: '--font-plus-jakarta',
   weight: ['500', '600', '700', '800'],
 })
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter',
   weight: ['300', '400', '500', '600'],
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: '--font-serif-display',
+  weight: ['400'],
+  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
@@ -32,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${inter.variable}`}>
+    <html lang="en" className={`${plusJakarta.variable} ${inter.variable} ${instrumentSerif.variable}`}>
       <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFEFF', color: '#001081' }}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

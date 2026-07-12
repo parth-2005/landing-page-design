@@ -224,6 +224,20 @@
   }
 }
 
+/* Per-character reveal used by TextBlurIn (components/shared/text-blur-in.tsx) */
+@keyframes soft-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--sbi-blur, 10px));
+    transform: translateY(var(--sbi-y, 14px));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
 /* Smooth accordion open/close used by Radix Accordion */
 @keyframes accordion-down {
   from { height: 0; opacity: 0; }

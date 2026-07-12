@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import {
   Accordion,
   AccordionContent,
@@ -8,18 +7,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { FAQS } from '@/lib/enterprise-content'
+import { Reveal } from '@/components/shared/reveal'
 
 export function FAQ() {
   return (
     <section id="faq" className="border-t border-[#001081]/7 bg-[#FFFEFF] py-[110px]">
       <div className="section-container flex flex-wrap gap-14">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex-[1_1_300px]"
-        >
+        <Reveal variant="slide-left" className="flex-[1_1_300px]">
           <p className="mb-3 text-[12.5px] font-bold uppercase tracking-[0.16em] text-[#2C6DF6]">
             FAQ
           </p>
@@ -36,15 +30,9 @@ export function FAQ() {
             </a>
             .
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex-[2_1_420px]"
-        >
+        <Reveal variant="slide-right" delay={0.1} className="flex-[2_1_420px]">
           <Accordion type="single" collapsible className="space-y-0">
             {FAQS.map((faq, i) => (
               <AccordionItem
@@ -64,7 +52,7 @@ export function FAQ() {
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )

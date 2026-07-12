@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { CALENDLY_URL, HERO_BACKGROUND, SCORE_BARS } from '@/lib/enterprise-content'
+import { TextBlurIn } from '@/components/shared/text-blur-in'
 
 export function HeroSection() {
   return (
@@ -51,11 +51,18 @@ export function HeroSection() {
           </div>
 
           <h1
-            className="text-[clamp(34px,5vw,58px)] font-bold leading-[1.08] tracking-[-0.03em] text-white"
-            style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}
+            className="text-[clamp(38px,6vw,68px)] font-normal italic leading-[1.05] tracking-[-0.02em] text-white"
+            style={{ fontFamily: 'var(--font-serif-display, Georgia, serif)' }}
           >
-            Do you really know what your consumer will{' '}
-            <span className="text-[#7FA8FF]">stick to?</span>
+            <TextBlurIn text="Do you really know what your consumer will" immediate as="span" className="block" charStagger={0.012} />
+            <TextBlurIn
+              text="stick to?"
+              immediate
+              as="span"
+              className="block text-[#7FA8FF]"
+              startDelay={0.5}
+              charStagger={0.03}
+            />
           </h1>
 
           <p className="mt-6 max-w-[480px] text-lg leading-[1.65] text-white/55">
@@ -67,13 +74,13 @@ export function HeroSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg bg-white px-[26px] py-3.5 text-[15px] font-semibold text-[#000C42] transition-colors hover:bg-[#E5EBFF]"
+              className="rounded-lg bg-white px-[26px] py-3.5 text-[15px] font-semibold text-[#000C42] transition-all hover:scale-[1.03] hover:bg-[#E5EBFF]"
             >
               Book a pilot call &rarr;
             </Link>
             <Link
               href="#how-it-works"
-              className="rounded-lg border border-white/22 px-6 py-[13px] text-[15px] font-medium text-white transition-colors hover:border-white/50"
+              className="rounded-lg border border-white/22 px-6 py-[13px] text-[15px] font-medium text-white transition-all hover:scale-[1.03] hover:border-white/50"
             >
               See how it works
             </Link>
@@ -102,7 +109,7 @@ export function HeroSection() {
           className="flex min-w-[300px] flex-[1_1_360px] justify-center"
         >
           <div className="relative w-full max-w-[400px]">
-            <div className="relative rounded-xl bg-white p-6" style={{ boxShadow: '0 40px 80px rgba(0,4,30,0.5)' }}>
+            <div className="relative rounded-2xl bg-white p-6" style={{ boxShadow: '0 40px 80px rgba(0,4,30,0.5)' }}>
               <div className="mb-5 flex items-center justify-between">
                 <span className="text-[12.5px] font-bold text-[#001081]">Stickiness Score</span>
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#001081]/40">
@@ -111,7 +118,7 @@ export function HeroSection() {
                 </span>
               </div>
 
-              {SCORE_BARS.map((bar) => (
+              {SCORE_BARS.map((bar, i) => (
                 <div key={bar.label} className="mb-3.5">
                   <div className="mb-1.5 flex items-center justify-between">
                     <span className="text-[12.5px] font-semibold text-[#001081]/55">{bar.label}</span>
@@ -120,9 +127,12 @@ export function HeroSection() {
                     </span>
                   </div>
                   <div className="h-1.5 overflow-hidden rounded-full bg-[#001081]/[0.07]">
-                    <div
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${bar.value}%` }}
+                      transition={{ duration: 0.9, delay: 0.3 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                       className={`h-full rounded-full ${bar.best ? 'bg-[#2C6DF6]' : 'bg-[#001081]'}`}
-                      style={{ width: `${bar.value}%`, opacity: bar.best ? 1 : 0.3 }}
+                      style={{ opacity: bar.best ? 1 : 0.3 }}
                     />
                   </div>
                 </div>
@@ -134,13 +144,13 @@ export function HeroSection() {
             </div>
 
             <div
-              className="absolute -left-9 top-[70px] rounded-lg bg-white px-[15px] py-2.5"
+              className="absolute -left-9 top-[70px] rounded-xl bg-white px-[15px] py-2.5"
               style={{ boxShadow: '0 14px 30px rgba(0,4,30,0.28)', animation: 'bob 3.2s ease-in-out infinite' }}
             >
               <span className="text-xs font-bold text-[#001081]">Confidence&#8209;weighted</span>
             </div>
             <div
-              className="absolute -right-6 bottom-[26px] rounded-lg bg-white px-[15px] py-2.5"
+              className="absolute -right-6 bottom-[26px] rounded-xl bg-white px-[15px] py-2.5"
               style={{ boxShadow: '0 14px 30px rgba(0,4,30,0.28)', animation: 'bob 2.7s ease-in-out infinite' }}
             >
               <span className="text-xs font-bold text-[#2C6DF6]">No brand cues shown</span>

@@ -45,8 +45,8 @@ export function SiteHeader({ variant = 'content' }: SiteHeaderProps) {
   return (
     <header className={headerClassName}>
       <div className="section-container flex items-center justify-between gap-6 py-3.5">
-        <Link href={isLanding ? '#top' : '/'} className="flex items-center gap-2.5">
-          <div className={`flex h-[34px] w-[34px] items-center justify-center rounded-lg text-[13px] font-bold ${isLanding ? 'bg-white/15 text-white' : 'bg-[#001081] text-white'}`}>
+        <Link href={isLanding ? '#top' : '/'} className="group flex items-center gap-2.5">
+          <div className={`flex h-[34px] w-[34px] items-center justify-center rounded-lg text-[13px] font-bold transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 ${isLanding ? 'bg-white/15 text-white' : 'bg-[#001081] text-white'}`}>
             C
           </div>
           <p className={`text-sm font-bold tracking-tight ${isLanding ? 'text-white' : 'text-[#001081]'}`}>

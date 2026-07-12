@@ -5,18 +5,13 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 import { TRENDING_ARTICLES } from '@/lib/enterprise-content'
+import { Reveal } from '@/components/shared/reveal'
 
 export function TrendingInsights() {
   return (
     <section id="research" className="border-t border-[#001081]/7 bg-[#FFFEFF] py-[110px]">
       <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mx-auto mb-16 max-w-[600px]"
-        >
+        <Reveal variant="slide-left" className="mx-auto mb-16 max-w-[600px]">
           <p className="mb-3 text-[12.5px] font-bold uppercase tracking-[0.16em] text-[#2C6DF6]">
             Research
           </p>
@@ -26,24 +21,24 @@ export function TrendingInsights() {
           >
             Latest thinking.
           </h2>
-        </motion.div>
+        </Reveal>
 
         <div className="grid gap-10" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
           {TRENDING_ARTICLES.map((article, i) => (
             <motion.article
               key={article.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link href={article.href} className="group block">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-[#001081]/8">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                   <Image
                     src={article.image}
                     alt={article.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                 </div>
                 <span className="mt-[18px] inline-block text-[11px] font-bold uppercase tracking-[0.06em] text-[#2C6DF6]">

@@ -1,9 +1,9 @@
 'use client'
 
 import { type FormEvent, useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
 
 import { JOIN_BACKGROUND } from '@/lib/enterprise-content'
+import { Reveal } from '@/components/shared/reveal'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -70,12 +70,7 @@ export function JoinUs() {
       />
 
       <div className="section-container relative z-10 max-w-[600px] text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <Reveal variant="fade-scale">
           <h2
             className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-[-0.02em] text-white"
             style={{ fontFamily: 'var(--font-plus-jakarta)' }}
@@ -101,7 +96,7 @@ export function JoinUs() {
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1A5AE0] disabled:cursor-not-allowed disabled:opacity-60"
+              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-all hover:scale-[1.03] hover:bg-[#1A5AE0] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
             >
               {status === 'success' ? "✓ You're on the list" : status === 'submitting' ? 'Submitting…' : 'Request early access'}
             </button>
@@ -114,7 +109,7 @@ export function JoinUs() {
           )}
 
           <p className="mt-4 text-[12.5px] text-white/30">Free to join. No credit card required.</p>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )
