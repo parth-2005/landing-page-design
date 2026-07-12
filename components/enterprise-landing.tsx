@@ -2,6 +2,7 @@
 
 import { FAQ } from '@/components/faq'
 import { BentoSolutions } from '@/components/enterprise/bento-solutions'
+import { CredibilityBand } from '@/components/enterprise/credibility-band'
 import { HeroSection } from '@/components/enterprise/hero-section'
 import { HowItWorks } from '@/components/enterprise/how-it-works'
 import { JoinUs } from '@/components/enterprise/join-us'
@@ -12,9 +13,10 @@ import { SiteHeader } from '@/components/site-header'
 
 export function EnterpriseLanding() {
   return (
-    <main className="overflow-x-clip bg-[#FFFEFF] text-[#001081]">
+    <main className="overflow-x-clip bg-[#FFFFFF] text-[#0A1A38]">
       <SiteHeader variant="landing" />
       <HeroSection />
+      <CredibilityBand />
       <HowItWorks />
       <ResultsSection />
       <BentoSolutions />

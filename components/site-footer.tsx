@@ -9,10 +9,10 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-[34px] w-[34px] items-center justify-center rounded-lg bg-white/10 text-[13px] font-bold text-white">
+              <div className="flex h-[34px] w-[34px] items-center justify-center bg-white/10 text-[15px] font-semibold text-white" style={{ fontFamily: 'var(--font-serif-display, Georgia, serif)' }}>
                 C
               </div>
-              <p className="text-sm font-bold text-white">Cobalt Analytix</p>
+              <p className="text-[15px] font-semibold text-white" style={{ fontFamily: 'var(--font-serif-display, Georgia, serif)' }}>Cobalt Analytix</p>
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-white/45">
               The intelligence layer for FMCG teams who need faster formulation decisions and defensible product launches backed by real consumer data.

@@ -63,25 +63,30 @@ export function JoinUs() {
   }
 
   return (
-    <section id="join" className="relative overflow-hidden py-[100px]" style={{ background: JOIN_BACKGROUND }}>
+    <section id="join" className="relative overflow-hidden py-[clamp(90px,11vw,128px)]" style={{ background: JOIN_BACKGROUND }}>
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[60px]"
-        style={{ background: 'radial-gradient(circle, rgba(107,159,255,0.35) 0%, transparent 70%)' }}
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}
       />
 
-      <div className="section-container relative z-10 max-w-[600px] text-center">
-        <Reveal variant="fade-scale">
+      <div className="section-container relative z-10 max-w-[640px] text-center">
+        <Reveal variant="fade-up">
+          <p className="eyebrow mb-6 justify-center text-[#7FA8FF] [&::before]:bg-[#7FA8FF]">Early access</p>
           <h2
-            className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-[-0.02em] text-white"
-            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+            className="font-serif text-[clamp(32px,4vw,52px)] font-normal leading-[1.08] tracking-[-0.015em] text-white"
+            style={{ fontFamily: 'var(--font-serif-display, Georgia, serif)' }}
           >
-            Join the brands making <span className="text-[#7FA8FF]">smarter decisions</span>
+            Partner with us before the pilot expands.
           </h2>
-          <p className="mt-[18px] text-[16.5px] text-white/50">
-            Be an early design partner as we expand Cobalt Analytix beyond the pilot cohort.
+          <p className="mt-5 text-[16.5px] leading-[1.7] text-white/55">
+            Join as an early design partner as we take Cobalt Analytix beyond the first cohort.
           </p>
 
-          <form onSubmit={handleJoin} className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <form onSubmit={handleJoin} className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <input
               type="email"
               value={email}
@@ -91,12 +96,12 @@ export function JoinUs() {
               }}
               placeholder="Enter your work email"
               disabled={status === 'submitting'}
-              className="w-full max-w-[300px] flex-1 rounded-lg border border-white/15 bg-white/8 px-[18px] py-3 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-[#2C6DF6] disabled:opacity-60"
+              className="w-full max-w-[320px] flex-1 rounded-md border border-white/15 bg-white/[0.06] px-[18px] py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-[#7FA8FF] disabled:opacity-60"
             />
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-all hover:scale-[1.03] hover:bg-[#1A5AE0] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+              className="whitespace-nowrap rounded-md bg-white px-6 py-3.5 text-sm font-semibold text-[#0A1A38] transition-colors hover:bg-[#E5EBFF] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === 'success' ? "✓ You're on the list" : status === 'submitting' ? 'Submitting…' : 'Request early access'}
             </button>

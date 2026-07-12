@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Inter, Instrument_Serif } from 'next/font/google'
+import { Plus_Jakarta_Sans, Inter, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
@@ -16,10 +17,11 @@ const inter = Inter({
   weight: ['300', '400', '500', '600'],
 })
 
-const instrumentSerif = Instrument_Serif({
+// Editorial serif for display headlines — formal, authoritative (McKinsey/Economist register)
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: '--font-serif-display',
-  weight: ['400'],
+  weight: ['400', '500', '600'],
   style: ['normal', 'italic'],
 })
 
@@ -48,10 +50,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${inter.variable} ${instrumentSerif.variable}`}>
-      <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFEFF', color: '#001081' }}>
+    <html lang="en" className={`${plusJakarta.variable} ${inter.variable} ${fraunces.variable}`}>
+      <body className="font-sans antialiased overflow-x-clip" style={{ background: '#FFFFFF', color: '#0A1A38' }}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-QWZ6CY1GP7"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QWZ6CY1GP7');
+          `}
+        </Script>
       </body>
     </html>
   )

@@ -10,9 +10,9 @@ export const NAV_ITEMS = [
 export const CONTACT_EMAIL = 'connect@cobaltanalytix.com'
 export const CALENDLY_URL = 'https://calendly.com/pjpanot260305/30min'
 
-export const HERO_BACKGROUND = '#000C42'
-export const JOIN_BACKGROUND = '#000C42'
-export const FOOTER_BACKGROUND = '#000C42'
+export const HERO_BACKGROUND = '#0A1A38'
+export const JOIN_BACKGROUND = '#0A1A38'
+export const FOOTER_BACKGROUND = '#06122B'
 
 export type ResultStat = {
   value: string
