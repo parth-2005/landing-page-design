@@ -1,14 +1,15 @@
 'use client'
 
 import { type FormEvent, useEffect, useRef, useState } from 'react'
-import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { JOIN_BACKGROUND } from '@/lib/enterprise-content'
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export function JoinUs() {
   const [email, setEmail] = useState('')
-  const [joined, setJoined] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'invalid' | 'success'>('idle')
   const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -22,62 +23,69 @@ export function JoinUs() {
   const handleJoin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!email || !email.includes('@')) return
+    const trimmed = email.trim()
+    if (!trimmed || !EMAIL_PATTERN.test(trimmed)) {
+      setStatus('invalid')
+      return
+    }
 
-    setJoined(true)
     setEmail('')
+    setStatus('success')
 
     if (timeoutRef.current !== null) {
       window.clearTimeout(timeoutRef.current)
     }
 
-    timeoutRef.current = window.setTimeout(() => setJoined(false), 4000)
+    timeoutRef.current = window.setTimeout(() => setStatus('idle'), 5000)
   }
 
   return (
-    <section id="join" className="relative overflow-hidden py-20 lg:py-24" style={{ background: JOIN_BACKGROUND }}>
+    <section id="join" className="relative overflow-hidden py-[100px]" style={{ background: JOIN_BACKGROUND }}>
       <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #FFFEFF 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
+        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[60px]"
+        style={{ background: 'radial-gradient(circle, rgba(107,159,255,0.35) 0%, transparent 70%)' }}
       />
 
-      <div className="section-container relative z-10 text-center">
+      <div className="section-container relative z-10 max-w-[600px] text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-2xl"
         >
-          <h2 className="text-3xl font-extrabold tracking-tight text-white lg:text-5xl" style={{ fontFamily: 'var(--font-plus-jakarta)' }}>
-            Join the brands making{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#6B9FFF] to-[#A5C4FF]">
-              smarter decisions
-            </span>
+          <h2
+            className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-[-0.02em] text-white"
+            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+          >
+            Join the brands making <span className="text-[#7FA8FF]">smarter decisions</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-lg text-lg text-white/55">
-            Be part of the intelligence layer that leading FMCG teams are already building on.
+          <p className="mt-[18px] text-[16.5px] text-white/50">
+            Be an early design partner as we expand Cobalt Analytix beyond the pilot cohort.
           </p>
 
-          <form onSubmit={handleJoin} className="mx-auto mt-8 flex max-w-md flex-col items-center justify-center gap-3 sm:flex-row">
+          <form onSubmit={handleJoin} className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <input
               type="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {
+                setEmail(event.target.value)
+                setStatus('idle')
+              }}
               placeholder="Enter your work email"
-              required
-              className="w-full rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/35 backdrop-blur-sm transition-all focus:border-[#2C6DF6] focus:outline-none focus:ring-1 focus:ring-[#2C6DF6] sm:flex-1"
+              className="w-full max-w-[300px] flex-1 rounded-lg border border-white/15 bg-white/8 px-[18px] py-3 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-[#2C6DF6]"
             />
-            <button type="submit" className="btn-primary w-full whitespace-nowrap sm:w-auto">
-              {joined ? "✓ You're on the list" : 'Get Started'}
-              {!joined && <ArrowRight className="h-4 w-4" />}
+            <button
+              type="submit"
+              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1A5AE0]"
+            >
+              {status === 'success' ? "✓ You're on the list" : 'Request early access'}
             </button>
           </form>
+          {status === 'invalid' && (
+            <p className="mt-3 text-[13px] text-[#FFB4B4]">Enter a valid work email to continue.</p>
+          )}
 
-          <p className="mt-4 text-xs text-white/30">Free to join. No credit card required.</p>
+          <p className="mt-4 text-[12.5px] text-white/30">Free to join. No credit card required.</p>
         </motion.div>
       </div>
     </section>

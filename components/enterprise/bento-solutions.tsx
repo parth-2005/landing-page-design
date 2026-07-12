@@ -15,27 +15,30 @@ const ICONS = {
 
 export function BentoSolutions() {
   return (
-    <section id="solutions" className="bg-[#FFFEFF] py-20 lg:py-28">
+    <section id="solutions" className="border-t border-[#001081]/7 bg-[#FFFEFF] py-[110px]">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mb-14 max-w-2xl text-center"
+          className="mx-auto mb-16 max-w-[600px]"
         >
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-[#2C6DF6]">
+          <p className="mb-3 text-[12.5px] font-bold uppercase tracking-[0.16em] text-[#2C6DF6]">
             What We Offer
           </p>
-          <h2 className="text-3xl font-extrabold tracking-tight text-[#001081] lg:text-5xl" style={{ fontFamily: 'var(--font-plus-jakarta)' }}>
-            Our Solutions
+          <h2
+            className="text-[clamp(28px,3.6vw,40px)] font-bold tracking-[-0.02em] text-[#001081]"
+            style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+          >
+            Our solutions.
           </h2>
-          <p className="mt-4 text-lg text-[#001081]/55">
-            Everything you need to make evidence-based product decisions.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+        <div
+          className="grid gap-px border border-[#001081]/10 bg-[#001081]/10"
+          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}
+        >
           {SOLUTIONS.map((sol, i) => {
             const Icon = ICONS[sol.title as keyof typeof ICONS]
 
@@ -46,24 +49,23 @@ export function BentoSolutions() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${sol.gradient} p-7 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl ${sol.span}`}
+                className="flex flex-col bg-white p-8"
               >
-                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl ${sol.iconBg}`}>
-                  <Icon className={`h-5 w-5 ${sol.textColor}`} />
+                <div className="flex items-center justify-between">
+                  <Icon className="h-[22px] w-[22px] text-[#2C6DF6]" strokeWidth={1.8} />
+                  {sol.badge && (
+                    <span className="text-[10.5px] font-bold uppercase tracking-[0.05em] text-[#001081]/40">
+                      {sol.badge}
+                    </span>
+                  )}
                 </div>
-                <h3 className={`mt-5 text-xl font-bold ${sol.textColor}`}>
-                  {sol.title}
-                </h3>
-                <p className={`mt-2 text-sm leading-relaxed ${sol.descColor}`}>
-                  {sol.desc}
-                </p>
+                <h3 className="mt-5 mb-2 text-[17px] font-bold text-[#001081]">{sol.title}</h3>
+                <p className="flex-1 text-sm leading-relaxed text-[#001081]/50">{sol.desc}</p>
 
-                <Link href={sol.href} className={`mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-colors ${sol.textColor.includes('white') ? 'text-white/60 hover:text-white' : 'text-[#2C6DF6]'}`}>
+                <Link href="#join" className="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[#2C6DF6]">
                   {sol.ctaLabel}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-
-                <div className="absolute -left-[100%] top-0 h-full w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent transition-all duration-700 group-hover:left-[200%]" />
               </motion.div>
             )
           })}

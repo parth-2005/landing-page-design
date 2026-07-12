@@ -1,25 +1,58 @@
 import { BLOGS } from './blogs-data'
 
-export const NAV_ITEMS = ['Insights', 'Solutions', 'Research', 'Contact'] as const
-export const CONTACT_EMAIL = 'contact@forecasthub.in'
+export const NAV_ITEMS = [
+  { label: 'How it works', id: 'how-it-works' },
+  { label: 'Solutions', id: 'solutions' },
+  { label: 'Pilot results', id: 'results' },
+  { label: 'FAQ', id: 'faq' },
+] as const
 
-export type InsightStat = {
-  value: number
-  suffix?: string
+export const CONTACT_EMAIL = 'contact@cobaltanalytix.com'
+export const CALENDLY_URL = 'https://calendly.com/pjpanot260305/30min'
+
+export const HERO_BACKGROUND = '#000C42'
+export const JOIN_BACKGROUND = '#000C42'
+export const FOOTER_BACKGROUND = '#000C42'
+
+export type ResultStat = {
+  value: string
   label: string
   desc: string
-  prefix?: string
-  decimals?: number
 }
 
-export const HERO_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 40%, #1330A5 100%)'
-export const JOIN_BACKGROUND = 'linear-gradient(135deg, #001081 0%, #0A1A8F 50%, #1330A5 100%)'
-export const FOOTER_BACKGROUND = 'linear-gradient(180deg, #001081 0%, #000C60 100%)'
+export const RESULT_STATS: ResultStat[] = [
+  { value: '68%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for their preferred sample' },
+  { value: '39%', label: 'Walk-to-Shop', desc: 'Would switch stores to buy their preferred sample again' },
+  { value: '70%', label: 'Retention Strength', desc: "Stayed within their preferred sample's flavor profile on re-test" },
+]
 
-export const INSIGHT_STATS: InsightStat[] = [
-  { value: 68, suffix: '%', label: 'Price Loyalty', desc: 'Consumers willing to pay more for preferred taste' },
-  { value: 39, suffix: '%', label: 'Walk-to-Shop', desc: 'Will switch stores for their product of choice' },
-  { value: 70, suffix: '%', label: 'Retention Strength', desc: 'Consumers stayed within preferred brand ecosystem' },
+export type MethodologyStep = {
+  number: string
+  title: string
+  desc: string
+}
+
+export const METHODOLOGY_STEPS: MethodologyStep[] = [
+  {
+    number: '01',
+    title: 'Blind sensory panel',
+    desc: 'Samples are served without packaging, branding, or price cues — panelists judge taste, texture, aroma, and mouthfeel alone.',
+  },
+  {
+    number: '02',
+    title: 'Confidence-weighted scoring',
+    desc: 'Every response is checked for internal consistency. Panelists showing no variance across samples are automatically down-weighted.',
+  },
+  {
+    number: '03',
+    title: 'Stickiness Score™',
+    desc: 'Sensory performance combines with behavioral loyalty signals — price tolerance, walk-to-shop intent — into one comparable score.',
+  },
+  {
+    number: '04',
+    title: 'Query with AI',
+    desc: 'Every study includes access to the Cobalt AI assistant, trained on your panel responses, for questions after delivery.',
+  },
 ]
 
 export const TRENDING_ARTICLES = BLOGS.map((blog) => ({
@@ -30,70 +63,75 @@ export const TRENDING_ARTICLES = BLOGS.map((blog) => ({
   href: `/blogs/${blog.slug}`,
 }))
 
-export const FULL_VIEW_FEATURES = [
-  'Blind sensory testing eliminates brand bias',
-  'Stickiness scoring predicts commercial loyalty',
-  'AI-queryable panel data at your fingertips',
-  'Clear verdict: launch, reformulate, or stop',
-] as const
+export type ScoreBar = {
+  label: string
+  value: number
+  best?: boolean
+}
 
-export const FULL_VIEW_POINTS = [
-  { top: '8%', left: '55%', label: 'Taste' },
-  { top: '30%', right: '5%', label: 'Price' },
-  { bottom: '20%', right: '10%', label: 'Texture' },
-  { bottom: '8%', left: '35%', label: 'Channel' },
-  { top: '25%', left: '2%', label: 'Loyalty' },
-] as const
+export const SCORE_BARS: ScoreBar[] = [
+  { label: 'Sample A', value: 58 },
+  { label: 'Sample B', value: 76.56, best: true },
+  { label: 'Sample C', value: 64 },
+  { label: 'Sample D', value: 71 },
+]
 
 export const SOLUTIONS = [
   {
     title: 'Insights & Reports',
-    desc: 'Comprehensive scored reports from blind sensory panels — delivered with commercial context, not academic jargon.',
-    span: 'lg:col-span-2',
-    gradient: 'from-[#001081] to-[#0A1A8F]',
-    textColor: 'text-white',
-    descColor: 'text-white/60',
-    iconBg: 'bg-white/15',
-    href: '/contact',
-    ctaLabel: 'Book a study',
+    desc: 'Comprehensive scored reports from blind sensory panels, delivered with commercial context.',
+    ctaLabel: 'Book a pilot call',
+    badge: null,
   },
   {
     title: 'API Access',
-    desc: 'Integrate stickiness scores and panel data directly into your product and analytics pipelines.',
-    span: '',
-    gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
-    textColor: 'text-[#001081]',
-    descColor: 'text-[#001081]/50',
-    iconBg: 'bg-[#2C6DF6]/10',
-    href: '/contact',
+    desc: 'Integrate stickiness scores and panel data into your product and analytics pipelines.',
     ctaLabel: 'Get in touch',
+    badge: 'In development',
   },
   {
     title: 'RAG AI Assistant',
-    desc: 'Query your panel data conversationally. Ask questions, get scored answers grounded in your own research.',
-    span: '',
-    gradient: 'from-[#F2F3F3] to-[#E8E9EA]',
-    textColor: 'text-[#001081]',
-    descColor: 'text-[#001081]/50',
-    iconBg: 'bg-[#2C6DF6]/10',
-    href: '/contact',
+    desc: 'Query your panel data conversationally — answers grounded in your own research.',
     ctaLabel: 'Get in touch',
+    badge: 'In development',
   },
   {
     title: 'Custom Research',
-    desc: 'Bespoke consumer studies tailored to your category, geography, and commercial questions. Scoped to your brief, delivered with a defensible verdict.',
-    span: 'lg:col-span-2',
-    gradient: 'from-[#2C6DF6] to-[#1A5AE0]',
-    textColor: 'text-white',
-    descColor: 'text-white/65',
-    iconBg: 'bg-white/20',
-    href: '/contact',
+    desc: 'Bespoke consumer studies tailored to your category, geography, and commercial questions.',
     ctaLabel: 'Discuss your category',
+    badge: null,
+  },
+] as const
+
+export const FAQS = [
+  {
+    q: 'Can we customise the scoring weights for our category?',
+    a: 'Yes. The scoring framework applies category, channel, and demographic modifiers. Before a study begins, we align on the weights that reflect your commercial priorities — you are not locked into a generic model.',
+  },
+  {
+    q: 'How do you prevent panelists from recognising brand cues?',
+    a: 'All samples are presented without packaging, brand markings, or contextual cues. Panelists evaluate only the product — taste, texture, aroma, and mouthfeel — under controlled conditions. This is the foundation of the blind protocol.',
+  },
+  {
+    q: 'How is the honesty check enforced?',
+    a: 'Responses are screened for internal consistency. A panelist who rates a sample identically across every attribute, or whose responses show no variance across SKUs, is flagged and their data is down-weighted before it reaches the final score.',
+  },
+  {
+    q: 'Can we query our study data after delivery?',
+    a: 'Yes. Every study includes access to the Cobalt AI assistant, trained on your panel responses. You can query attribute-level results, compare segments, or ask follow-up questions not in the original brief.',
+  },
+  {
+    q: 'What do I actually receive at the end of a study?',
+    a: 'Three things: a scored insights report covering every sample tested, access to the Cobalt AI assistant over your panel data, and a set of data-grounded recommendations — launch, reformulate, or stop.',
+  },
+  {
+    q: 'Do you cover categories beyond snacks?',
+    a: 'The current pilot is in the savoury snack category. The methodology is category-agnostic — it applies to any product where sensory attributes drive repeat purchase. We are actively expanding into adjacent categories.',
   },
 ] as const
 
 export const FOOTER_LINKS = {
   Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
   Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
-  Company: ['About Us', 'Careers', 'Blog', 'FAQ', 'Contact'],
+  Company: ['About Us', 'Careers', 'Blog', 'FAQ'],
 } as const

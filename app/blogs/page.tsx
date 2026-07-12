@@ -19,7 +19,7 @@ export default function BlogsPage() {
               Research-backed thinking for FMCG teams.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#001081]/58">
-              Three long-form articles from the ForecastHUB panel lab, each built from the markdown notes in this workspace.
+              Three long-form articles from the Cobalt Analytix panel lab, each built from the markdown notes in this workspace.
             </p>
           </div>
         </div>

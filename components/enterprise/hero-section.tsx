@@ -1,126 +1,152 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
-import { AnimatedCounter } from './animated-counter'
-import { HERO_BACKGROUND } from '@/lib/enterprise-content'
+import { CALENDLY_URL, HERO_BACKGROUND, SCORE_BARS } from '@/lib/enterprise-content'
 
 export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden py-24 lg:py-28"
+      className="relative overflow-hidden py-[clamp(120px,20vw,160px)] pb-28"
       style={{ background: HERO_BACKGROUND }}
     >
       <div
-        className="absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute left-[18%] top-[8%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[60px]"
+        style={{
+          background: 'radial-gradient(circle, rgba(107,159,255,0.5) 0%, rgba(44,109,246,0.18) 45%, transparent 70%)',
+          animation: 'drift1 14s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute right-[8%] bottom-[-10%] h-[460px] w-[460px] rounded-full blur-[70px]"
+        style={{
+          background: 'radial-gradient(circle, rgba(60,90,220,0.45) 0%, transparent 70%)',
+          animation: 'drift2 11s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(255,254,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,254,255,0.4) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+            'linear-gradient(rgba(255,254,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,254,255,0.6) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
         }}
       />
 
-      <div className="pointer-events-none absolute left-1/2 top-1/4 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-[#2C6DF6]/15 blur-[120px]" />
+      <div className="section-container relative z-10 flex flex-wrap items-center gap-14">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="min-w-[320px] flex-[1_1_480px]"
+        >
+          <div className="mb-7 inline-flex items-center gap-[9px] rounded-full border border-white/16 px-[13px] py-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#6B9FFF]" style={{ animation: 'pulse-dot 1.8s ease-in-out infinite' }} />
+            <span className="text-xs font-semibold tracking-[0.02em] text-white/75">
+              Pilot program &mdash; onboarding FMCG partners for Q3 2026
+            </span>
+          </div>
 
-      <div className="section-container relative z-10 w-full">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+          <h1
+            className="text-[clamp(34px,5vw,58px)] font-bold leading-[1.08] tracking-[-0.03em] text-white"
+            style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}
           >
-            <h1
-              className="text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-[3.5rem] xl:text-6xl"
-              style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}
+            Do you really know what your consumer will{' '}
+            <span className="text-[#7FA8FF]">stick to?</span>
+          </h1>
+
+          <p className="mt-6 max-w-[480px] text-lg leading-[1.65] text-white/55">
+            Blind sensory panels. Confidence-weighted scoring. AI-queryable panel data — so your team launches what people actually come back for.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-3.5">
+            <Link
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-white px-[26px] py-3.5 text-[15px] font-semibold text-[#000C42] transition-colors hover:bg-[#E5EBFF]"
             >
-              Do you{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#6B9FFF] to-[#2C6DF6]">
-                really know
-              </span>{' '}
-              what your consumer will stick to?
-            </h1>
+              Book a pilot call &rarr;
+            </Link>
+            <Link
+              href="#how-it-works"
+              className="rounded-lg border border-white/22 px-6 py-[13px] text-[15px] font-medium text-white transition-colors hover:border-white/50"
+            >
+              See how it works
+            </Link>
+          </div>
 
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/65">
-              Blind sensory panels. Scored results. AI-queryable data — so your team launches what people actually come back for.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="https://calendly.com/pjpanot260305/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-              >
-                Book appointment
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="#solutions" className="btn-outline-white">
-                Explore Solutions
-              </Link>
+          <div className="mt-14 flex gap-10 border-t border-white/10 pt-7">
+            <div>
+              <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>44</span>
+              <span className="text-[13px] text-white/40">Panelists verified</span>
             </div>
+            <div>
+              <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>76.56%</span>
+              <span className="text-[13px] text-white/40">Stickiness score</span>
+            </div>
+            <div>
+              <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>4</span>
+              <span className="text-[13px] text-white/40">SKUs tested</span>
+            </div>
+          </div>
+        </motion.div>
 
-            <div className="mt-10 flex items-center gap-8 text-sm text-white/50">
-              <div>
-                <span className="block text-2xl font-bold text-white">
-                  <AnimatedCounter target={44} />
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex min-w-[300px] flex-[1_1_360px] justify-center"
+        >
+          <div className="relative w-full max-w-[400px]">
+            <div className="relative rounded-xl bg-white p-6" style={{ boxShadow: '0 40px 80px rgba(0,4,30,0.5)' }}>
+              <div className="mb-5 flex items-center justify-between">
+                <span className="text-[12.5px] font-bold text-[#001081]">Stickiness Score</span>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#001081]/40">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#2C6DF6]" style={{ animation: 'pulse-dot 1.6s ease-in-out infinite' }} />
+                  Live scoring
                 </span>
-                Panelists Verified
               </div>
-              <div className="h-8 w-px bg-white/15" />
-              <div>
-                <span className="block text-2xl font-bold text-white">
-                  <AnimatedCounter target={76.56} decimals={1} suffix="%" />
-                </span>
-                Stickiness Score
-              </div>
-              <div className="hidden h-8 w-px bg-white/15 sm:block" />
-              <div className="hidden sm:block">
-                <span className="block text-2xl font-bold text-white">4</span>
-                SKUs Tested
-              </div>
+
+              {SCORE_BARS.map((bar) => (
+                <div key={bar.label} className="mb-3.5">
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-[12.5px] font-semibold text-[#001081]/55">{bar.label}</span>
+                    <span className={`text-[12.5px] font-bold ${bar.best ? 'text-[#2C6DF6]' : 'text-[#001081]/55'}`}>
+                      {bar.best ? `${bar.value}% · Top` : `${bar.value}%`}
+                    </span>
+                  </div>
+                  <div className="h-1.5 overflow-hidden rounded-full bg-[#001081]/[0.07]">
+                    <div
+                      className={`h-full rounded-full ${bar.best ? 'bg-[#2C6DF6]' : 'bg-[#001081]'}`}
+                      style={{ width: `${bar.value}%`, opacity: bar.best ? 1 : 0.3 }}
+                    />
+                  </div>
+                </div>
+              ))}
+
+              <p className="mt-4 border-t border-[#001081]/8 pt-3.5 text-[11px] text-[#001081]/40">
+                Blind protocol &middot; n = 44 verified panelists
+              </p>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative flex justify-center"
-          >
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2C6DF6]/20 blur-[80px]" />
-
-            <div className="relative" style={{ animation: 'float 4s ease-in-out infinite' }}>
-              <Image
-                src="/images/mascot-removebg-preview.png"
-                alt="Discover AI Mascot"
-                width={420}
-                height={420}
-                className="relative drop-shadow-2xl"
-                priority
-              />
-
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -left-4 top-8 rounded-2xl border border-[#001081]/5 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm lg:-left-20 lg:top-5"
-              >
-                <p className="text-lg font-bold text-[#001081]">Which flavor drives repeat buys?</p>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute -right-4 bottom-16 rounded-2xl border border-[#001081]/5 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm lg:-right-20 lg:bottom-10"
-              >
-                <p className="text-lg font-bold text-[#2C6DF6]">Is the onion too strong?</p>
-              </motion.div>
+            <div
+              className="absolute -left-9 top-[70px] rounded-lg bg-white px-[15px] py-2.5"
+              style={{ boxShadow: '0 14px 30px rgba(0,4,30,0.28)', animation: 'bob 3.2s ease-in-out infinite' }}
+            >
+              <span className="text-xs font-bold text-[#001081]">Confidence&#8209;weighted</span>
             </div>
-          </motion.div>
-        </div>
+            <div
+              className="absolute -right-6 bottom-[26px] rounded-lg bg-white px-[15px] py-2.5"
+              style={{ boxShadow: '0 14px 30px rgba(0,4,30,0.28)', animation: 'bob 2.7s ease-in-out infinite' }}
+            >
+              <span className="text-xs font-bold text-[#2C6DF6]">No brand cues shown</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

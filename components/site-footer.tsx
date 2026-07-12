@@ -10,13 +10,10 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-sm font-bold text-white">
-                D
+              <div className="flex h-[34px] w-[34px] items-center justify-center rounded-lg bg-white/10 text-[13px] font-bold text-white">
+                C
               </div>
-              <div>
-                <p className="text-sm font-bold text-white">Discover</p>
-                <p className="text-[11px] text-white/40">by ForecastHUB</p>
-              </div>
+              <p className="text-sm font-bold text-white">Cobalt Analytix</p>
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-white/45">
               The intelligence layer for FMCG teams who need faster formulation decisions and defensible product launches backed by real consumer data.
@@ -28,10 +25,10 @@ export function SiteFooter() {
               </a>
             </p>
             <div className="mt-6 flex gap-3">
-              <a href="#" aria-label="ForecastHUB on LinkedIn" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
+              <a href="#" aria-label="Cobalt Analytix on LinkedIn" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
                 <Linkedin className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="ForecastHUB on X" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
+              <a href="#" aria-label="Cobalt Analytix on X" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
@@ -47,8 +44,7 @@ export function SiteFooter() {
                   const href =
                     link === 'FAQ' ? '/#faq' :
                     link === 'Blog' ? '/blogs' :
-                    link === 'Contact' ? '/contact' :
-                    link === 'Careers' ? 'mailto:careers@forecasthub.in' :
+                    link === 'Careers' ? 'mailto:careers@cobaltanalytix.com' :
                     '#'
 
                   return (
@@ -71,7 +67,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-6 sm:flex-row">
-          <p className="text-xs text-white/30">© 2026 ForecastHUB. All rights reserved.</p>
+          <p className="text-xs text-white/30">© 2026 Cobalt Analytix. All rights reserved.</p>
           <div className="flex items-center gap-5 text-xs text-white/30">
             <Link href="/privacy" className="transition-colors hover:text-white/60">Privacy</Link>
             <Link href="/terms" className="transition-colors hover:text-white/60">Terms</Link>

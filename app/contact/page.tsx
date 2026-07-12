@@ -20,7 +20,7 @@ export default function ContactPage() {
                 Talk to the team.
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-[#001081]/58">
-                If you want to discuss a study, ask for a demo, or explore how the Discover panel can support your category, reach out directly.
+                If you want to discuss a study, ask for a demo, or explore how the Cobalt Analytix panel can support your category, reach out directly.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -35,7 +35,7 @@ export default function ContactPage() {
                   className="btn-secondary"
                 >
                   <CalendarDays className="h-4 w-4" />
-                  Book appointment
+                  Book a pilot call
                 </Link>
               </div>
             </div>

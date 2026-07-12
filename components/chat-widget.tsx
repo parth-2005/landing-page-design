@@ -11,7 +11,7 @@ interface Message {
 
 const INITIAL_MESSAGE: Message = {
   role: 'assistant',
-  text: "Hi! I'm Discover, your research assistant. I can answer questions about our methodology, how a study works, or what you'd get from a pilot. What would you like to know?",
+  text: "Hi! I'm the Cobalt AI assistant. I can answer questions about our methodology, how a study works, or what you'd get from a pilot. What would you like to know?",
 }
 
 const QUICK_REPLIES = [
@@ -60,8 +60,8 @@ export function ChatWidget() {
                 <Sparkles className="h-4 w-4 text-white" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-bold text-white">Discover AI</p>
-                <p className="text-[11px] text-white/50">ForecastHUB assistant</p>
+                <p className="text-sm font-bold text-white">Cobalt AI</p>
+                <p className="text-[11px] text-white/50">Cobalt Analytix assistant</p>
               </div>
               <button onClick={() => setOpen(false)} className="text-white/50 transition-colors hover:text-white" aria-label="Close chat">
                 <X className="h-4 w-4" />

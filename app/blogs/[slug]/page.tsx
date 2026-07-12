@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   }
 
   return {
-    title: `${blogData.blog.title} | ForecastHUB`,
+    title: `${blogData.blog.title} | Cobalt Analytix`,
     description: blogData.blog.excerpt,
   }
 }
