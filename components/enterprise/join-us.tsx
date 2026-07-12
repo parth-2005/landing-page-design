@@ -7,9 +7,12 @@ import { JOIN_BACKGROUND } from '@/lib/enterprise-content'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+type Status = 'idle' | 'invalid' | 'submitting' | 'success' | 'error'
+
 export function JoinUs() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'invalid' | 'success'>('idle')
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
   const timeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export function JoinUs() {
     }
   }, [])
 
-  const handleJoin = (event: FormEvent<HTMLFormElement>) => {
+  const handleJoin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const trimmed = email.trim()
@@ -29,14 +32,34 @@ export function JoinUs() {
       return
     }
 
-    setEmail('')
-    setStatus('success')
+    setStatus('submitting')
 
-    if (timeoutRef.current !== null) {
-      window.clearTimeout(timeoutRef.current)
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed }),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error ?? 'Something went wrong. Please try again.')
+        setStatus('error')
+        return
+      }
+
+      setEmail('')
+      setStatus('success')
+
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current)
+      }
+
+      timeoutRef.current = window.setTimeout(() => setStatus('idle'), 5000)
+    } catch {
+      setErrorMessage('Something went wrong. Please try again.')
+      setStatus('error')
     }
-
-    timeoutRef.current = window.setTimeout(() => setStatus('idle'), 5000)
   }
 
   return (
@@ -72,17 +95,22 @@ export function JoinUs() {
                 setStatus('idle')
               }}
               placeholder="Enter your work email"
-              className="w-full max-w-[300px] flex-1 rounded-lg border border-white/15 bg-white/8 px-[18px] py-3 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-[#2C6DF6]"
+              disabled={status === 'submitting'}
+              className="w-full max-w-[300px] flex-1 rounded-lg border border-white/15 bg-white/8 px-[18px] py-3 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-[#2C6DF6] disabled:opacity-60"
             />
             <button
               type="submit"
-              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1A5AE0]"
+              disabled={status === 'submitting'}
+              className="whitespace-nowrap rounded-lg bg-[#2C6DF6] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1A5AE0] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === 'success' ? "✓ You're on the list" : 'Request early access'}
+              {status === 'success' ? "✓ You're on the list" : status === 'submitting' ? 'Submitting…' : 'Request early access'}
             </button>
           </form>
           {status === 'invalid' && (
             <p className="mt-3 text-[13px] text-[#FFB4B4]">Enter a valid work email to continue.</p>
+          )}
+          {status === 'error' && (
+            <p className="mt-3 text-[13px] text-[#FFB4B4]">{errorMessage}</p>
           )}
 
           <p className="mt-4 text-[12.5px] text-white/30">Free to join. No credit card required.</p>

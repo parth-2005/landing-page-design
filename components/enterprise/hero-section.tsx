@@ -85,8 +85,8 @@ export function HeroSection() {
               <span className="text-[13px] text-white/40">Panelists verified</span>
             </div>
             <div>
-              <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>76.56%</span>
-              <span className="text-[13px] text-white/40">Stickiness score</span>
+              <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>~77%</span>
+              <span className="text-[13px] text-white/40">Stickiness score (n = 44)</span>
             </div>
             <div>
               <span className="block font-bold text-2xl text-white" style={{ fontFamily: 'var(--font-plus-jakarta, system-ui, sans-serif)' }}>4</span>
@@ -116,7 +116,7 @@ export function HeroSection() {
                   <div className="mb-1.5 flex items-center justify-between">
                     <span className="text-[12.5px] font-semibold text-[#001081]/55">{bar.label}</span>
                     <span className={`text-[12.5px] font-bold ${bar.best ? 'text-[#2C6DF6]' : 'text-[#001081]/55'}`}>
-                      {bar.best ? `${bar.value}% · Top` : `${bar.value}%`}
+                      {bar.best ? `${Math.round(bar.value)}% · Top` : `${Math.round(bar.value)}%`}
                     </span>
                   </div>
                   <div className="h-1.5 overflow-hidden rounded-full bg-[#001081]/[0.07]">

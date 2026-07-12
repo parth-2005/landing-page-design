@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Linkedin, Twitter } from 'lucide-react'
 
 import { CONTACT_EMAIL, FOOTER_BACKGROUND, FOOTER_LINKS } from '@/lib/enterprise-content'
 
@@ -24,14 +23,6 @@ export function SiteFooter() {
                 {CONTACT_EMAIL}
               </a>
             </p>
-            <div className="mt-6 flex gap-3">
-              <a href="#" aria-label="Cobalt Analytix on LinkedIn" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
-                <Linkedin className="h-4 w-4" />
-              </a>
-              <a href="#" aria-label="Cobalt Analytix on X" target="_blank" rel="noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/8 text-white/50 transition-colors hover:bg-white/15 hover:text-white">
-                <Twitter className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
           {Object.entries(FOOTER_LINKS).map(([title, links]) => (
@@ -40,27 +31,19 @@ export function SiteFooter() {
                 {title}
               </p>
               <ul className="space-y-3">
-                {links.map((link) => {
-                  const href =
-                    link === 'FAQ' ? '/#faq' :
-                    link === 'Blog' ? '/blogs' :
-                    link === 'Careers' ? 'mailto:careers@cobaltanalytix.com' :
-                    '#'
-
-                  return (
-                    <li key={link}>
-                      {href.startsWith('mailto:') ? (
-                        <a href={href} className="text-sm text-white/50 transition-colors hover:text-white">
-                          {link}
-                        </a>
-                      ) : (
-                        <Link href={href} className="text-sm text-white/50 transition-colors hover:text-white">
-                          {link}
-                        </Link>
-                      )}
-                    </li>
-                  )
-                })}
+                {links.map((link) => (
+                  <li key={link.label}>
+                    {link.href.startsWith('mailto:') ? (
+                      <a href={link.href} className="text-sm text-white/50 transition-colors hover:text-white">
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link href={link.href} className="text-sm text-white/50 transition-colors hover:text-white">
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           ))}

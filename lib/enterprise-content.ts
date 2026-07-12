@@ -130,8 +130,28 @@ export const FAQS = [
   },
 ] as const
 
-export const FOOTER_LINKS = {
-  Platform: ['Insights Dashboard', 'API Documentation', 'RAG Assistant', 'Data Explorer'],
-  Solutions: ['Sensory Testing', 'Stickiness Scoring', 'Custom Research', 'Industry Reports'],
-  Company: ['About Us', 'Careers', 'Blog', 'FAQ'],
-} as const
+export type FooterLink = {
+  label: string
+  href: string
+}
+
+export const FOOTER_LINKS: Record<string, FooterLink[]> = {
+  Platform: [
+    { label: 'Insights Dashboard', href: '/#solutions' },
+    { label: 'API Documentation', href: '/#solutions' },
+    { label: 'RAG Assistant', href: '/#solutions' },
+    { label: 'Data Explorer', href: '/#solutions' },
+  ],
+  Solutions: [
+    { label: 'Sensory Testing', href: '/#how-it-works' },
+    { label: 'Stickiness Scoring', href: '/#results' },
+    { label: 'Custom Research', href: '/#solutions' },
+    { label: 'Industry Reports', href: '/blogs' },
+  ],
+  Company: [
+    { label: 'About Us', href: '/contact' },
+    { label: 'Careers', href: 'mailto:careers@cobaltanalytix.com' },
+    { label: 'Blog', href: '/blogs' },
+    { label: 'FAQ', href: '/#faq' },
+  ],
+}

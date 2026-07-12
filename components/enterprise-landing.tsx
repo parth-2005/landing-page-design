@@ -1,6 +1,5 @@
 'use client'
 
-import { ChatWidget } from '@/components/chat-widget'
 import { FAQ } from '@/components/faq'
 import { BentoSolutions } from '@/components/enterprise/bento-solutions'
 import { HeroSection } from '@/components/enterprise/hero-section'
@@ -23,7 +22,6 @@ export function EnterpriseLanding() {
       <FAQ />
       <JoinUs />
       <SiteFooter />
-      <ChatWidget />
     </main>
   )
 }
