@@ -65,34 +65,51 @@ export function TextBlurIn({
   const ref = useRef<HTMLSpanElement>(null)
   const visible = useRevealOnIntersect(ref, threshold)
   const shouldPlay = immediate || visible
-  const chars = Array.from(text)
+  // Split into words + whitespace so each word's letters stay glued together
+  // (individual inline-block char spans are otherwise valid line-break points,
+  // which made words wrap mid-letter).
+  const words = text.split(/(\s+)/)
+
+  let charIndex = 0
+  const renderChar = (char: string, key: string) => {
+    const i = charIndex++
+    const delay = startDelay + i * charStagger
+    const style: CSSProperties = immediate
+      ? {
+          display: char === ' ' ? 'inline' : 'inline-block',
+          whiteSpace: 'pre',
+          animation: `soft-blur-in ${duration}s ${EASE} ${delay}s both`,
+          ['--sbi-blur' as string]: `${blur}px`,
+          ['--sbi-y' as string]: `${yOffset}px`,
+        }
+      : {
+          display: char === ' ' ? 'inline' : 'inline-block',
+          whiteSpace: 'pre',
+          opacity: shouldPlay ? 1 : 0,
+          filter: shouldPlay ? 'blur(0)' : `blur(${blur}px)`,
+          transform: shouldPlay ? 'none' : `translateY(${yOffset}px)`,
+          transition: `opacity ${duration}s ${EASE} ${delay}s, filter ${duration}s ${EASE} ${delay}s, transform ${duration}s ${EASE} ${delay}s`,
+        }
+
+    return (
+      <span key={key} style={style}>
+        {char}
+      </span>
+    )
+  }
 
   return (
     <Tag className={className}>
       <span className="sr-only">{text}</span>
       <span ref={ref} aria-hidden="true">
-        {chars.map((char, i) => {
-          const delay = startDelay + i * charStagger
-          const style: CSSProperties = immediate
-            ? {
-                display: char === ' ' ? 'inline' : 'inline-block',
-                whiteSpace: 'pre',
-                animation: `soft-blur-in ${duration}s ${EASE} ${delay}s both`,
-                ['--sbi-blur' as string]: `${blur}px`,
-                ['--sbi-y' as string]: `${yOffset}px`,
-              }
-            : {
-                display: char === ' ' ? 'inline' : 'inline-block',
-                whiteSpace: 'pre',
-                opacity: shouldPlay ? 1 : 0,
-                filter: shouldPlay ? 'blur(0)' : `blur(${blur}px)`,
-                transform: shouldPlay ? 'none' : `translateY(${yOffset}px)`,
-                transition: `opacity ${duration}s ${EASE} ${delay}s, filter ${duration}s ${EASE} ${delay}s, transform ${duration}s ${EASE} ${delay}s`,
-              }
+        {words.map((word, wi) => {
+          if (/^\s+$/.test(word)) {
+            return Array.from(word).map((char, ci) => renderChar(char, `${wi}-${ci}`))
+          }
 
           return (
-            <span key={`${i}-${char}`} style={style}>
-              {char}
+            <span key={wi} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+              {Array.from(word).map((char, ci) => renderChar(char, `${wi}-${ci}`))}
             </span>
           )
         })}
