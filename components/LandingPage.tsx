@@ -1,6 +1,147 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+
+const CALENDLY_URL = "https://calendly.com/pjpanot260305/30min";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type WaitlistStatus = "idle" | "invalid" | "submitting" | "success" | "error";
+
+function WaitlistForm({ variant }: { variant: "light" | "dark" }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<WaitlistStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const isLight = variant === "light";
+  const submitting = status === "submitting";
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmed = email.trim();
+
+    if (!EMAIL_PATTERN.test(trimmed)) {
+      setStatus("invalid");
+      return;
+    }
+
+    setStatus("submitting");
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        setErrorMessage(data?.error ?? "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+
+      setEmail("");
+      setStatus("success");
+    } catch {
+      setErrorMessage("Something went wrong. Please try again.");
+      setStatus("error");
+    }
+  };
+
+  return (
+    <>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "10px",
+          margin: isLight ? "28px auto 0" : "32px auto 0",
+          maxWidth: isLight ? "450px" : "460px",
+        }}
+      >
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(event) => {
+            setEmail(event.target.value);
+            if (status !== "idle") setStatus("idle");
+          }}
+          disabled={submitting}
+          placeholder="you@company.com"
+          style={
+            isLight
+              ? {
+                  flex: "1",
+                  padding: "15px 16px",
+                  borderRadius: "11px",
+                  border: "1px solid rgba(20,24,36,.2)",
+                  background: "rgba(255,255,255,.96)",
+                  font: "400 15px var(--font-ibm-plex-sans),sans-serif",
+                  color: "#0f1420",
+                  outline: "none",
+                  boxShadow: "0 2px 10px rgba(20,24,36,.06)",
+                  opacity: submitting ? 0.6 : 1,
+                }
+              : {
+                  flex: "1",
+                  padding: "16px 18px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,.25)",
+                  background: "rgba(255,255,255,.1)",
+                  font: "400 15px var(--font-ibm-plex-sans),sans-serif",
+                  color: "#fff",
+                  outline: "none",
+                  opacity: submitting ? 0.6 : 1,
+                }
+          }
+        />
+        <button
+          type="submit"
+          disabled={submitting}
+          style={
+            isLight
+              ? {
+                  padding: "15px 24px",
+                  border: "none",
+                  borderRadius: "11px",
+                  background: "#243bc4",
+                  color: "#fff",
+                  font: "500 15px var(--font-ibm-plex-sans),sans-serif",
+                  boxShadow: "0 8px 20px -6px rgba(36,59,196,.7)",
+                  cursor: submitting ? "default" : "pointer",
+                  opacity: submitting ? 0.7 : 1,
+                }
+              : {
+                  padding: "16px 26px",
+                  border: "none",
+                  borderRadius: "12px",
+                  background: "#fff",
+                  color: "#0f1420",
+                  font: "600 15px var(--font-ibm-plex-sans),sans-serif",
+                  cursor: submitting ? "default" : "pointer",
+                  opacity: submitting ? 0.7 : 1,
+                }
+          }
+        >
+          {status === "success" ? "✓ You're on the list" : submitting ? "Submitting…" : "Join waitlist"}
+        </button>
+      </form>
+      {(status === "invalid" || status === "error") && (
+        <div
+          style={{
+            marginTop: "10px",
+            font: "500 12.5px var(--font-ibm-plex-sans),sans-serif",
+            color: isLight ? "#b3261e" : "#ffb4b4",
+          }}
+        >
+          {status === "invalid" ? "Enter a valid email to continue." : errorMessage}
+        </div>
+      )}
+    </>
+  );
+}
 
 export default function LandingPage() {
   useEffect(() => {
@@ -118,7 +259,7 @@ export default function LandingPage() {
     <div style={{display: "flex", alignItems: "center", gap: "30px", font: "500 14.5px var(--font-ibm-plex-sans),sans-serif"}}>
       <a href="#how" style={{color: "#1c2230"}}>How it works</a>
       <a href="#features" style={{color: "#1c2230"}}>Features</a>
-      <a href="#pricing" style={{color: "#1c2230"}}>Pricing</a>
+      <a href="#contact" style={{color: "#1c2230"}}>Contact</a>
       <a href="#faq" style={{color: "#1c2230"}}>FAQ</a>
       <a href="#waitlist" style={{padding: "9px 17px", borderRadius: "9px", background: "#0f1420", color: "#fff", fontWeight: "500"}}>Join waitlist</a>
     </div>
@@ -134,10 +275,7 @@ export default function LandingPage() {
     <p style={{margin: "22px auto 0", maxWidth: "580px", font: "500 19px/1.55 var(--font-ibm-plex-sans),sans-serif", color: "#131722", textWrap: "pretty", textShadow: "0 1px 14px rgba(248,246,242,.9),0 1px 3px rgba(248,246,242,.9)"}}>
       Cobalt runs your surveys, analyzes the responses with AI, and hands you decisions — not spreadsheets. Days, not weeks.
     </p>
-    <div style={{display: "flex", justifyContent: "center", gap: "10px", margin: "28px auto 0", maxWidth: "450px"}}>
-      <input placeholder="you@company.com" style={{flex: "1", padding: "15px 16px", borderRadius: "11px", border: "1px solid rgba(20,24,36,.2)", background: "rgba(255,255,255,.96)", font: "400 15px var(--font-ibm-plex-sans),sans-serif", color: "#0f1420", outline: "none", boxShadow: "0 2px 10px rgba(20,24,36,.06)"}} />
-      <button style={{padding: "15px 24px", border: "none", borderRadius: "11px", background: "#243bc4", color: "#fff", font: "500 15px var(--font-ibm-plex-sans),sans-serif", boxShadow: "0 8px 20px -6px rgba(36,59,196,.7)", cursor: "pointer"}}>Join waitlist</button>
-    </div>
+    <WaitlistForm variant="light" />
     <div style={{marginTop: "14px", font: "500 12.5px var(--font-ibm-plex-sans),sans-serif", color: "#333a48"}}>Fresh panels · 30+ markets · No sales call required</div>
   </div>
 
@@ -448,52 +586,16 @@ export default function LandingPage() {
   </div>
 </section>
 
-{/* ============ PRICING ============ */}
-<section id="pricing" style={{maxWidth: "1180px", margin: "0 auto", padding: "100px 40px 40px"}}>
+{/* ============ CONTACT ============ */}
+<section id="contact" style={{maxWidth: "1180px", margin: "0 auto", padding: "100px 40px 40px"}}>
   <div style={{textAlign: "center", maxWidth: "680px", margin: "0 auto"}} data-reveal="">
-    <div style={{font: "500 13px var(--font-ibm-plex-mono),monospace", letterSpacing: ".06em", textTransform: "uppercase", color: "#243bc4"}}>Pricing</div>
-    <h2 style={{margin: "14px 0 0", font: "600 46px/1.08 var(--font-space-grotesk),sans-serif", letterSpacing: "-.03em", color: "#0f1420", textWrap: "balance"}}>Priced for teams who move fast.</h2>
-    <p style={{margin: "16px auto 0", maxWidth: "520px", font: "400 17px/1.6 var(--font-ibm-plex-sans),sans-serif", color: "#4a5160"}}>Beta pricing, locked for early customers. No retainers, no annual lock-in.</p>
+    <div style={{font: "500 13px var(--font-ibm-plex-mono),monospace", letterSpacing: ".06em", textTransform: "uppercase", color: "#243bc4"}}>Get in touch</div>
+    <h2 style={{margin: "14px 0 0", font: "600 46px/1.08 var(--font-space-grotesk),sans-serif", letterSpacing: "-.03em", color: "#0f1420", textWrap: "balance"}}>Talk to us about your first study.</h2>
+    <p style={{margin: "16px auto 0", maxWidth: "520px", font: "400 17px/1.6 var(--font-ibm-plex-sans),sans-serif", color: "#4a5160"}}>We&apos;re in private beta and onboarding a handful of teams by hand. Book a 30-minute call and we&apos;ll scope your first study together — no pricing deck, no pressure.</p>
   </div>
-  <div style={{display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "20px", marginTop: "52px", alignItems: "start"}}>
-    <div data-reveal="" style={{background: "#fff", border: "1px solid rgba(20,24,36,.1)", borderRadius: "18px", padding: "30px"}}>
-      <div style={{font: "600 16px var(--font-space-grotesk),sans-serif", color: "#0f1420"}}>Pulse</div>
-      <p style={{margin: "6px 0 0", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#7a8090"}}>A single quick read</p>
-      <div style={{margin: "22px 0 4px", display: "flex", alignItems: "baseline", gap: "6px"}}><span style={{font: "700 42px var(--font-space-grotesk),sans-serif", color: "#0f1420", letterSpacing: "-.02em"}}>$490</span><span style={{font: "400 14px var(--font-ibm-plex-sans),sans-serif", color: "#7a8090"}}>/ study</span></div>
-      <a href="#waitlist" style={{display: "block", textAlign: "center", margin: "22px 0", padding: "13px", borderRadius: "11px", border: "1px solid rgba(20,24,36,.16)", background: "#fff", color: "#0f1420", font: "500 14px var(--font-ibm-plex-sans),sans-serif"}}>Join waitlist</a>
-      <div style={{display: "flex", flexDirection: "column", gap: "11px"}}>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>Up to 500 responses</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>AI insight summary</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>48-hour turnaround</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>Shareable dashboard</div>
-      </div>
-    </div>
-    <div data-reveal="" data-reveal-delay="80" style={{background: "#0f1420", border: "1px solid #0f1420", borderRadius: "18px", padding: "30px", position: "relative", boxShadow: "0 24px 50px -24px rgba(20,24,36,.5)"}}>
-      <span style={{position: "absolute", top: "-11px", left: "30px", padding: "5px 12px", borderRadius: "20px", background: "#243bc4", color: "#fff", font: "600 11px var(--font-ibm-plex-mono),monospace", letterSpacing: ".04em"}}>MOST POPULAR</span>
-      <div style={{font: "600 16px var(--font-space-grotesk),sans-serif", color: "#fff"}}>Growth</div>
-      <p style={{margin: "6px 0 0", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.55)"}}>Always-on research</p>
-      <div style={{margin: "22px 0 4px", display: "flex", alignItems: "baseline", gap: "6px"}}><span style={{font: "700 42px var(--font-space-grotesk),sans-serif", color: "#fff", letterSpacing: "-.02em"}}>$1,900</span><span style={{font: "400 14px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.55)"}}>/ mo</span></div>
-      <a href="#waitlist" style={{display: "block", textAlign: "center", margin: "22px 0", padding: "13px", borderRadius: "11px", border: "none", background: "#243bc4", color: "#fff", font: "600 14px var(--font-ibm-plex-sans),sans-serif"}}>Join waitlist</a>
-      <div style={{display: "flex", flexDirection: "column", gap: "11px"}}>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.85)"}}><span style={{color: "#6d86ff"}}>✓</span>5 studies / month</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.85)"}}><span style={{color: "#6d86ff"}}>✓</span>Up to 2,500 responses each</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.85)"}}><span style={{color: "#6d86ff"}}>✓</span>Trackers & trend lines</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.85)"}}><span style={{color: "#6d86ff"}}>✓</span>Slack & API integrations</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.85)"}}><span style={{color: "#6d86ff"}}>✓</span>Priority fielding</div>
-      </div>
-    </div>
-    <div data-reveal="" data-reveal-delay="160" style={{background: "#fff", border: "1px solid rgba(20,24,36,.1)", borderRadius: "18px", padding: "30px"}}>
-      <div style={{font: "600 16px var(--font-space-grotesk),sans-serif", color: "#0f1420"}}>Scale</div>
-      <p style={{margin: "6px 0 0", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#7a8090"}}>For research orgs</p>
-      <div style={{margin: "22px 0 4px", display: "flex", alignItems: "baseline", gap: "6px"}}><span style={{font: "700 42px var(--font-space-grotesk),sans-serif", color: "#0f1420", letterSpacing: "-.02em"}}>Custom</span></div>
-      <a href="#waitlist" style={{display: "block", textAlign: "center", margin: "22px 0", padding: "13px", borderRadius: "11px", border: "1px solid rgba(20,24,36,.16)", background: "#fff", color: "#0f1420", font: "500 14px var(--font-ibm-plex-sans),sans-serif"}}>Talk to us</a>
-      <div style={{display: "flex", flexDirection: "column", gap: "11px"}}>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>Unlimited studies & volume</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>Custom & niche panels</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>Dedicated research advisor</div>
-        <div style={{display: "flex", gap: "9px", font: "400 13.5px var(--font-ibm-plex-sans),sans-serif", color: "#3a4150"}}><span style={{color: "#243bc4"}}>✓</span>SSO, SoC 2, custom DPA</div>
-      </div>
-    </div>
+  <div style={{display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "14px", marginTop: "40px"}} data-reveal="" data-reveal-delay="80">
+    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" style={{padding: "15px 28px", borderRadius: "11px", border: "none", background: "#243bc4", color: "#fff", font: "600 15px var(--font-ibm-plex-sans),sans-serif", boxShadow: "0 8px 20px -6px rgba(36,59,196,.7)"}}>Talk to us →</a>
+    <a href="#waitlist" style={{padding: "15px 28px", borderRadius: "11px", border: "1px solid rgba(20,24,36,.16)", background: "#fff", color: "#0f1420", font: "500 15px var(--font-ibm-plex-sans),sans-serif"}}>Join waitlist</a>
   </div>
 </section>
 
@@ -532,11 +634,8 @@ export default function LandingPage() {
   <div style={{position: "absolute", inset: "0", background: "linear-gradient(180deg,rgba(15,20,32,.72),rgba(15,20,32,.88))"}}></div>
   <div style={{position: "relative", maxWidth: "720px", margin: "0 auto", padding: "110px 40px", textAlign: "center"}} data-reveal="">
     <h2 style={{margin: "0", font: "700 54px/1.05 var(--font-space-grotesk),sans-serif", letterSpacing: "-.03em", color: "#fff", textWrap: "balance"}}>Get answers before your next decision.</h2>
-    <p style={{margin: "20px auto 0", maxWidth: "480px", font: "400 18px/1.6 var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.72)"}}>Join the waitlist for early access and locked-in beta pricing. We&apos;re onboarding a handful of teams each week.</p>
-    <div style={{display: "flex", justifyContent: "center", gap: "10px", margin: "32px auto 0", maxWidth: "460px"}}>
-      <input placeholder="you@company.com" style={{flex: "1", padding: "16px 18px", borderRadius: "12px", border: "1px solid rgba(255,255,255,.25)", background: "rgba(255,255,255,.1)", font: "400 15px var(--font-ibm-plex-sans),sans-serif", color: "#fff", outline: "none"}} />
-      <button style={{padding: "16px 26px", border: "none", borderRadius: "12px", background: "#fff", color: "#0f1420", font: "600 15px var(--font-ibm-plex-sans),sans-serif", cursor: "pointer"}}>Join waitlist</button>
-    </div>
+    <p style={{margin: "20px auto 0", maxWidth: "480px", font: "400 18px/1.6 var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.72)"}}>Join the waitlist for early access. We&apos;re onboarding a handful of teams each week.</p>
+    <WaitlistForm variant="dark" />
     <div style={{marginTop: "14px", font: "500 12.5px var(--font-ibm-plex-sans),sans-serif", color: "rgba(255,255,255,.55)"}}>No credit card · No sales call · Unsubscribe anytime</div>
   </div>
 </section>
@@ -553,7 +652,7 @@ export default function LandingPage() {
     </div>
     <div>
       <div style={{font: "600 12px var(--font-ibm-plex-mono),monospace", textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(255,255,255,.4)", marginBottom: "14px"}}>Product</div>
-      <div style={{display: "flex", flexDirection: "column", gap: "10px", font: "400 14px var(--font-ibm-plex-sans),sans-serif"}}><a href="#how" style={{color: "rgba(255,255,255,.65)"}}>How it works</a><a href="#features" style={{color: "rgba(255,255,255,.65)"}}>Features</a><a href="#pricing" style={{color: "rgba(255,255,255,.65)"}}>Pricing</a></div>
+      <div style={{display: "flex", flexDirection: "column", gap: "10px", font: "400 14px var(--font-ibm-plex-sans),sans-serif"}}><a href="#how" style={{color: "rgba(255,255,255,.65)"}}>How it works</a><a href="#features" style={{color: "rgba(255,255,255,.65)"}}>Features</a><a href="#contact" style={{color: "rgba(255,255,255,.65)"}}>Contact</a></div>
     </div>
     <div>
       <div style={{font: "600 12px var(--font-ibm-plex-mono),monospace", textTransform: "uppercase", letterSpacing: ".06em", color: "rgba(255,255,255,.4)", marginBottom: "14px"}}>Company</div>
